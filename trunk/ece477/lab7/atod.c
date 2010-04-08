@@ -1,5 +1,4 @@
 #include <avr/io.h>
-//#include <avr/iom8.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdio.h>
@@ -16,9 +15,9 @@ int adconvert(void){
     //ADMUX |= 0b00000101;    //Select AD5 (Pin 28 for A/D conversion)
     ADMUX = 0b11100101; //This performs the job of the above 3 lines
 
-	PRADC = 0;	//Start the conversion, disable Power reduction ADC bit.
-	ADSC = 1;	//ADC Start conversion bit
-	while(ADSC==1); //Wait for A/D Conversion
-	
+	PRR &=~(1<<PRADC);
+	ADCSRA |=(1<<ADSC);	//ADC Start conversion bit
+	while(ADCSRA&_BV(ADSC)); //Wait for A/D Conversion
+	//BV does bit value
 	return(ADCH);
 }	
