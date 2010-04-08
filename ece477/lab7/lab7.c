@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "atod.h"
 
 void init_serial(void);
 void my_send_string (char * buf);
@@ -15,23 +16,23 @@ void my_send_string (char * buf);
 /* it forms the strings using sprintf         */
 
 int main(void){
-//	char buf[1];
-	char temp;
+	char buf[50];
+	int input = 0;
+	double measure = 0;
 	init_serial();
 	while(1){
-		while((UCSR0A&(1<<RXC0)) == 0); // Wait for character input
-		temp = UDR0;
-		while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
-		if(temp > 0x40 && temp < 0x5C){ // If lowercase
-			temp += 0x20;               // make capital
-		}
-		else if(temp > 0x60 && temp < 0x7C){ // If uppercase
-			temp -= 0x20; 					 // make lowercase
-		}
-		while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty 
-		UDR0 = temp;					// Print the toggled character
-//	sprintf(buf,"The values are:%c\n",temp);
-//	my_send_string(buf);
+		if((UCSR0A&(1<<UDRE0)) == 0){	// wait for empty register
+			while(input != ','){
+				while((UCSR0A&(1<<RXC0)) == 0);// wait for input
+				input = UDR0;			// save input
+				while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
+			}
+			while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty
+      		UDR0 = input; //print a comma
+			measure = 11 * ((double) adconvert() / 255); // get voltage 
+			sprintf(buf, "%lf\r\n", measure); // print value and newline
+			my_send_string(buf);
+			}
 	}
 }
 
@@ -45,7 +46,7 @@ void init_serial(void){
 	UCSR0C= (1<<UMSEL01)|(1<<USBS0)|(3<<UCSZ00) ;  // 8 BIT NO PARITY 2 STOP
 	UCSR0B=(1<<RXEN0)|(1<<TXEN0)  ; //ENABLE TX AND RX ALSO 8 BIT
 }   
-
+	
 /* simple routine to use software polling to send a string serially */
 /* waits for UDRE (USART Data Register Empty) before sending byte   */
 /* uses strlen to decide how many bytes to send (must have null     */
