@@ -5,31 +5,27 @@
 #include <fcntl.h>
 #include <string.h>
 #include <netinet/in.h>
+char setupserial(char *arg);
+
+
 
 int main(void){
-	FILE *vout;
-	if(vout=fopen(vout.txt, "w") == NULL){
+	FILE *out = fopen("vout.txt", "w");
+	if(out==NULL){
 		printf("File access error\n");
 		exit(0);
-	}
+	}			//Open output file or EXIT
 
-	if(setupserial("COM1"));
+	if(setupserial("USB0"));
 	else{
 		printf("Serial Initialization Failure\n");
+		fclose(out);
 		exit(1);
 	}
-	
 
+	fclose(out);
+	return(0);
 }
-
-	
-
-
-
-
-
-
-
 
 char setupserial(char *arg){ //Not entirely sure what this does
 	char err = 0;			//Or even how it works
