@@ -21,13 +21,13 @@
 */
 int main(int argc, char **argv){
 	
-	char chr;
+	unsigned char chr;
 	int filedes;	//File descriptor from init serial port
-	int avrnum=0;		//The number returned from the AVR A-D conversion
-	int retries;	//Wait time counter
+	int avrnum=0;
 	char buf[64];	//Transmission buffer
 	time_t ttime;	//Output from system time (time.h)
 	int tflags;
+	double voltage;
 
 	//Attempt to open serial communications
 	filedes = setupserial(PORT);
@@ -57,16 +57,20 @@ int main(int argc, char **argv){
 	
 		write(filedes, buf, strlen(buf)); //Send the comma and time
 		bzero(buf, sizeof(buf));	//Zero out the buffer and prep to receive
-		avrnum = read(filedes, &chr, 1); //Reads one byte from serial port
-		printf("%d\n",avrnum);
-			
-		printf("%c\n", chr); //Print a byte if byte is read
-		strncat(buf, &chr, 1);	//Append the byte to buffer
-		avrnum = read(filedes, &chr, 1);	
+		 //Reads one byte from serial port
+			avrnum = read(filedes, &chr, 1);
+			if(avrnum == 0) break;
+			strncat(buf, &chr, 1);
 		
-		fprintf(out,"%s\n", buf);
+		
+		if(chr!=44){
+			voltage = (double) chr/117;	
+			fprintf(out, "%lf\n", voltage);
+		}	
+		else fprintf(out,"%d,",(int) ttime);
 		fflush(out);
-		usleep(500000); //Sleep half a second
+
+		usleep(100000); //Sleep half a second
 	}
 	fclose(out);
 	return 0;		//Successful completion

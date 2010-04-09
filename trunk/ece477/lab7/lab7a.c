@@ -20,7 +20,7 @@ void init_ADC(void);
 int main(void){
 	char buf[50];
 	char input = 0;
-	int measure = 0;
+	char measure = 0;
 	init_serial();
 	init_ADC();
 	while(1){
@@ -35,9 +35,10 @@ int main(void){
      		UDR0 = input; //print a comma
 			input = 0;
 			measure = adconvert(); // get voltage 
-			
-			sprintf(buf, "%d\r\n", measure); // print value and newline
-			my_send_string(buf);
+
+			UDR0 = 	measure;
+//			sprintf(buf, "%d", measure); // print value and newline
+//			my_send_string(buf);
 			}
 	}
 }
