@@ -19,21 +19,24 @@ void init_ADC(void);
 
 int main(void){
 	char buf[50];
-	int input = 0;
-	double measure = 0;
+	char input = 0;
+	int measure = 0;
 	init_serial();
 	init_ADC();
 	while(1){
-		if((UCSR0A&(1<<UDRE0)) == 0){	// wait for empty register
+		if((UCSR0A&(1<<RXC0)) == 0){	// wait for empty register
+			UDR0 = 'Y';
 			while(input != ','){
 				while((UCSR0A&(1<<RXC0)) == 0);// wait for input
 				input = UDR0;			// save input
 				while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
 			}
 			while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty
-      		UDR = input; //print a comma
-			measure = 11 * ((double) ADC_read() / 255); // get voltage 
-			sprintf(buf, "%lf\r\n", measure); // print value and newline
+     		UDR0 = input; //print a comma
+			input = 0;
+			measure = adconvert(); // get voltage 
+			
+			sprintf(buf, "%d\r\n", measure); // print value and newline
 			my_send_string(buf);
 			}
 	}

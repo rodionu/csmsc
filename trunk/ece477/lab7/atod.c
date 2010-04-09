@@ -19,5 +19,6 @@ int adconvert(void){
 	ADCSRA |=(1<<ADSC);	//ADC Start conversion bit
 	while(ADCSRA&_BV(ADSC)); //Wait for A/D Conversion
 	//BV does bit value
-	return(ADCH);
-}	
+	return(ADCH);	//return most sig. 8 bits.
+}
+
