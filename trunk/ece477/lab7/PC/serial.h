@@ -1,0 +1,2 @@
+int setupserial(char *port);
+
