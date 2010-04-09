@@ -16,7 +16,6 @@ void init_serial(void);
 /* it forms the strings using sprintf         */
 
 int main(void){
-	char buf[50];
 	char input = 0;
 	char measure = 0;
 	init_serial();
@@ -32,8 +31,8 @@ int main(void){
 			input = 0;
 			measure = adconvert(); // get voltage 
 
-			UDR0 = 	measure;
-			}
+			UDR0 = 	measure;	//send measurement as character
+		}
 	}
 }
 
