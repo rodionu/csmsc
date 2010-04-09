@@ -48,16 +48,16 @@ int main(int argc, char **argv){
 		write(filedes, buf, strlen(buf)); //Send the comma and time
 		bzero(buf, sizeof(buf));	//Zero out the buffer and prep to receive
 		 //Reads one byte from serial port
-			avrnum = read(filedes, &chr, 1);
-			if(avrnum == 0) break;
-			strncat(buf, &chr, 1);
+			avrnum = read(filedes, &chr, 1); // save recieved measurement to chr
+			if(avrnum == 0) break;	// break if it failed
+			strncat(buf, &chr, 1);  // add the measurement to current string
 		
 		
 		if(chr!=44){
 			voltage = (double) chr/117;		//If comma not returned
-			fprintf(out, "%lf\n", voltage);	//Print voltage (math
+			fprintf(out, "%lf\n", voltage);	//Print just voltage
 		}	
-		else fprintf(out,"%d,",(int) ttime);
+		else fprintf(out,"%d,",(int) ttime);	// print data 
 		fflush(out);
 
 		usleep(500000); //Sleep half a second
