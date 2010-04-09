@@ -9,16 +9,6 @@
 
 #define PORT "/dev/ttyUSB0"
 
-/*		while(avrnum!=0){ //When AVRnum = 0, the data has ended
-			
-			if(avrnum < 0){ //Reading from no data spits back -1
-			
-				for(retries = 5; retries>0; retries--){
-					avrnum = read(filedes, &chr, 1);
-			 	}
-				if(retries<1) break;	//If you're out of retries, exit
-			}
-*/
 int main(int argc, char **argv){
 	
 	unsigned char chr;
@@ -64,8 +54,8 @@ int main(int argc, char **argv){
 		
 		
 		if(chr!=44){
-			voltage = (double) chr/117;	
-			fprintf(out, "%lf\n", voltage);
+			voltage = (double) chr/117;		//If comma not returned
+			fprintf(out, "%lf\n", voltage);	//Print voltage (math
 		}	
 		else fprintf(out,"%d,",(int) ttime);
 		fflush(out);
