@@ -8,8 +8,6 @@
 #include "atod.h"
 
 void init_serial(void);
-void my_send_string (char * buf);
-void init_ADC(void);
 
 
 /* this is the equivalent of Hello World for AVR serial communication */
@@ -22,10 +20,8 @@ int main(void){
 	char input = 0;
 	char measure = 0;
 	init_serial();
-	init_ADC();
 	while(1){
 		if((UCSR0A&(1<<RXC0)) == 0){	// wait for empty register
-			UDR0 = 'Y';
 			while(input != ','){
 				while((UCSR0A&(1<<RXC0)) == 0);// wait for input
 				input = UDR0;			// save input
@@ -37,8 +33,6 @@ int main(void){
 			measure = adconvert(); // get voltage 
 
 			UDR0 = 	measure;
-//			sprintf(buf, "%d", measure); // print value and newline
-//			my_send_string(buf);
 			}
 	}
 }
@@ -53,24 +47,4 @@ void init_serial(void){
 	UCSR0C= (1<<UMSEL01)|(1<<USBS0)|(3<<UCSZ00) ;  // 8 BIT NO PARITY 2 STOP
 	UCSR0B=(1<<RXEN0)|(1<<TXEN0)  ; //ENABLE TX AND RX ALSO 8 BIT
 }   
-/* Initalizes the Analog to Digital Convertor for internal voltage */
-/* This would have a VREF of 1.1 V for accuracy and a divisor of 64*/
-void init_ADC(void){
-	ADMUX = (3<<REFS0); // Set reference voltage to internal 1.1V
-	ADCSRA = _BV(ADEN)|(6<<ADPS0); // Enable the ADC w/ divisor of 64
-}
-	
-
-/* simple routine to use software polling to send a string serially */
-/* waits for UDRE (USART Data Register Empty) before sending byte   */
-/* uses strlen to decide how many bytes to send (must have null     */
-/* terminator on the string)                                        */
-
-void my_send_string(char * buf){
-	int x;  //uses software polling, assumes serial is set up
-    for(x=0;x<strlen(buf);x++){
-    	while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty 
-		UDR0 = buf[x];
-   }
-}
 
