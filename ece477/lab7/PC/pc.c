@@ -60,7 +60,7 @@ int main(int argc, char **argv){
 		else fprintf(out,"%d,",(int) ttime);
 		fflush(out);
 
-		usleep(100000); //Sleep half a second
+		usleep(500000); //Sleep half a second
 	}
 	fclose(out);
 	return 0;		//Successful completion
