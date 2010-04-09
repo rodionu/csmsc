@@ -10,9 +10,12 @@ int setupserial(char *port){
 	struct termios nt;	//New termios structure (New Terminal)
 
 	serfd = open(port, O_RDWR|O_NOCTTY);
-	if(serfd==-1) return serfd;	//Return a failure
+	if(serfd==-1){
+		printf("Error opening serial communication\n");
+		return serfd;	//Return a failure
 	//If the serial port could not be opened
-
+	}
+	printf("Serial FD %d\n",serfd);
 	nt.c_iflag = IGNPAR|~INPCK; //
 	nt.c_cflag = CS8|CREAD|CLOCAL; //8 bits, reciever enabled
 	nt.c_oflag = nt.c_lflag = 0;
