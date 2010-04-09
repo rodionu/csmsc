@@ -3,7 +3,7 @@ CFLAGS=-g -Os -Wall -mcall-prologues -mmcu=atmega88p
 OBJ2HEX=avr-objcopy
 VPATH=src
 TARGET=AVRlab
-OBJS=lab7.o atod.o
+OBJS=lab7a.o atod.o
 #OBJS=lab06B.o serialutil.o
 ADFLAGS=-i 1 -F -p m88p -c Bruce -P /dev/ttyUSB0
 ADFLAG_PAR=-p m88p -F -v -c dapa -P /dev/parport0

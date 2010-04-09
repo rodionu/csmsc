@@ -4,3 +4,4 @@
  */
 
 int adconvert(void);
+uint16_t readADC(uint8_t ch);
