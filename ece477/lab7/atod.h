@@ -3,5 +3,5 @@
  * and making A-D readings, it will return the A-D result as an unsigned int
  */
 
-int adconvert(void);
+char adconvert(void);
 uint16_t readADC(uint8_t ch);
