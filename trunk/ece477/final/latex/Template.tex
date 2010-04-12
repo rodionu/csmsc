@@ -1,0 +1,56 @@
+\begin{equation}
+\label{SECTION:eq:EQUATION NAME}
+	PUT AN EQUATION HERE
+\end{equation}
+% You can make an equation online here: http://www.codecogs.com/components/equationeditor/equationeditor.php
+% That editor has pretty much everything you will need, and you can just paste the resulting code into an equation block
+% This equations number can be referenced with \ref{SECTION:eq:EQUATION NAME}. Its page number can be referenced with \pageref{SECTION:eq:EQUATION NAME}
+
+\begin{lstlisting}		%This is for inserting code bits straight into Latex, syntax highlighting
+put your code here		%IS supported for the final document
+\end{lstlisting}
+
+
+
+\begin{itemize}
+	\item FIRST ITEM
+	\item SECOND ITEM
+\end{itemize}
+% Item lists are numbered lists, add more \items to extend the list. 
+
+
+
+\begin{enumerate}
+	\item FIRST ITEM
+	\item SECOND ITEM
+\end{enumerate}
+% Item lists are bulleted lists, add more \items to extend the list. 
+
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.50\textwidth]{graphs/PICTURE}
+					
+	\caption{NAME}
+	\label{SECTION:fig:NAME}
+\end{figure}
+% This will be called "Figure # NAME" if you just left this as \caption{NAME}. 
+% The \includegraphics line has a [] and a {}. The [] contains the argument to make the picture .5 times as wide as the text on the page. This could be replaced with [scale=0.5] but pngs dont scale as well. 
+% Label the section with its number, keep the 'fig' and give it a intelligent name. This will let us use \ref{SECTION:fig:NAME} to always reference THIS figure, cool huh?
+
+
+\begin{center}
+\label{SECTION:tb:TABLE NAME} % Replace SECTION with your section number, leave 'tb' alone, and replace TABLE NAME with your own name. Keep it intelligent so others can find it!
+	\begin{tabular}{ | l | c | r | }
+  		\hline
+  		1 & 2 & 3 \\ \hline
+  		4 & 5 & 6 \\ \hline
+  		7 & 8 & 9 \\
+  		\hline
+	\end{tabular}
+\end{center}
+							% The best way to understand this syntax is to play with it. Tables are wierd, and will take a lot to get used to. 
+							% The above is a 3x3 table with lines above, bellow, and on each side of the cells.
+							% The left set of sells is left justified, the middle are centered, and the right most are right justified.  
+
+
