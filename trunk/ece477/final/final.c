@@ -40,16 +40,15 @@ int main(void){
 		//This line should be correct, but vscale needs to be determined
 		
 		
-		display[0] = (int) (decimal)/100;
-		display[1] = (int) (decimal)/10;
-		display[2] = (int) (decimal);
+		display[0] = (int) (decimal)/100+'0';
+		display[1] = (int) (decimal)/10+'0';
+		display[2] = (int) (decimal)+'0';
 		display[3] = '.';
 		for(i=4; i<=6; i++)
-			display[i] = (((int) (decimal)E(i-3))%10);
+			display[i] = ((((int) (decimal)E(i-3))%10)+'0');
 		//The above is EXTREMELY sketchy, it should perform as the line below
 		//display[4] = ((int) (voltage*10)%)10;	//Only takes ones place
 		//The modulo 10 is there to ensure the final value is a SINGLE DIGIT
-		
 		display[7] = '\0';	//NULL terminates the string
 		
 		//PRINT DISPLAY to screen! - needs a function!
@@ -88,7 +87,4 @@ int main(void){
 		data = adconvert(3);
 		decimal = data;
 	}	
-	
-	
-	
 	
