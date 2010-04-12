@@ -1,0 +1,15 @@
+\section{Setting up port I/O}
+
+
+
+The AVR ATMEGA88P (and many other series of the AVR chip) include integrated pull-up resistors coupled to the I/O pins for use in active-low inputs. This is very useful as it allows us to make use of these pins without adding complication to the circuit with external resistors, and without having to be concerned over whether or not the state of these pins is known.
+
+The PORTC register contains the A/D converters on most pins, this register will be used for A/D only. The specific input will vary with the function of the entire device itself (DC voltage, DC current work on separate pins, etc.)
+
+We determine the A/D converter to activate by reading the inputs on PORTB. Only 4 of the PORTB pins are used (PB1, PB2, PB3, PB4) as only 4 bits of information are needed. Initializing these pins is done by specifing the data direction register to input on those 4 pins, and writing logic ones to them. Writing a logic one to an input pin causes the AVR to activate the internal pull-up resistor to that pin.
+
+\begin{lstlisting}		%This is for inserting code bits straight into Latex, syntax highlighting
+
+DDRB = 0b11110001;
+PORTB = 0b00001110;
+\end{lstlisting}

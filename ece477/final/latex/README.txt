@@ -1,0 +1,3 @@
+This is intended to be a basic 'how to' file on the use of the files in the cookbook directory. These files will contain a simple and complex version of figures, tables, graphics, headings, sections, etc etc as needed for our projects. You should be able to copy and paste them from their files here, and write in any information needed (in CAPS to mark what you need to change). 
+
+Template.txt - This is a basic template for a project, feel free to copy it to a directory to use it
