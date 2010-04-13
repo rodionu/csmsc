@@ -15,7 +15,7 @@ int main(void){
 	char measure = 0;
 	uint16_t data;
 	float decimal;	//Decimal quantity for voltage or current
-	char display[8]	//3 Digits, Dot, 3 Digits, NULL termination,
+	char display[24]	//3 Digits, Dot, 3 Digits, NULL termination,
 	int i, k;		//Loop Variables
 	int vscale = 1.1;	//Mostly a debugging thing, allows us to set voltage
 						//scale by reference voltage (default 1.1v)
@@ -40,20 +40,9 @@ int main(void){
 		//Scale ADC output to 200(1.1V), Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
 		
-		
-		display[0] = (int) (decimal)/100+'0';
-		display[1] = (int) (decimal)/10+'0';
-		display[2] = (int) (decimal)+'0';
-		display[3] = '.';
-		for(i=4; i<=6; i++)
-			display[i] = ((((int) (decimal)E(i-3))%10)+'0');
-		//The above is EXTREMELY sketchy, it should perform as the line below
-		//display[4] = ((int) (voltage*10)%)10;	//Only takes ones place
-		//The modulo 10 is there to ensure the final value is a SINGLE DIGIT
-		display[7] = '\0';	//NULL terminates the string
+		sprintf(display, "%3.3f V", decimal);	
 		
 		//PRINT DISPLAY to screen! - needs a function!
-		//*NOTE - Scientific notation will not work with variables
 		//The above lines will have to be replaced (hopefully
 		//with something a little more efficient.)	
 		
