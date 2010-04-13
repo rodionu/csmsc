@@ -10,6 +10,7 @@
 //NOTE - 116 ON THE ADC WAS EQUIVALENT TO +1V, some code bits will need changing
 //NOTE 2 - All the voltmeters should probably be moved to separate functions
 
+
 int main(void){
 	char measure = 0;
 	uint16_t data;
@@ -52,7 +53,9 @@ int main(void){
 		display[7] = '\0';	//NULL terminates the string
 		
 		//PRINT DISPLAY to screen! - needs a function!
-		
+		//*NOTE - Scientific notation will not work with variables
+		//The above lines will have to be replaced (hopefully
+		//with something a little more efficient.)	
 		
 	}	
 	
