@@ -12,24 +12,22 @@
 
 
 int main(void){
-	char measure = 0;
-	uint16_t data;
+	uint16_t data, looper;
 	float decimal;	//Decimal quantity for voltage or current
-	char display[24]	//3 Digits, Dot, 3 Digits, NULL termination,
-	int i, k;		//Loop Variables
-	int vscale = 1.1;	//Mostly a debugging thing, allows us to set voltage
-						//scale by reference voltage (default 1.1v)
+	char display[24];	//Display up to 24char, including NULL	
+	unsigned int i, k;	//Loop Variables
+	int vscale = 1.1;	//Allows single setting of voltage scaling (1.1vref)
+	uint16_t acavg[10];	//Used to find AC magnitude and avg
 	
 	//Set data direction registers
 	DDRB = 0b11110001;	//Activates PB1, PB2, PB3 for input
 	PORTB = 0b00001110;	//Activate internal pull-up resistors in PB1,2,3
-	DDRD = 0b11111111;	//Set all output for PORTD
 	
 	if(_BV(PB1)==_BV(PB2)==_BV(PB3)); //PRINT - SELECT MODE
 	
 	//Running conditions
 	//ALL ones from the ADC corresponds to REF voltage (1.1V)
-	//Max output from ADC - 0b1111111111 or 1023, scale to 1.1v
+	//Max output from ADC - 0x03FF or 1023, scale to 1.1v
 	
 	
 	//DC Voltmeter uses ADC5 (INPUT STAGE GAIN = 1/200) - output in V
@@ -43,8 +41,6 @@ int main(void){
 		sprintf(display, "%3.3f V", decimal);	
 		
 		//PRINT DISPLAY to screen! - needs a function!
-		//The above lines will have to be replaced (hopefully
-		//with something a little more efficient.)	
 		
 	}	
 	
@@ -71,7 +67,15 @@ int main(void){
 	
 	//AC Voltmeter uses ADC3
 	while(_BV(PB3)==0){		//While PB3 is driven LOW - AC Voltmeter
-		data = adconvert(3);
-		decimal = data;
+		
+		for(looper=1; looper!=0; looper++){
+			i = looper%10;
+			data = adconvert(3)
+			if(acavg[i]<data) acavg[i] = data;
+		
+			
+			data = adconvert(3);
+			decimal = data;
+			
 	}	
 	
