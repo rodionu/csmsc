@@ -57,12 +57,17 @@ int main(void){
 		
 		data = adconvert(5);
 		decimal = data;
-		decimal = 1000*vscale*(decimal/1024); //Calibration dependent
+		decimal = 1000*vscale*(decimal/1024); //This will need calibration
 		//Scale ADC output to mA, Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
 		
 		
-		sprintf(display, "%5f mA", decimal);	
+		display[0] = ((int) (decimal)/1000)%10;		//A
+		display[1] = ((int) (decimal)/100)%10;		//A/10
+		display[2] = ((int) (decimal)/10)%10;		//A/100
+		display[3] = ((int) (decimal))%10;			//mA
+		display[4] = '\0';	//NULL terminates the string
+		
 		//PRINT DISPLAY to screen! - needs a function!
 		
 		
