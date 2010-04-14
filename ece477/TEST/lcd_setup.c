@@ -19,22 +19,30 @@ void lcd_init(void){
 	PORTD = 0x38;	// 00111000	// 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIGH();
 	ELOW();
-	m88delay(10);
+	m88delay(5);
+	PORTB &= 0x3F;  // SEE TABLE
+    PORTD = 0x38;   // 00111000 // 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIGH();
 	ELOW();
 	m88delay(1);
 	EHIGH();
 	ELOW();
+//	m88delay(1);
+//  EHIGH();
+//  ELOW();
 	m88delay(1);
+	PORTB &= 0x3F; 
 	PORTD = 0x01;	// Clear DD RAM and LCD
 	EHIGH();
 	ELOW();
 	m88delay(20);
+	PORTB &= 0x3F; 
 	PORTD = 0x06;	// 00000110	// 1, 1 for increment, 0 for no shift
 	EHIGH();
 	ELOW();
 	m88delay(1);
-	PORTD = 0x0C;	// 00001100	// 1,1 for Display on, 0 for cursor off
+	PORTB &= 0x3F; 
+	PORTD = 0x0E;	// 00001100	// 1,1 for Display on, 1 for cursor off
 	EHIGH();
 	ELOW();
 	m88delay(10);

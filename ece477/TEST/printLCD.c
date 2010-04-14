@@ -11,6 +11,7 @@ int printLCD(char *buf){
 	for(cur = 0; cur < strlen(buf); cur++){
 		m88delay(1);
 		PORTB &= 0b10111111;
+		PORTB |= 0b10000000;
 		PORTD = buf[cur];
 		EHIGH();
 		ELOW();
