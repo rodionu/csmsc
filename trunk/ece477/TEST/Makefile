@@ -3,7 +3,7 @@ CFLAGS=-g -Os -Wall -mcall-prologues -mmcu=atmega88p
 OBJ2HEX=avr-objcopy
 VPATH=src
 TARGET=MMeter
-OBJS=lcdtest.o aserial.o lcd_setup.o printLCD.o m88delay.o atod.o
+OBJS=lcdtest.o lcd_setup.o printLCD.o m88delay.o atod.o
 ADFLAGS=-i 1 -F -p m88p -c Bruce -P /dev/ttyUSB0
 ADFLAG_PAR=-p m88p -F -v -c dapa -P /dev/parport0
 
