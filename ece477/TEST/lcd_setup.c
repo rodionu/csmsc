@@ -15,12 +15,12 @@ void lcd_init(void){
 	/* LCD Initialization for 16166 LCD used */
 	m88delay(20);
 	ELOW();			// Set enable low for starting
-	PORTB &= 0x3F;	// SEE TABLE
-	PORTD = 0x38;	// 00111000	// 1, 1 for 8 bit, 1 for 16:1 mux
+	PORTB &= 0x3F;	// 0b00111111
+	PORTD = 0x38;	// 0b00111000	// 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIGH();
 	ELOW();
 	m88delay(5);
-	PORTB &= 0x3F;  // SEE TABLE
+	PORTB &= 0x3F;  // 0b00111111
     PORTD = 0x38;   // 00111000 // 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIGH();
 	ELOW();
@@ -31,27 +31,27 @@ void lcd_init(void){
 //  EHIGH();
 //  ELOW();
 	m88delay(1);
-	PORTB &= 0x3F; 
-	PORTD = 0x01;	// Clear DD RAM and LCD
+	PORTB &= 0x3F;	// 0b00111111
+	PORTD = 0x01;	// 0b00000001	Clear DD RAM and LCD
 	EHIGH();
 	ELOW();
 	m88delay(20);
-	PORTB &= 0x3F; 
-	PORTD = 0x06;	// 00000110	// 1, 1 for increment, 0 for no shift
+	PORTB &= 0x3F;	// 0b00111111
+	PORTD = 0x06;	// 0b00000110	// 1, 1 for increment, 0 for no shift
 	EHIGH();
 	ELOW();
 	m88delay(1);
-	PORTB &= 0x3F; 
-	PORTD = 0x0E;	// 00001100	// 1,1 for Display on, 1 for cursor off
+	PORTB &= 0x3F;	// 0b00111111
+	PORTD = 0x0E;	// 0b00001100	// 1,1 for Display on, 1 for cursor off
 	EHIGH();
 	ELOW();
 	m88delay(10);
 }
 
 void ELOW(void){
-	PORTB &= 0xDF;
+	PORTB &= 0xDF;	// 0b11011111
 }
 
 void EHIGH(void){
-	PORTB |= 1<<E;
+	PORTB |= 0x20;	// 0b00100000
 }
