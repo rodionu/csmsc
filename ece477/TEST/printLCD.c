@@ -14,8 +14,6 @@ int printLCD(char *buf){
 		PORTD = buf[cur];
 		EHIGH();
 		ELOW();
-		if(cur == 0) continue;
-		
 	}
 	if(buf[cur] != 0) return (-1);
 	else return 0;	

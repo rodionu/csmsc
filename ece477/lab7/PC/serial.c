@@ -29,7 +29,6 @@ int setupserial(char *port){
 	cfsetispeed(&nt, B9600);	//Set input and output lines
 	cfsetospeed(&nt, B9600);	//to 9600 baud, Stop bits and parity (none)
 								//are already set above.
-	
 	tcsetattr(serfd, TCSANOW, &nt);
 	return serfd;
 }
