@@ -47,7 +47,8 @@ void init_serial(void){
 void my_send_string(char * buf){
 	int x;  //uses software polling, assumes serial is set up
     for(x=0;x<strlen(buf);x++){
-    	while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty 
+    	while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty
+		_delay_ms(1000);
 		UDR0 = buf[x];
    }
 }
