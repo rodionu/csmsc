@@ -23,5 +23,5 @@ int printLCD(char *buf){
 		EHIGH();
 		ELOW();
 	}
-	else return 0;	
+	return 0;	
 }
