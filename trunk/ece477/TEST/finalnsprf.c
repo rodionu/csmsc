@@ -1,12 +1,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "atod.h"
-#include "printLCD.h"
-#include "lcd_setup.h"
-#include "m88delay.h"
 
 //uint16_t is 16 bit integer, 32 bit integers can be declared in the same way
 //NOTE - 116 ON THE ADC WAS EQUIVALENT TO +1V, some code bits will need changing
@@ -14,24 +12,24 @@
 
 
 int main(void){
-	uint16_t data, looper;
+	char measure = 0;
+	uint16_t data;
 	float decimal;	//Decimal quantity for voltage or current
-	char display[24];	//Display up to 24char, including NULL	
-	unsigned int i;		//Loop Variables
-	int vscale = 1.1;	//Allows single setting of voltage scaling (1.1vref)
-	uint16_t acavg[10];	//Used to find AC magnitude and avg
+	char display[24]	//3 Digits, Dot, 3 Digits, NULL termination,
+	int i, k;		//Loop Variables
+	int vscale = 1.1;	//Mostly a debugging thing, allows us to set voltage
+						//scale by reference voltage (default 1.1v)
 	
 	//Set data direction registers
-	DDRB = 0b11110000;	//Activates PB1, PB2, PB3 for input
-	PORTB = 0b00001111;	//Activate internal pull-up resistors in PB1,2,3
-	lcd_init();		//Adds settings to DDRB
-
+	DDRB = 0b11110001;	//Activates PB1, PB2, PB3 for input
+	PORTB = 0b00001110;	//Activate internal pull-up resistors in PB1,2,3
+	DDRD = 0b11111111;	//Set all output for PORTD
 	
-	if((_BV(PB1))==(_BV(PB2))==(_BV(PB3))) printLCD("Select Mode");
+	if(_BV(PB1)==_BV(PB2)==_BV(PB3)); //PRINT - SELECT MODE
 	
 	//Running conditions
 	//ALL ones from the ADC corresponds to REF voltage (1.1V)
-	//Max output from ADC - 0x03FF or 1023, scale to 1.1v
+	//Max output from ADC - 0b1111111111 or 1023, scale to 1.1v
 	
 	
 	//DC Voltmeter uses ADC5 (INPUT STAGE GAIN = 1/200) - output in V
@@ -45,6 +43,8 @@ int main(void){
 		sprintf(display, "%3.3f V", decimal);	
 		
 		//PRINT DISPLAY to screen! - needs a function!
+		//The above lines will have to be replaced (hopefully
+		//with something a little more efficient.)	
 		
 	}	
 	
@@ -57,28 +57,26 @@ int main(void){
 		
 		data = adconvert(5);
 		decimal = data;
-		decimal = 1000*vscale*(decimal/1024); //Calibration dependent
+		decimal = 1000*vscale*(decimal/1024); //This will need calibration
 		//Scale ADC output to mA, Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
-		sprintf(display, "%5f mA", decimal);	
-	
-		printLCD(display);	
+		
+		
+		display[0] = ((int) (decimal)/1000)%10;		//A
+		display[1] = ((int) (decimal)/100)%10;		//A/10
+		display[2] = ((int) (decimal)/10)%10;		//A/100
+		display[3] = ((int) (decimal))%10;			//mA
+		display[4] = '\0';	//NULL terminates the string
+		
+		//PRINT DISPLAY to screen! - needs a function!
+		
 		
 		
 	}	
 	
 	//AC Voltmeter uses ADC3
 	while(_BV(PB3)==0){		//While PB3 is driven LOW - AC Voltmeter
-		
-		for(looper=1; looper!=0; looper++){
-			i = looper%10;
-			data = adconvert(3);
-			if(acavg[i]<data) acavg[i] = data;
-		}
-		decimal = 0;
-		for(i=0; i<10; i++) decimal = decimal+acavg[i];	
-	}	decimal /= 10;	//Average of the highest recorded samples
-		sprintf(display, "%3.3f V", decimal);
-		
-		printLCD(display);
-}
+		data = adconvert(3);
+		decimal = data;
+	}	
+	
