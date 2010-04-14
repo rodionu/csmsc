@@ -10,7 +10,9 @@ int printLCD(char *buf){
 	for(cur = 0; cur < strlen(buf); cur++){
 		PORTB &= 0x3F;	// 0b00111111;
 		PORTD = 0x01;	// 0b00000001
-		_delay_ms(1);
+		EHIGH();
+		ELOW();
+		_delay_ms(50);
 		PORTB &= 0xBF;	// 0b10111111;
 		PORTB |= 0x80;	// 0b10000000;
 		PORTD = buf[cur];
