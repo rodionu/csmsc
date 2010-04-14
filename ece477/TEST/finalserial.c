@@ -17,18 +17,25 @@
 
 int main(void){
 	uint16_t data, looper;
-	float decimal;	//Decimal quantity for voltage or current
+	float decimal= 0;	//Decimal quantity for voltage or current
 	char display[24];	//Display up to 24char, including NULL	
 	unsigned int i;		//Loop Variables
 	int vscale = 1.1;	//Allows single setting of voltage scaling (1.1vref)
 	uint16_t acavg[10];	//Used to find AC magnitude and avg
-	
+	char input = 0;
+		
 	//Set data direction registers
 	DDRB = 0b11110000;	//Activates PB1, PB2, PB3 for input
 	PORTB = 0b00001111;	//Activate internal pull-up resistors in PB1,2,3
 	lcd_init();		//Adds settings to DDRB
-
-	
+	if((UCSR0A&(1<<UDRE0)) == 0){   // wait for empty register
+		while(input != ','){
+			while((UCSR0A&(1<<RXC0)) == 0);// wait for input
+			input = UDR0;                   // save input
+			while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
+                }
+	}
+		
 	if((_BV(PB1))==(_BV(PB2))==(_BV(PB3))) printLCD("Select Mode");
 	sprintf(display, "Select Mode\n\r");
 	my_send_string(display);
@@ -88,5 +95,5 @@ int main(void){
 		
 		my_send_string(display);
 		printLCD(display);
-		
+		return(0);
 }

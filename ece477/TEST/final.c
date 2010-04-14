@@ -17,7 +17,7 @@ void my_send_string (char * buf);
 int main(void){
 	uint16_t data, looper;
 	float decimal;	//Decimal quantity for voltage or current
-	char buf[10];	//Display up to 24char, including NULL	
+	char buf[16];	//Display up to 24char, including NULL	
 	unsigned int i;		//Loop Variables
 	int vscale = 1.1;	//Allows single setting of voltage scaling (1.1vref)
 	uint16_t acavg[10];	//Used to find AC magnitude and avg
@@ -40,9 +40,9 @@ int main(void){
 		else if(temp > 0x60 && temp < 0x7C){ // If uppercase
 			temp -= 0x20; 					 // make lowercase
 		}
-		while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty 
+		//while((UCSR0A&(1<<UDRE0)) == 0); //wait until empty 
 		//UDR0 = temp;					// Print the toggled character
-		sprintf(buf,"The values are:%c\n",temp);
+		sprintf(buf,"Values %c\n",temp);
 		my_send_string(buf);
 		printLCD(buf);
 	}
