@@ -7,8 +7,7 @@
 #include "atod.h"
 #include "printLCD.h"
 #include "lcd_setup.h"
-#include "m88delay.h"
-
+#define F_CPU 8000000UL
 
 void init_serial(void);
 void my_send_string (char * buf);
@@ -22,7 +21,9 @@ int main(void){
 		while((UCSR0A&(1<<RXC0)) == 0); // Wait for character input
 		temp = UDR0;
 		while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
-		
+		_delay_ms(10000);
+		UDR0 = temp;
+		/*
 		if(temp == ','){
 			buf[i] = '\0';			
 			my_send_string(buf);
@@ -32,9 +33,11 @@ int main(void){
 		else{
 			buf[i] = temp;
 			i++;
+		*/
 		}
-	}
 }
+
+
 
 void init_serial(void){
 	UBRR0H=0;
@@ -42,12 +45,6 @@ void init_serial(void){
 	UCSR0C= (1<<UMSEL01)|(1<<USBS0)|(3<<UCSZ00) ;  // 8 BIT NO PARITY 2 STOP
 	UCSR0B=(1<<RXEN0)|(1<<TXEN0)  ; //ENABLE TX AND RX ALSO 8 BIT
 }   
-
-/* simple routine to use software polling to send a string serially */
-/* waits for UDRE (USART Data Register Empty) before sending byte   */
-/* uses strlen to decide how many bytes to send (must have null     */
-/* terminator on the string)                                        */
-
 void my_send_string(char * buf){
 	int x;  //uses software polling, assumes serial is set up
     for(x=0;x<strlen(buf);x++){
