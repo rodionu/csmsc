@@ -7,7 +7,7 @@
 #include "atod.h"
 #include "printLCD.h"
 #include "lcd_setup.h"
-#define F_CPU 8000000UL
+#define F_CPU 10000000UL
 
 void init_serial(void);
 void my_send_string (char * buf);
@@ -17,13 +17,12 @@ int main(void){
 	char buf[16];
 	char temp;
 	init_serial();
+	lcd_init();
 	while(1){
 		while((UCSR0A&(1<<RXC0)) == 0); // Wait for character input
 		temp = UDR0;
 		while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
-		_delay_ms(10000);
-		UDR0 = temp;
-		/*
+		
 		if(temp == ','){
 			buf[i] = '\0';			
 			my_send_string(buf);
@@ -33,8 +32,8 @@ int main(void){
 		else{
 			buf[i] = temp;
 			i++;
-		*/
 		}
+	}
 }
 
 
