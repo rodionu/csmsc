@@ -3,4 +3,4 @@
  * and making A-D readings, it will return the A-D result as an unsigned int
  */
 
-uint16_t adconvert(int adcx);
+int adconvert(int adcx);
