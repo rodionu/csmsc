@@ -3,6 +3,7 @@
 void lcd_init(void);
 void EHIGH(void);
 void ELOW(void);
+void EHIT(void);
 
 // NOTE: AVR - LCD
 // 10 - 04
