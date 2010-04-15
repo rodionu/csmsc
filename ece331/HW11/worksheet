@@ -18,7 +18,9 @@ mail.maine.edu has address 130.111.32.94
 mail.maine.edu has IPv6 address 2610:48:100:820::94
 
 
-4.
+
+
+6.
 GET=rtcl
 OBJS=rtc.o reader.o
 CFLAGS=-g -Wall
@@ -29,4 +31,9 @@ $(TARGET):$(OBJS)
         $(CC) $(LIBS) -o $(TARGET) $(OBJS)
 clean:
         rm -f *.o core* $(TARGET)
+
+7.
+	yum search ffmpeg
+	yum install "ffmpeg"
+
 
