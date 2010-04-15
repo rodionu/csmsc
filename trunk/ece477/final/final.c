@@ -14,9 +14,10 @@
 
 
 int main(void){
+	int data8;
 	uint16_t data, looper;
 	double decimal;	//Decimal quantity for voltage or current
-	char display[16]={'\0'};	//Display up to 24char, including NULL	
+	unsigned char display[8]={'\0'};	//Display up to 24char, including NULL	
 	unsigned int i;		//Loop Variables
 	int vscale = 1.1;	//Allows single setting of voltage scaling (1.1vref)
 	uint16_t acavg[10];	//Used to find AC magnitude and avg
@@ -46,26 +47,32 @@ while(1){
 	
 	//DC Voltmeter uses ADC5 (INPUT STAGE GAIN = 1/200) - output in V
 	while((PINB&_BV(PB0))==0){		//While PB1 is driven LOW - DC Voltmeter
-		data = adconvert(5);
-		decimal = data;
-		decimal = 200*vscale*(decimal/1024); //This will need calibration
+		data8 = adconvert(3);
+		sprintf(display, "%d",data8);
+		printLCD(display);
+		_delay_ms(3000);
+		decimal = data8;
+		decimal = 200*vscale*decimal/255; //This will need calibration
 		//Scale ADC output to 200(1.1V), Right shift 10 bits.
-		//This line should be correct, but vscale needs to be determined
-		display[0] = ((char) (decimal/100)%10+'0'); //100V		
-		display[1] = ((char) (decimal/10)%10+'0'); //100V		
-		display[2] = ((char) (decimal)%10+'0'); //100V
+		//This line should be correct, but vscale needs to be determined		
+
+		display[0] = (unsigned char) (decimal/100)%10+'0'; //100V		
+		display[1] = (unsigned char) (decimal/10)%10+'0'; //10V		
+		display[2] = (unsigned char) (decimal)%10+'0'; //1v
 		display[3] = '.';		
-		display[4] = ((char) (decimal*10)%10+'0'); //100V		
-		display[5] = ((char) (decimal*100)%10+'0'); //100V		
-		display[6] = '\0';
-	//	sprintf(display, "%7dV", data);	
+		display[4] = (unsigned char) (decimal*10)%10+'0'; //1/10v	
+		display[5] = (unsigned char) (decimal*100)%10+'0'; //1/100v
+		display[6] = (unsigned char) (decimal*1000)%10+'0'; //1/1000v		
+		display[7] = '\0';
+		
+		//sprintf(display, "%3.3fV", decimal);	
 		printLCD(display);	
 		_delay_ms(3000);
 	}	
 	
 	//DC Ammeter uses ADC4 (INPUT STAGE GAIN = 1000) - output in terms of mA
 	//with 1 ohm probe resistance
-	
+/*	
 	while((PINB&_BV(PB1))==0){		//While PB2 is driven LOW - DC Ammeter
 		data = adconvert(4);
 		decimal = data;
@@ -94,5 +101,6 @@ while(1){
 		
 		printLCD(display);
 	}
+*/
 }
 }
