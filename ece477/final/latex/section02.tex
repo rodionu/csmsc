@@ -6,10 +6,19 @@ The AVR ATMEGA88P (and many other series of the AVR chip) include integrated pul
 
 The PORTC register contains the A/D converters on most pins, this register will be used for A/D only. The specific input will vary with the function of the entire device itself (DC voltage, DC current work on separate pins, etc.)
 
-We determine the A/D converter to activate by reading the inputs on PORTB. Only 4 of the PORTB pins are used (PB1, PB2, PB3, PB4) as only 4 bits of information are needed. Initializing these pins is done by specifing the data direction register to input on those 4 pins, and writing logic ones to them. Writing a logic one to an input pin causes the AVR to activate the internal pull-up resistor to that pin.
+We determine the A/D converter to activate by reading the inputs on PORTB. Only 4 of the PORTB pins are used (PB0, PB1, PB2, PB3) as only 4 bits of information are needed. Initializing these pins is done by specifing the data direction register to input on those 4 pins, and writing logic ones to them. Writing a logic one to an input pin causes the AVR to activate the internal pull-up resistor to that pin.
 
-\begin{lstlisting}		%This is for inserting code bits straight into Latex, syntax highlighting
-
-DDRB = 0b11110001;
-PORTB = 0b00001110;
+\begin{lstlisting}		%This is for inserting code bits straight into Latex
+DDRB = 0b11110000;
+PORTB = 0b00001111;
 \end{lstlisting}
+
+Determining the "switch" position was done by reading the values of PORTB and then masking off the certain bits we don't care about for that purpose (as far as I know, this is the only way of doing this, as the AVR will not allow individual pin access without reading the entire port.) An example of one of the switch conditions used is shown below, all of them are in a similar format to this one.
+
+\begin{lstlisting}
+while(PORTB&_BV(0) == 0){
+\end{lstlisting}
+
+One of the sources of significant problems as the use of serial communication to the PC to check the output on the LCD (the idea being to be able to compare output that comes back to minicom to what comes out on the LCD.) However, the LCD never worked correctly under these test conditions. PORTD is used as our data register for writing to the LCD, but it is also used in the serial USART communications, and setting up the serial and running it in parallel with the LCD output consistently produced garbage output.
+
+After the serial communication was removed (ironically from the program designed to test the LCD output) the LCD did properly output characters, perform shifts, etc. Be extremely careful about multi-purposing ports on the chip, and be sure to know you're doing it!
