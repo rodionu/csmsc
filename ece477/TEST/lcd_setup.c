@@ -36,14 +36,15 @@ void lcd_init(void){
 	EHIT();
 	_delay_ms(1500);
 	PORTB &= 0x3F;	// 0b00111111
-	PORTD = ~0x0E;	// 0b00001100	// 1,1 for Display on, 1 for cursor off
+	PORTD = 0x0C;	// 0b00001100	// 1,1 for Display on, 1 for cursor off
 	EHIT();
 	_delay_ms(2500);
 	PORTB &= 0x3F;
-	PORTD = ~0X01;
+	PORTD = 0X01;
 	EHIT();
-	PORTB &= 0x3F;
-	PORTD = ~0x61;
+	PORTB &= 0x0F;
+	PORTB |= 0x80;
+	PORTD = 0x61;
 	EHIT();
 	_delay_ms(1000);
 }
