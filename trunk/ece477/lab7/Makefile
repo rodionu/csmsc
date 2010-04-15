@@ -5,7 +5,7 @@ VPATH=src
 TARGET=AVRlab
 OBJS=lab7a.o atod.o
 #OBJS=lab06B.o serialutil.o
-ADFLAGS=-i 1 -F -p m88p -c Bruce -P /dev/ttyUSB0
+ADFLAGS=-i 1 -F -p m88p -c Bruce -P /dev/ttyUSB1
 ADFLAG_PAR=-p m88p -F -v -c dapa -P /dev/parport0
 
 .PHONY: fuses prog prog_par erase help
