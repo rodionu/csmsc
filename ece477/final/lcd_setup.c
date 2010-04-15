@@ -13,32 +13,32 @@ void lcd_init(void){
 	DDRB |= 0xE0;	// enable last 3 bits of PORT B for enable, read/write, etc
 	
 	/* LCD Initialization for 16166 LCD used */
-	_delay_ms(2000);
+	_delay_ms(20);
 //	ELOW();			// Set enable low for starting
 	PORTB &= 0x1F;	// 0b00011111
 	PORTD = 0x38;	// 0b00111000	// 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIT();
-	_delay_ms(1500);
+	_delay_ms(15);
 	PORTB &= 0x3F;  // 0b00111111
     PORTD = 0x38;   // 00111000 // 1, 1 for 8 bit, 1 for 16:1 mux
 	EHIT();
-	_delay_ms(1500);
+	_delay_ms(15);
 	EHIT();
-	_delay_ms(2000);
+	_delay_ms(20);
   	EHIT();
-	_delay_ms(1500);
+	_delay_ms(15);
 	PORTB &= 0x3F;	// 0b00111111
 	PORTD = 0x01;	// 0b00000001	Clear DD RAM and LCD
 	EHIT();
-	_delay_ms(2500);
+	_delay_ms(25);
 	PORTB &= 0x3F;	// 0b00111111
 	PORTD = 0x06;	// 0b00000110	// 1, 1 for increment, 0 for no shift
 	EHIT();
-	_delay_ms(1500);
+	_delay_ms(15);
 	PORTB &= 0x3F;	// 0b00111111
 	PORTD = 0x0C;	// 0b00001100	// 1,1 for Display on, 1 for cursor off
 	EHIT();
-	_delay_ms(2500);
+	_delay_ms(25);
 	PORTB &= 0x3F;
 	PORTD = 0X01;
 	EHIT();
@@ -54,7 +54,7 @@ void lcd_init(void){
     PORTB |= 0x80;
     PORTD = 's';
     EHIT();
-	_delay_ms(1000);
+	_delay_ms(10);
 	
 }
 
@@ -68,6 +68,6 @@ void EHIGH(void){
 
 void EHIT(void){
 	EHIGH();
-	_delay_ms(1000);
+	_delay_ms(10);
 	ELOW();
 }
