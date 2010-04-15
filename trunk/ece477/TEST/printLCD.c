@@ -11,21 +11,20 @@
 //PB5 - E
 
 int printLCD(char *buf){
-	int cur;
+	char cur;
 
-//	PORTB &= 0x1F;  // 0b00111111;
-//	PORTD = 0x01;   // 0b00000001
-//	EHIT();
-//	_delay_ms(50);
-  
+	PORTB &= 0x1F;  // 0b00111111;
+	PORTD = 0x01;   // 0b00000001
+	EHIT();
+	_delay_ms(200);
 	for(cur = 0; cur < strlen(buf); cur++){
 //		PORTB &= 0x1F;	// 0b00111111;
 //		PORTD = 0x01;	// 0b00000001
 //		EHIT();
 //		_delay_ms(50);
-		PORTB &= 0xBF;	// 0b10111111;
+		PORTB &= 0x0F;	// 0b10111111;
 		PORTB |= 0x80;	// 0b10000000;
-		PORTD = buf[cur];
+		PORTD = 'a';
 		EHIT();
 //		PORTB &= 0x1F;	// 0b00111111;
 //		PORTD = ~0x14;	// 0b00010100;
