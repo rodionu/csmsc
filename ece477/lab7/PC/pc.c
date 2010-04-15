@@ -7,7 +7,7 @@
 #include <string.h>
 #include "serial.h"
 
-#define PORT "/dev/ttyUSB0"
+#define PORT "/dev/ttyUSB1"
 
 int main(int argc, char **argv){
 	
@@ -61,7 +61,7 @@ int main(int argc, char **argv){
 		else fprintf(out,"%d,",(int) ttime);	// print data 
 		fflush(out);
 
-		usleep(50000); //Sleep half a second
+		usleep(500000); //Sleep half a second
 	}
 	fclose(out);
 	return 0;		//Successful completion
