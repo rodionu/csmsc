@@ -5,6 +5,11 @@
 #include "printLCD.h"
 #include <util/delay.h>
 
+//PORTB Pins
+//PB7 - RS
+//PB6 - R/W
+//PB5 - E
+
 int printLCD(char *buf){
 	int cur;
 	for(cur = 0; cur < strlen(buf); cur++){
@@ -22,3 +27,20 @@ int printLCD(char *buf){
 	}
 	return 0;	
 }
+
+int plcd(char *buf){
+	int i;
+	
+	PORTB &= 0x1F; // Clear RS, RW, E
+	PORTD = 0x01;	//All data except DB0 = 0;
+	EHIT();		//Clock command (CLR DISPLAY)
+	
+	PORTB &= 0x1F;	//Return cursor to 0x00
+	PORTD &= 0x02;	//DB1 = 1
+	EHIT();
+	
+	for(i=0; i<strlen(buf); i++;){
+		PORTB |= 0x80; 	//Set RS
+		PORTD = buf[i]; //Load character from buffer
+		EHIT;		//Print character
+	}
