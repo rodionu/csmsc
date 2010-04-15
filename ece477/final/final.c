@@ -8,13 +8,7 @@
 #include "printLCD.h"
 #include "lcd_setup.h"
 
-//uint16_t is 16 bit integer, 32 bit integers can be declared in the same way
-//NOTE - 116 ON THE ADC WAS EQUIVALENT TO +1V, some code bits will need changing
-//NOTE 2 - All the voltmeters should probably be moved to separate functions
-
-
 int main(void){
-	int data8;
 	uint16_t data, looper;
 	double decimal;	//Decimal quantity for voltage or current
 	unsigned char display[8]={'\0'};	//Display up to 24char, including NULL	
@@ -30,15 +24,10 @@ int main(void){
 
 while(1){
 
-	//while((PINB&0x07) == 7){
-	//	sprintf(display, "NO INPUT");
-	//	printLCD(display);
-	//	_delay_ms(750);
-
 	while((PINB&0x07) == 7){
 		sprintf(display, "NO INPUT");
 		printLCD(display);
-		_delay_ms(750);
+		_delay_ms(1000);
 	}
 	//Running conditions
 	//ALL ones from the ADC corresponds to REF voltage (1.1V)
@@ -47,11 +36,8 @@ while(1){
 	
 	//DC Voltmeter uses ADC5 (INPUT STAGE GAIN = 1/200) - output in V
 	while((PINB&_BV(PB0))==0){		//While PB1 is driven LOW - DC Voltmeter
-		data8 = adconvert(3);
-		sprintf(display, "%d",data8);
-		printLCD(display);
-		_delay_ms(3000);
-		decimal = data8;
+		data = adconvert(3);
+		decimal = data;
 		decimal = 200*vscale*decimal/255; //This will need calibration
 		//Scale ADC output to 200(1.1V), Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined		
@@ -62,17 +48,15 @@ while(1){
 		display[3] = '.';		
 		display[4] = (unsigned char) (decimal*10)%10+'0'; //1/10v	
 		display[5] = (unsigned char) (decimal*100)%10+'0'; //1/100v
-		display[6] = (unsigned char) (decimal*1000)%10+'0'; //1/1000v		
+		display[6] = 'V';
 		display[7] = '\0';
-		
-		//sprintf(display, "%3.3fV", decimal);	
 		printLCD(display);	
 		_delay_ms(3000);
 	}	
 	
-	//DC Ammeter uses ADC4 (INPUT STAGE GAIN = 1000) - output in terms of mA
+	//DC Ammeter uses ADC4 (INPUT STAGE GAIN = 1) - output in terms of mA
 	//with 1 ohm probe resistance
-/*	
+	
 	while((PINB&_BV(PB1))==0){		//While PB2 is driven LOW - DC Ammeter
 		data = adconvert(4);
 		decimal = data;
@@ -80,7 +64,13 @@ while(1){
 		decimal = 1000*vscale*(decimal/1024); //Calibration dependent
 		//Scale ADC output to mA, Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
-		sprintf(display, "%5f mA", decimal);	
+		display[0] = (unsigned char) (decimal/1000)%10+'0'; //1000mA		
+		display[1] = (unsigned char) (decimal/100)%10+'0'; //100mA		
+		display[2] = (unsigned char) (decimal/10)%10+'0'; //10mA
+		display[4] = (unsigned char) (decimal)%10+'0'; //1mA	
+		display[5] = 'm';
+		display[6] = 'A';
+		display[7] = '\0';	
 		printLCD(display);	
 		_delay_ms(3000);
 	}	
@@ -97,10 +87,18 @@ while(1){
 		decimal = 0;
 		for(i=0; i<10; i++) decimal = decimal+acavg[i];	
 		decimal /= 10;	//Average of the highest recorded samples
-		sprintf(display, "%3.3fV", decimal);
+		display[0] = (unsigned char) (decimal/100)%10+'0'; //100V		
+		display[1] = (unsigned char) (decimal/10)%10+'0'; //10V		
+		display[2] = (unsigned char) (decimal)%10+'0'; //1v
+		display[3] = '.';		
+		display[4] = (unsigned char) (decimal*10)%10+'0'; //1/10v	
+		display[5] = (unsigned char) (decimal*100)%10+'0'; //1/100v
+		display[6] = '~';		
+		display[7] = '\0';
+		printLCD(display);	
+		_delay_ms(3000);
 		
 		printLCD(display);
 	}
-*/
 }
 }
