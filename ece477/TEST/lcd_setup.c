@@ -44,9 +44,18 @@ void lcd_init(void){
 	EHIT();
 	PORTB &= 0x0F;
 	PORTB |= 0x80;
-	PORTD = 0x61;
+	PORTD = 'a';
 	EHIT();
+	PORTB &= 0x0F;
+    PORTB |= 0x80;
+    PORTD = 's';
+    EHIT();
+	PORTB &= 0x0F;
+    PORTB |= 0x80;
+    PORTD = 's';
+    EHIT();
 	_delay_ms(1000);
+	
 }
 
 void ELOW(void){
@@ -59,6 +68,6 @@ void EHIGH(void){
 
 void EHIT(void){
 	EHIGH();
-	_delay_ms(2000);
+	_delay_ms(1000);
 	ELOW();
 }

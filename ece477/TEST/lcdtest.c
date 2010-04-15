@@ -13,20 +13,23 @@ void init_serial(void);
 void my_send_string (char * buf);
 
 int main(void){
-	int i = 0;
-	char buf[16];
+	char i = 0;
 	char temp;
-	init_serial();
 	lcd_init();
+	init_serial();
+	char buf[16]={0};
 	while(1){
 		while((UCSR0A&(1<<RXC0)) == 0); // Wait for character input
 		temp = UDR0;
 		while((UCSR0A&(1<<UDRE0)) == 0); // Wait for release of input
 		
 		if(temp == ','){
-			buf[i] = '\0';			
+			buf[15] = '\0';			
 			my_send_string(buf);
 			printLCD(buf);
+			for(i=0; i<16; i++){
+				buf[i] = 0;
+			}
 			i = 0;		//Reset indexer
 		}	
 		else{
