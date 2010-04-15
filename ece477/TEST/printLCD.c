@@ -19,15 +19,15 @@ int printLCD(char *buf){
 //		_delay_ms(50);
 		PORTB &= 0xBF;	// 0b10111111;
 		PORTB |= 0x80;	// 0b10000000;
-		PORTD = buf[cur];
+		PORTD = ~buf[cur];
 		EHIT();
 		PORTB &= 0x1F;	// 0b00111111;
-		PORTD = 0x14;	// 0b00010100;
+		PORTD = ~0x14;	// 0b00010100;
 		EHIT();
 	}
 	return 0;	
 }
-
+/*
 int plcd(char *buf){
 	int i;
 	
@@ -39,8 +39,9 @@ int plcd(char *buf){
 	PORTD &= 0x02;	//DB1 = 1
 	EHIT();
 	
-	for(i=0; i<strlen(buf); i++;){
+	for(i=0; i<strlen(buf); i++){
 		PORTB |= 0x80; 	//Set RS
 		PORTD = buf[i]; //Load character from buffer
 		EHIT;		//Print character
 	}
+*/
