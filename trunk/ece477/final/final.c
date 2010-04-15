@@ -34,7 +34,7 @@ while(1){
 	//	printLCD(display);
 	//	_delay_ms(750);
 
-	while((PINB&0x03) == 3){
+	while((PINB&0x07) == 7){
 		sprintf(display, "NO INPUT");
 		printLCD(display);
 		_delay_ms(750);
@@ -51,10 +51,16 @@ while(1){
 		decimal = 200*vscale*(decimal/1024); //This will need calibration
 		//Scale ADC output to 200(1.1V), Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
-		
-		sprintf(display, "%3.3fV", decimal);	
+		display[0] = ((char) (decimal/100)%10+'0'); //100V		
+		display[1] = ((char) (decimal/10)%10+'0'); //100V		
+		display[2] = ((char) (decimal)%10+'0'); //100V
+		display[3] = '.';		
+		display[4] = ((char) (decimal*10)%10+'0'); //100V		
+		display[5] = ((char) (decimal*100)%10+'0'); //100V		
+		display[6] = '\0';
+	//	sprintf(display, "%7dV", data);	
+		printLCD(display);	
 		_delay_ms(3000);
-		//PRINT DISPLAY to screen! - needs a function!	
 	}	
 	
 	//DC Ammeter uses ADC4 (INPUT STAGE GAIN = 1000) - output in terms of mA
@@ -64,8 +70,6 @@ while(1){
 		data = adconvert(4);
 		decimal = data;
 		
-		data = adconvert(5);
-		decimal = data;
 		decimal = 1000*vscale*(decimal/1024); //Calibration dependent
 		//Scale ADC output to mA, Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
