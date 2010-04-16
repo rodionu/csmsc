@@ -1,0 +1,19 @@
+INCL   = dsp.h ece486_mixer.h 
+SRC    = dsp.c ece486_mixer.c 
+LOBJS    = $(SRC:.c=.o)
+
+
+LIB=dsp
+LIBF=-shared -WI,-soname,lib${LIB}.so
+
+all: lib${LIB}.so ${EXE}
+
+lib${LIB}.so: CFLAGS=-fPIC -rdynamic -g -Wall
+lib${LIB}.so: ${LOBJS}
+	${CC} -o lib${LIB}.so ${LOBJS} ${LIBF}
+
+# Objects depend on these Include files
+$(LOBJS): $(INCL)	
+
+clean:
+	rm -f *.o core* ${EXE} lib${LIB}.so
