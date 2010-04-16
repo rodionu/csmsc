@@ -1,0 +1,39 @@
+Cameron McGary, ECE331, April 13, 2010
+
+
+2.
+
+[cam@C140X ~]$ host xys.net
+xys.net has address 68.178.232.100
+xys.net mail is handled by 0 smtp.secureserver.net.
+xys.net mail is handled by 10 mailstore1.secureserver.net.
+
+then ping smtp.secureserver.net (returns IP 72.167.238.101)
+
+
+3.
+
+[cam@C140X ~]$ host mail.maine.edu
+mail.maine.edu has address 130.111.32.94
+mail.maine.edu has IPv6 address 2610:48:100:820::94
+
+
+
+
+6.
+GET=rtcl
+OBJS=rtc.o reader.o
+CFLAGS=-g -Wall
+LIBS=
+.PHONY:all clean
+all:$(TARGET)
+$(TARGET):$(OBJS)
+        $(CC) $(LIBS) -o $(TARGET) $(OBJS)
+clean:
+        rm -f *.o core* $(TARGET)
+
+7.
+	yum search ffmpeg
+	yum install "ffmpeg"
+
+
