@@ -52,7 +52,7 @@ int main(int argc, char **argv){
 		if(avrnum == 0) break;	// break if it failed
 		strncat(buf, &chr, 1);  // add the measurement to current string
 		
-		printf("THIS IS WORKING %d\n",ttime);	
+		printf("THIS IS WORKING %d	%lf\n",ttime, voltage);	
 		
 		if(chr!=44){
 			voltage = (double) chr/117;		//If comma not returned
