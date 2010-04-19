@@ -24,11 +24,11 @@ int main(void){
 
 while(1){
 
-	while((PINB&0x07) == 7){
+	//while((PINB&0x07) == 7){
 		sprintf(display, "NO INPUT");
 		printLCD(display);
 		_delay_ms(1000);
-	}
+	//}
 	//Running conditions
 	//ALL ones from the ADC corresponds to REF voltage (1.1V)
 	//Max output from ADC - 0x03FF or 1023, scale to 1.1v
@@ -38,7 +38,7 @@ while(1){
 	while((PINB&_BV(PB0))==0){		//While PB1 is driven LOW - DC Voltmeter
 		data = adconvert(3);
 		decimal = data;
-		decimal = 200*vscale*decimal/255; //This will need calibration
+		decimal = 200*vscale*decimal/1024; //This will need calibration
 		//Scale ADC output to 200(1.1V), Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined		
 
@@ -61,16 +61,16 @@ while(1){
 		data = adconvert(4);
 		decimal = data;
 		
-		decimal = 1000*vscale*(decimal/1024); //Calibration dependent
+		decimal = 100*vscale*(decimal/1024); //Calibration dependent
 		//Scale ADC output to mA, Right shift 10 bits.
 		//This line should be correct, but vscale needs to be determined
 		display[0] = (unsigned char) (decimal/1000)%10+'0'; //1000mA		
 		display[1] = (unsigned char) (decimal/100)%10+'0'; //100mA		
 		display[2] = (unsigned char) (decimal/10)%10+'0'; //10mA
-		display[4] = (unsigned char) (decimal)%10+'0'; //1mA	
-		display[5] = 'm';
-		display[6] = 'A';
-		display[7] = '\0';	
+		display[3] = (unsigned char) (decimal)%10+'0'; //1mA	
+		display[4] = 'm';
+		display[5] = 'A';
+		display[6] = '\0';	
 		printLCD(display);	
 		_delay_ms(3000);
 	}	

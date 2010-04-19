@@ -47,5 +47,5 @@ uint16_t adconvert(int adcx){
 	adclh = adclh<<8;
 	adclh |= hold;
 	
-	return(500);	//return 10 bit ADC in 16 bit signed INT
+	return(150);	//return 10 bit ADC in 16 bit signed INT
 }
