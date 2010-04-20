@@ -28,5 +28,22 @@
 \clearpage
 \input{section04.tex}
 \clearpage
+\section{Conclusion}
+
+Most of the components and concepts presented in this report were tested and working. The typecasting and string print functions on the LCD did in fact work, and the math should have been done correctly. However, this math is subject to a calibration constant (which would have been set at compile time after testing the completed circuit with real input voltages) which was not set up at the time. The LCD demonstrated communication and output through an 8 bit, 8 character interface, using a function interface that allowed the main program to (largely) ignore how the function worked.
+
+We still do not know what the issue was with the ADCs on the chip, as we were unable to get them to work even with old code. We plan to strip down the board and rebuild it and test again, as we concluded that it was not an issue with our specific chip. There are a few ideas we still had that unfortunately due to time constraints (and once again, ADC issues) that were not implementable.
+Obviously not all these items may be workable, and it requires that the original base project works first, but they're just ideas for where this could go:
+
+\begin{itemize}
+\item Move LCD to PORT B, allowing for concurrent operation with serial USART.
+\item Adjust LCD writing function to utilize all 16 characters on display.
+\item Add more LCD writing functions to allow use of functions similar to sprintf() without manually casting.
+\item Implement an actual switch, or a three position switch for mode using two pins (DIP switch?)
+\item Switch to high-voltage operational amplifiers to ensure safety of parts
+\item Perform AC analysis using FFT, instead of the simple averaging method.
+\item Some sort of concurrent operation mode to detect power usage using both meters
+\end{itemize}
+
 
 \end{document}			% Must be included to end the document. 
