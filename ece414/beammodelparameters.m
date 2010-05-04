@@ -42,5 +42,3 @@ K = (2/5)*(R/r)^2; % factor multiplying angular acceleration
 M = 1 + (2/5)*(R/r)^2; % factor multiplying linear acceleration
 
 Jeff= Jm + Jg + Js; % effective inertia (add ball and track here)
-
-

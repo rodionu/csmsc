@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.34"
+    ComputedModelVersion    "1.35"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "cmcgary"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 29 17:41:29 2010"
-  RTWModifiedTimeStamp	  194463045
-  ModelVersionFormat	  "1.%<AutoIncrement:34>"
+  LastModifiedDate	  "Tue May  4 15:54:53 2010"
+  RTWModifiedTimeStamp	  194889262
+  ModelVersionFormat	  "1.%<AutoIncrement:35>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -583,6 +583,15 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Step
+      Time		      "1"
+      Before		      "0"
+      After		      "1"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+      ZeroCross		      on
+    }
+    Block {
       BlockType		      Sum
       IconShape		      "rectangular"
       Inputs		      "++"
@@ -600,26 +609,12 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      ZeroPole
-      Zeros		      "[1]"
-      Poles		      "[0 1]"
-      Gain		      "[1]"
+      BlockType		      TransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 2 1]"
       AbsoluteTolerance	      "auto"
       ContinuousStateAttributes	"''"
-    }
-    Block {
-      BlockType		      Constant
-      Value		      "1"
-      VectorParams1D	      on
-      SamplingMode	      "Sample based"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "fixdt(1,16,0)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "[]"
-      SampleTime	      "inf"
-      FramePeriod	      "inf"
+      Realization	      "auto"
     }
     Block {
       BlockType		      Saturate
@@ -663,7 +658,7 @@ Model {
   }
   System {
     Name		    "model"
-    Location		    [160, 300, 856, 943]
+    Location		    [573, 282, 1269, 925]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -784,18 +779,11 @@ Model {
       SampleTime	      "0"
     }
     Block {
-      BlockType		      Constant
-      Name		      "Constant"
-      Position		      [25, 480, 55, 510]
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      ZeroPole
-      Name		      "Controller"
-      Position		      [25, 572, 85, 608]
-      Zeros		      "[-1]"
-      Poles		      "[0 -1]"
+      BlockType		      TransferFcn
+      Name		      "Compensator"
+      Position		      [120, 477, 180, 513]
+      Numerator		      "zero(C)"
+      Denominator	      "pole(C)"
     }
     Block {
       BlockType		      Scope
@@ -816,9 +804,16 @@ Model {
       SampleTime	      "0"
     }
     Block {
+      BlockType		      TransferFcn
+      Name		      "Feedback"
+      Position		      [25, 577, 85, 613]
+      Numerator		      "zero(H)"
+      Denominator	      "pole(H)"
+    }
+    Block {
       BlockType		      Gain
       Name		      "Gain"
-      Position		      [145, 480, 175, 510]
+      Position		      [195, 480, 225, 510]
       Gain		      "Gv"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
@@ -898,11 +893,12 @@ Model {
       SaturateOnIntegerOverflow	off
     }
     Block {
-      BlockType		      ZeroPole
+      BlockType		      TransferFcn
       Name		      "Prefilter"
-      Position		      [70, 477, 130, 513]
-      Zeros		      "[-1]"
-      Poles		      "[0 -1]"
+      Position		      [22, 380, 58, 440]
+      Orientation	      "down"
+      Numerator		      "zero(F)"
+      Denominator	      "pole(F)"
     }
     Block {
       BlockType		      Scope
@@ -930,6 +926,13 @@ Model {
       Operator		      "square"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      Position		      [25, 325, 55, 355]
+      Orientation	      "down"
+      SampleTime	      "0"
     }
     Block {
       BlockType		      Sum
@@ -980,7 +983,7 @@ Model {
       BlockType		      Sum
       Name		      "Sum3"
       Ports		      [2, 1]
-      Position		      [190, 475, 230, 515]
+      Position		      [55, 470, 105, 520]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
@@ -1313,7 +1316,7 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Sum3"
+      SrcBlock		      "Gain"
       SrcPort		      1
       DstBlock		      "Gain\nSaturation"
       DstPort		      1
@@ -1368,7 +1371,7 @@ Model {
       }
       Branch {
 	Points			[0, -120; -600, 0]
-	DstBlock		"Controller"
+	DstBlock		"Feedback"
 	DstPort			1
       }
     }
@@ -1393,26 +1396,32 @@ Model {
       DstPort		      1
     }
     Line {
+      SrcBlock		      "Feedback"
+      SrcPort		      1
+      Points		      [15, 0; 0, -60]
+      DstBlock		      "Sum3"
+      DstPort		      2
+    }
+    Line {
       SrcBlock		      "Prefilter"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Compensator"
       SrcPort		      1
       DstBlock		      "Gain"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Gain"
+      SrcBlock		      "Sum3"
       SrcPort		      1
-      DstBlock		      "Sum3"
+      DstBlock		      "Compensator"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Controller"
-      SrcPort		      1
-      Points		      [120, 0]
-      DstBlock		      "Sum3"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Constant"
+      SrcBlock		      "Step"
       SrcPort		      1
       DstBlock		      "Prefilter"
       DstPort		      1
