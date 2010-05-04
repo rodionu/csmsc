@@ -1,0 +1,103 @@
+Cameron McGary	Homework 14 - ECE 331
+
+1
+	tail --lines=75 /var/log/messages >taillog
+
+2
+	scp *.[ch] hal@cleveland:/tmp
+
+3
+	3yy p
+
+5
+	Assuming marmot is in the active directory
+	ln marmot /etc/rc.d/rc5.d/S99marmot --symbolic (Fedora)
+	
+	OR ln marmot /etc/rc5.d/S99marmot --symbolic (Ubuntu)
+6
+	chmod ~/* 755
+
+7
+	Regular files, device special files, symbolic links, directories
+
+8
+	find /* -size 0b
+
+9
+	Code of ethics?
+
+10
+	([^)])	<open parenthesis, all chars except ), ).
+
+12
+	#!usr/bin/perl
+	while(1){
+		<STDIN>;
+		`mpg321 musicfile`;
+	}
+
+
+13
+	Resource Manager
+
+14
+	Carrier Sense Multiple Access / Collision Detection
+Basically allows Ethernet devices to detect when they are sending at the same
+time and back off.
+
+15
+	If collisions are undetected, data will be corrupted in transfer. This not
+only makes the entire network slower, but renders connectionless protocols such
+as UDP absolutely useless.
+
+16
+	Netmask - 255.255.240.0		Broadcast Address - 45.56.207.255
+
+17
+	Zone files
+	Nameserver record
+	Mail exchange record
+	Canonical name record
+	Address record
+	Pointer record
+	(from wikipedia)
+
+
+18
+	yum install yum-presto
+	yum upgrade
+	yum clean all
+	wget
+	ftp://download.fedora.redhat.com/pub/fedora/linux/releases/12/Fedora/x86_64/os/Packages/fedora-release-*.noarch.rpm
+	rpm -Uvh fedora-release-*.rpm
+
+	yum upgrade
+
+above commands used from guide at:
+http://rackerhacker.com/2009/12/07/upgrading-fedora-11-to-12-using-yum/
+
+
+19
+	Race: When code does not prevent two things from trying to execute or resolve
+themselves at the same time, for example, taking a variable and performing some
+operation with it. EXAMPLE: two processes on an SMP machine read a variable and
+perform a different mathematical operation on it and write it back at the same time.
+There is no way to predict to a reasonable certainty what the final value of
+that variable will be. Good code will PREVENT this from happening.
+
+	Semaphore: A type of lock that puts a process to sleep if it is waiting
+to obtain a lock. Unlike the spinlock, this allows the processor to perform
+other tasks while the process is waiting to acquire a lock.
+
+	Concurrency: The ability to be working on the same data with other processes,
+without corrupting data. Locking is essential to achieve this.
+
+	Deadlock: When program execution is halted because a process is holding a lock
+when it shouldn't be. EXAMPLE: Process 1 is holding a lock on variable A until it
+can lock variable B. Process 2 is locking B until it can get a lock on A. Neither
+process can move forward. If a spinlock, everything stops.
+
+20
+	A kernel oops occurs when a problem in a process is detected by the kernel,
+the process is immediately killed. This may have adverse effects and can lead
+to a panic if resources provided by that process are accessed.
