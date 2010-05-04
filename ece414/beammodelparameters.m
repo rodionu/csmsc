@@ -22,7 +22,7 @@ Lm = 7.5e-3;
 % other parameters
 Jg = 5.2e-6;
 Js = 1.4e-6;
-Gv = 2;
+Gv = 4;
 Vlim = 50; % voltage limit on power amplifier output
 Ks = 10; % position sensor volts per meter
 Xquant = 0.01; % (0.1v/cm)*(1cm/10mm) = 0.01v/mm position quantization volts
