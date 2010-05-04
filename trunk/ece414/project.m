@@ -8,11 +8,10 @@ gze = [0+2.9624*j 0-2.9624*j];
 gdp = [0 0 0 -451.8660 -81.5204];
 
 G = zpk(gze,gdp,1);
+C = ;               %Compensator
 
-F = tf((s+50)/(s+200));          %Prefilter
-H = tf((s+1)/(s*(s+1)));           %Feedback amp
-%L = G*F;        %Forward path gain
-%T = L/(1+G*H);  %CLTF
+F = tf(1/(s+1));
+H = tf(1);
+L = G*C*F;      %Forward path gain
+T = L/(1+G*H);  %CLTF
 
-%[num,den] = tfdata(L,'v');
-%rlocus(num,den,0:.1:1000);
