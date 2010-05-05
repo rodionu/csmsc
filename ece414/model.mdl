@@ -1,36 +1,18 @@
 Model {
   Name			  "model"
-  Version		  7.4
+  Version		  7.0
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.36"
+    ComputedModelVersion    "1.38"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
   SavedCharacterEncoding  "windows-1252"
   SaveDefaultBlockParams  on
-  ScopeRefreshTime	  0.035000
-  OverrideScopeRefreshTime on
-  DisableAllScopes	  off
-  DataTypeOverride	  "UseLocalSettings"
-  MinMaxOverflowLogging	  "UseLocalSettings"
-  MinMaxOverflowArchiveMode "Overwrite"
-  MaxMDLFileLineLength	  120
-  Created		  "Thu Mar 04 08:24:49 2010"
-  Creator		  "Duane"
-  UpdateHistory		  "UpdateHistoryNever"
-  ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Cam"
-  ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue May 04 20:21:09 2010"
-  RTWModifiedTimeStamp	  194905244
-  ModelVersionFormat	  "1.%<AutoIncrement:36>"
-  ConfigurationManager	  "None"
   SampleTimeColors	  off
-  SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "none"
   WideLines		  off
   ShowLineDimensions	  off
@@ -39,11 +21,16 @@ Model {
   IgnoreBidirectionalLines off
   ShowStorageClass	  off
   ShowTestPointIcons	  on
-  ShowSignalResolutionIcons on
   ShowViewerIcons	  on
   SortedOrder		  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
@@ -51,6 +38,16 @@ Model {
   StatusBar		  on
   BrowserShowLibraryLinks off
   BrowserLookUnderMasks	  off
+  Created		  "Thu Mar 04 08:24:49 2010"
+  Creator		  "Duane"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "cmcgary"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Wed May  5 15:21:46 2010"
+  RTWModifiedTimeStamp	  194973584
+  ModelVersionFormat	  "1.%<AutoIncrement:38>"
+  ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
   Profile		  off
@@ -65,14 +62,11 @@ Model {
   CovMetricSettings	  "dw"
   CovNameIncrementing	  off
   CovHtmlReporting	  on
-  CovForceBlockReductionOff on
   covSaveCumulativeToWorkspaceVar on
   CovSaveSingleToWorkspaceVar on
   CovCumulativeVarName	  "covCumulativeData"
   CovCumulativeReport	  off
   CovReportOnPause	  on
-  CovModelRefEnable	  "Off"
-  CovExternalEMLEnable	  off
   ExtModeBatchMode	  off
   ExtModeEnableFloating	  on
   ExtModeTrigType	  "manual"
@@ -102,13 +96,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      1
-      Version		      "1.6.0"
+      Version		      "1.3.0"
       Array {
 	Type			"Handle"
-	Dimension		8
+	Dimension		7
 	Simulink.SolverCC {
 	  $ObjectID		  2
-	  Version		  "1.6.0"
+	  Version		  "1.3.0"
 	  StartTime		  "0.0"
 	  StopTime		  "15"
 	  AbsTol		  "auto"
@@ -116,7 +110,6 @@ Model {
 	  InitialStep		  "auto"
 	  MaxNumMinSteps	  "-1"
 	  MaxOrder		  5
-	  ZcThreshold		  "auto"
 	  ConsecutiveZCsStepRelTol "10*128*eps"
 	  MaxConsecutiveZCs	  "1000"
 	  ExtrapolationOrder	  4
@@ -128,19 +121,17 @@ Model {
 	  SolverMode		  "Auto"
 	  Solver		  "ode45"
 	  SolverName		  "ode45"
-	  ShapePreserveControl	  "DisableAll"
 	  ZeroCrossControl	  "UseLocalSettings"
-	  ZeroCrossAlgorithm	  "Nonadaptive"
 	  AlgebraicLoopSolver	  "TrustRegion"
 	  SolverResetMethod	  "Fast"
 	  PositivePriorityOrder	  off
 	  AutoInsertRateTranBlk	  off
 	  SampleTimeConstraint	  "Unconstrained"
-	  InsertRTBMode		  "Whenever possible"
+	  RateTranMode		  "Deterministic"
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  3
-	  Version		  "1.6.0"
+	  Version		  "1.3.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -150,26 +141,22 @@ Model {
 	  LoadExternalInput	  off
 	  LoadInitialState	  off
 	  SaveFinalState	  off
-	  SaveCompleteFinalSimState off
 	  SaveFormat		  "Array"
 	  SaveOutput		  on
 	  SaveState		  off
 	  SignalLogging		  on
 	  InspectSignalLogs	  off
 	  SaveTime		  on
-	  ReturnWorkspaceOutputs  off
 	  StateSaveName		  "xout"
 	  TimeSaveName		  "tout"
 	  OutputSaveName	  "yout"
 	  SignalLoggingName	  "logsout"
 	  OutputOption		  "RefineOutputTimes"
 	  OutputTimes		  "[]"
-	  ReturnWorkspaceOutputsName "out"
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  4
-	  Version		  "1.6.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    7
@@ -182,22 +169,16 @@ Model {
 	    Cell		    "NoFixptDivByZeroProtection"
 	    PropName		    "DisabledProps"
 	  }
+	  Version		  "1.3.0"
 	  BlockReduction	  on
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
 	  InlineParams		  off
-	  UseIntDivNetSlope	  off
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  on
 	  BufferReuse		  on
-	  EnhancedBackFolding	  off
-	  StrengthReduction	  off
 	  EnforceIntegerDowncast  on
 	  ExpressionFolding	  on
-	  BooleansAsBitfields	  off
-	  EnableMemcpy		  on
-	  MemcpyThreshold	  64
-	  PassReuseOutputArgsAs	  "Structure reference"
 	  ExpressionDepthLimit	  2147483647
 	  FoldNonRolledExpr	  on
 	  LocalBlockOutputs	  on
@@ -211,7 +192,6 @@ Model {
 	  InitFltsAndDblsToZero	  off
 	  NoFixptDivByZeroProtection off
 	  EfficientFloat2IntCast  off
-	  EfficientMapNaN2IntZero on
 	  OptimizeModelRefInitCode off
 	  LifeSpan		  "inf"
 	  BufferReusableBoundary  on
@@ -220,7 +200,7 @@ Model {
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  5
-	  Version		  "1.6.0"
+	  Version		  "1.3.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -234,8 +214,6 @@ Model {
 	  SaveWithDisabledLinksMsg "warning"
 	  SaveWithParameterizedLinksMsg	"warning"
 	  CheckSSInitialOutputMsg on
-	  UnderspecifiedInitializationDetection	"Classic"
-	  MergeDetectMultiDrivingBlocksExec "none"
 	  CheckExecutionContextPreStartOutputMsg off
 	  CheckExecutionContextRuntimeOutputMsg	off
 	  SignalResolutionControl "UseLocalSettings"
@@ -260,9 +238,6 @@ Model {
 	  ParameterUnderflowMsg	  "none"
 	  ParameterPrecisionLossMsg "warning"
 	  ParameterTunabilityLossMsg "warning"
-	  FixptConstUnderflowMsg  "none"
-	  FixptConstOverflowMsg	  "none"
-	  FixptConstPrecisionLossMsg "none"
 	  UnderSpecifiedDataTypeMsg "none"
 	  UnnecessaryDatatypeConvMsg "none"
 	  VectorMatrixConversionMsg "none"
@@ -282,19 +257,18 @@ Model {
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
 	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
 	  UnknownTsInhSupMsg	  "warning"
 	  ModelReferenceDataLoggingMessage "warning"
 	  ModelReferenceSymbolNameMessage "warning"
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
-	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  StrictBusMsg		  "Warning"
 	  LoggingUnavailableSignals "error"
-	  BlockIODiagnostic	  "none"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
-	  Version		  "1.6.0"
+	  Version		  "1.3.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
@@ -321,30 +295,16 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  7
-	  Version		  "1.6.0"
+	  Version		  "1.3.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
 	  ModelReferenceNumInstancesAllowed "Multi"
 	  ModelReferencePassRootInputsByReference on
 	  ModelReferenceMinAlgLoopOccurrences off
 	}
-	Simulink.SFSimCC {
-	  $ObjectID		  8
-	  Version		  "1.6.0"
-	  SFSimEnableDebug	  on
-	  SFSimOverflowDetection  on
-	  SFSimEcho		  on
-	  SimBlas		  on
-	  SimCtrlC		  on
-	  SimExtrinsic		  on
-	  SimIntegrity		  on
-	  SimUseLocalCustomCode	  off
-	  SimBuildMode		  "sf_incremental_build"
-	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  9
-	  Version		  "1.6.0"
+	  $ObjectID		  8
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -356,6 +316,7 @@ Model {
 	    Cell		    "GenerateTraceReportEml"
 	    PropName		    "DisabledProps"
 	  }
+	  Version		  "1.3.0"
 	  SystemTargetFile	  "grt.tlc"
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
@@ -372,27 +333,18 @@ Model {
 	  ProcessScriptMode	  "Default"
 	  ConfigurationMode	  "Optimized"
 	  ConfigAtBuild		  off
-	  RTWUseLocalCustomCode	  off
-	  RTWUseSimCustomCode	  off
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
 	  IncludeERTFirstTime	  off
 	  GenerateTraceInfo	  off
-	  GenerateTraceReport	  off
-	  GenerateTraceReportSl	  off
-	  GenerateTraceReportSf	  off
-	  GenerateTraceReportEml  off
-	  GenerateCodeInfo	  off
 	  RTWCompilerOptimization "Off"
-	  CheckMdlBeforeBuild	  "Off"
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      10
-	      Version		      "1.6.0"
+	      $ObjectID		      9
 	      Array {
 		Type			"Cell"
 		Dimension		19
@@ -417,10 +369,10 @@ Model {
 		Cell			"ReqsInCode"
 		PropName		"DisabledProps"
 	      }
+	      Version		      "1.3.0"
 	      ForceParamTrailComments off
 	      GenerateComments	      on
 	      IgnoreCustomStorageClasses on
-	      IgnoreTestpoints	      off
 	      IncHierarchyInIds	      off
 	      MaxIdLength	      31
 	      PreserveName	      off
@@ -435,7 +387,6 @@ Model {
 	      CustomSymbolStrType     "$N$R$M"
 	      CustomSymbolStrField    "$N$M"
 	      CustomSymbolStrFcn      "$R$N$M$F"
-	      CustomSymbolStrFcnArg   "rt$I$N$M"
 	      CustomSymbolStrBlkIO    "rtb_$N$M"
 	      CustomSymbolStrTmpVar   "$N$M"
 	      CustomSymbolStrMacro    "$R$N$M"
@@ -447,12 +398,10 @@ Model {
 	      EnableCustomComments    off
 	      InlinedPrmAccess	      "Literals"
 	      ReqsInCode	      off
-	      UseSimReservedNames     off
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      11
-	      Version		      "1.6.0"
+	      $ObjectID		      10
 	      Array {
 		Type			"Cell"
 		Dimension		17
@@ -475,26 +424,21 @@ Model {
 		Cell			"PortableWordSizes"
 		PropName		"DisabledProps"
 	      }
+	      Version		      "1.3.0"
 	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
-	      TargetFunctionLibrary   "ANSI_C"
+	      GenFloatMathFcnCalls    "ANSI_C"
 	      UtilityFuncGeneration   "Auto"
-	      ERTMultiwordTypeDef     "System defined"
-	      ERTMultiwordLength      256
-	      MultiwordLength	      2048
 	      GenerateFullHeader      on
 	      GenerateSampleERTMain   off
 	      GenerateTestInterfaces  off
 	      IsPILTarget	      off
 	      ModelReferenceCompliant on
-	      ParMdlRefBuildCompliant on
 	      CompOptLevelCompliant   on
 	      IncludeMdlTerminateFcn  on
-	      GeneratePreprocessorConditionals "Disable all"
 	      CombineOutputUpdateFcns off
 	      SuppressErrorStatus     off
-	      ERTFirstTimeCompliant   off
 	      IncludeFileDelimiter    "Auto"
 	      ERTCustomFileBanners    off
 	      SupportAbsoluteTime     on
@@ -506,14 +450,10 @@ Model {
 	      PurelyIntegerCode	      off
 	      SupportContinuousTime   on
 	      SupportNonInlinedSFcns  on
-	      SupportVariableSizeSignals off
 	      EnableShiftOperators    on
 	      ParenthesesLevel	      "Nominal"
 	      PortableWordSizes	      off
 	      ModelStepFunctionPrototypeControlCompliant off
-	      CPPClassGenCompliant    off
-	      AutosarCompliant	      off
-	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
 	      ExtModeTesting	      off
@@ -533,7 +473,6 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition    " [ 840, 485, 1720, 1115 ] "
     }
     PropName		    "ConfigurationSets"
   }
@@ -542,6 +481,7 @@ Model {
     $ObjectID		    1
   }
   BlockDefaults {
+    Orientation		    "right"
     ForegroundColor	    "black"
     BackgroundColor	    "white"
     DropShadow		    off
@@ -551,26 +491,6 @@ Model {
     FontWeight		    "normal"
     FontAngle		    "normal"
     ShowName		    on
-    BlockRotation	    0
-    BlockMirror		    off
-  }
-  AnnotationDefaults {
-    HorizontalAlignment	    "center"
-    VerticalAlignment	    "middle"
-    ForegroundColor	    "black"
-    BackgroundColor	    "white"
-    DropShadow		    off
-    FontName		    "Helvetica"
-    FontSize		    10
-    FontWeight		    "normal"
-    FontAngle		    "normal"
-    UseDisplayTextAsClickCallback off
-  }
-  LineDefaults {
-    FontName		    "Helvetica"
-    FontSize		    9
-    FontWeight		    "normal"
-    FontAngle		    "normal"
   }
   BlockParameterDefaults {
     Block {
@@ -583,13 +503,11 @@ Model {
       ParameterDataType	      "fixdt(1,16,0)"
       ParameterScalingMode    "Best Precision: Matrix-wise"
       ParameterScaling	      "[]"
-      ParamDataTypeStr	      "Inherit: Same as input"
       OutMin		      "[]"
       OutMax		      "[]"
       OutDataTypeMode	      "Same as input"
       OutDataType	      "fixdt(1,16,0)"
       OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Same as input"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -620,13 +538,17 @@ Model {
       OutDataTypeMode	      "Same as first input"
       OutDataType	      "fixdt(1,16,0)"
       OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Same as first input"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
-      IntermediateResultsDataTypeStr "Inherit: Inherit via internal rule"
-      AlgorithmType	      "Newton-Raphson"
-      Iterations	      "3"
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
     }
     Block {
       BlockType		      Product
@@ -640,7 +562,6 @@ Model {
       OutDataTypeMode	      "Same as first input"
       OutDataType	      "fixdt(1,16,0)"
       OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Same as first input"
       LockScale		      off
       RndMeth		      "Zero"
       SaturateOnIntegerOverflow	on
@@ -651,22 +572,6 @@ Model {
       QuantizationInterval    "0.5"
       LinearizeAsGain	      on
       SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Saturate
-      UpperLimit	      "0.5"
-      LowerLimit	      "-0.5"
-      LinearizeAsGain	      on
-      ZeroCross		      on
-      SampleTime	      "-1"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeMode	      "Same as input"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Same as input"
-      LockScale		      off
-      RndMeth		      "Floor"
     }
     Block {
       BlockType		      Scope
@@ -686,28 +591,17 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      Step
-      Time		      "1"
-      Before		      "0"
-      After		      "1"
-      SampleTime	      "-1"
-      VectorParams1D	      on
-      ZeroCross		      on
-    }
-    Block {
       BlockType		      Sum
       IconShape		      "rectangular"
       Inputs		      "++"
       CollapseMode	      "All dimensions"
       CollapseDim	      "1"
       InputSameDT	      on
-      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
       OutMin		      "[]"
       OutMax		      "[]"
       OutDataTypeMode	      "Same as first input"
       OutDataType	      "fixdt(1,16,0)"
       OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Same as first input"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -722,15 +616,67 @@ Model {
       Realization	      "auto"
     }
     Block {
+      BlockType		      ZeroPole
+      Zeros		      "[1]"
+      Poles		      "[0 1]"
+      Gain		      "[1]"
+      AbsoluteTolerance	      "auto"
+      ContinuousStateAttributes	"''"
+    }
+    Block {
+      BlockType		      DiscretePulseGenerator
+      PulseType		      "Sample based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Period		      "2"
+      PulseWidth	      "1"
+      PhaseDelay	      "0"
+      SampleTime	      "1"
+      VectorParams1D	      on
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      Trigonometry
       Operator		      "sin"
       OutputSignalType	      "auto"
       SampleTime	      "-1"
     }
   }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
   System {
     Name		    "model"
-    Location		    [573, 270, 1269, 925]
+    Location		    [239, 158, 935, 813]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -744,18 +690,15 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    38
     Block {
       BlockType		      Integrator
       Name		      "Acc to Vel"
-      SID		      1
       Ports		      [1, 1]
       Position		      [300, 320, 330, 350]
     }
     Block {
       BlockType		      Scope
       Name		      "Accel"
-      SID		      2
       Ports		      [1]
       Position		      [300, 264, 330, 296]
       Floating		      off
@@ -773,31 +716,27 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "BackEMF"
-      SID		      3
-      Position		      [300, 396, 340, 434]
-      BlockMirror	      on
+      Position		      [346, 400, 384, 440]
+      Orientation	      "down"
+      NamePlacement	      "alternate"
       Gain		      "Kt*N"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Integrator
       Name		      "Ball Acc to Vel"
-      SID		      4
       Ports		      [1, 1]
       Position		      [285, 195, 315, 225]
     }
     Block {
       BlockType		      Scope
       Name		      "Ball Accel"
-      SID		      5
       Ports		      [1]
       Position		      [285, 129, 315, 161]
       Floating		      off
@@ -815,14 +754,12 @@ Model {
     Block {
       BlockType		      Quantizer
       Name		      "Ball Position\nQuantization"
-      SID		      6
       Position		      [620, 130, 650, 160]
       QuantizationInterval    "Xquant"
     }
     Block {
       BlockType		      Integrator
       Name		      "Ball Vel to Pos"
-      SID		      7
       Ports		      [1, 1]
       Position		      [375, 195, 405, 225]
       InitialCondition	      "x_o"
@@ -830,7 +767,6 @@ Model {
     Block {
       BlockType		      Scope
       Name		      "Ball Velocity"
-      SID		      8
       Ports		      [1]
       Position		      [375, 129, 405, 161]
       Floating		      off
@@ -848,7 +784,6 @@ Model {
     Block {
       BlockType		      Scope
       Name		      "Ball position"
-      SID		      9
       Ports		      [1]
       Position		      [445, 129, 475, 161]
       Floating		      off
@@ -864,17 +799,16 @@ Model {
       SampleTime	      "0"
     }
     Block {
-      BlockType		      TransferFcn
+      BlockType		      ZeroPole
       Name		      "Compensator"
-      SID		      10
       Position		      [120, 477, 180, 513]
-      Numerator		      "1"
-      Denominator	      "1"
+      Zeros		      "Cn"
+      Poles		      "Cd"
+      Gain		      "ck"
     }
     Block {
       BlockType		      Scope
       Name		      "Current"
-      SID		      11
       Ports		      [1]
       Position		      [515, 419, 545, 451]
       Floating		      off
@@ -891,9 +825,16 @@ Model {
       SampleTime	      "0"
     }
     Block {
+      BlockType		      ZeroPole
+      Name		      "F"
+      Position		      [32, 375, 68, 435]
+      Orientation	      "down"
+      Zeros		      "[]"
+      Poles		      "[-1]"
+    }
+    Block {
       BlockType		      TransferFcn
       Name		      "Feedback"
-      SID		      12
       Position		      [25, 577, 85, 613]
       Numerator		      "1"
       Denominator	      "1"
@@ -901,24 +842,20 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Gain"
-      SID		      13
       Position		      [195, 480, 225, 510]
       Gain		      "Gv"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Saturate
       Name		      "Gain\nSaturation"
-      SID		      14
-      Position		      [250, 480, 280, 510]
+      Position		      [255, 480, 285, 510]
       UpperLimit	      "Vlim"
       LowerLimit	      "-Vlim"
       OutDataType	      "fixdt(1, 16)"
@@ -927,94 +864,90 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Gain1"
-      SID		      15
       Position		      [200, 265, 230, 295]
-      BlockMirror	      on
+      Orientation	      "left"
       Gain		      "K"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "Gain3"
-      SID		      16
-      Position		      [435, 520, 465, 550]
-      BlockMirror	      on
+      Position		      [435, 530, 465, 560]
+      Orientation	      "down"
+      NamePlacement	      "alternate"
       Gain		      "Rm"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "Gravity"
-      SID		      17
       Position		      [550, 320, 580, 350]
       Gain		      "g"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Integrator
       Name		      "Idot to I"
-      SID		      18
       Ports		      [1, 1]
       Position		      [435, 465, 465, 495]
     }
     Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [2, 1]
+      Position		      [160, 571, 165, 609]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Gain
       Name		      "Position\nSensor"
-      SID		      19
       Position		      [515, 130, 545, 160]
       Gain		      "Ks"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
-      BlockType		      TransferFcn
-      Name		      "Prefilter"
-      SID		      20
-      Position		      [22, 380, 58, 440]
-      BlockRotation	      270
-      BlockMirror	      on
-      Numerator		      "Fn"
-      Denominator	      "Fp"
+      BlockType		      DiscretePulseGenerator
+      Name		      "Pulse\nGenerator"
+      Ports		      [0, 1]
+      Position		      [33, 255, 67, 300]
+      Orientation	      "down"
+      PulseType		      "Time based"
+      Period		      "8"
+      PulseWidth	      "50"
     }
     Block {
       BlockType		      Scope
       Name		      "Scope"
-      SID		      21
       Ports		      [1]
-      Position		      [180, 124, 210, 156]
+      Position		      [255, 569, 285, 601]
       Floating		      off
-      Location		      [377, 207, 701, 446]
+      Location		      [1, 52, 1281, 975]
       Open		      off
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
@@ -1027,9 +960,44 @@ Model {
       SampleTime	      "0"
     }
     Block {
+      BlockType		      Scope
+      Name		      "Scope1"
+      Ports		      [1]
+      Position		      [120, 364, 150, 396]
+      Floating		      off
+      Location		      [377, 207, 701, 446]
+      Open		      off
+      NumInputPorts	      "1"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData8"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope2"
+      Ports		      [1]
+      Position		      [190, 569, 220, 601]
+      Floating		      off
+      Location		      [1, 52, 1281, 975]
+      Open		      off
+      NumInputPorts	      "1"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData9"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
       BlockType		      Math
       Name		      "Square"
-      SID		      22
       Ports		      [1, 1]
       Position		      [435, 230, 465, 260]
       Operator		      "square"
@@ -1037,83 +1005,68 @@ Model {
       OutScaling	      "2^0"
     }
     Block {
-      BlockType		      Step
-      Name		      "Step"
-      SID		      23
-      Position		      [25, 325, 55, 355]
-      BlockRotation	      270
-      BlockMirror	      on
-      After		      ".05"
-      SampleTime	      "0"
-    }
-    Block {
       BlockType		      Sum
       Name		      "Sum"
-      SID		      24
       Ports		      [3, 1]
       Position		      [155, 190, 195, 230]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+--"
+      CollapseMode	      "All dimensions"
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Sum
       Name		      "Sum1"
-      SID		      25
       Ports		      [3, 1]
       Position		      [305, 460, 345, 500]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|-+-"
+      CollapseMode	      "All dimensions"
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Sum
       Name		      "Sum2"
-      SID		      26
       Ports		      [2, 1]
       Position		      [155, 325, 175, 345]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
+      CollapseMode	      "All dimensions"
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Sum
       Name		      "Sum3"
-      SID		      27
       Ports		      [2, 1]
       Position		      [55, 470, 105, 520]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
+      CollapseMode	      "All dimensions"
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Scope
       Name		      "Theta"
-      SID		      28
       Ports		      [1]
       Position		      [515, 264, 545, 296]
       Floating		      off
@@ -1131,14 +1084,12 @@ Model {
     Block {
       BlockType		      Quantizer
       Name		      "Theta\nQuantization"
-      SID		      29
       Position		      [620, 370, 650, 400]
       QuantizationInterval    "Tquant"
     }
     Block {
       BlockType		      Scope
       Name		      "ThetaDot"
-      SID		      30
       Ports		      [1]
       Position		      [390, 264, 420, 296]
       Floating		      off
@@ -1156,78 +1107,64 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "To Idot"
-      SID		      31
       Position		      [375, 464, 415, 496]
       Gain		      "1/Lm"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "ToAccel"
-      SID		      32
       Position		      [220, 195, 250, 225]
       Gain		      "1/M"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "ToAccel2"
-      SID		      33
       Position		      [195, 320, 250, 350]
       Gain		      "1/Jeff"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "Torque\nConstant"
-      SID		      34
       Position		      [515, 465, 555, 495]
       Gain		      "Kt/N"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Trigonometry
       Name		      "Trigonometric\nFunction"
-      SID		      35
       Ports		      [1, 1]
       Position		      [500, 320, 530, 350]
     }
     Block {
       BlockType		      Integrator
       Name		      "Vel to Pos"
-      SID		      36
       Ports		      [1, 1]
       Position		      [435, 320, 465, 350]
       InitialCondition	      "theta_o"
@@ -1235,34 +1172,28 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Viscous\nFriction"
-      SID		      37
-      Position		      [217, 395, 253, 425]
-      BlockRotation	      270
-      BlockMirror	      on
-      NamePlacement	      "alternate"
+      Position		      [215, 395, 245, 435]
+      Orientation	      "down"
       Gain		      "Bm"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "fixdt(1, 16)"
       ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Product
       Name		      "x*thetadot^2"
-      SID		      38
       Ports		      [2, 1]
       Position		      [515, 201, 545, 234]
       Inputs		      "**"
+      CollapseMode	      "All dimensions"
       InputSameDT	      off
       OutDataTypeMode	      "Inherit via internal rule"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^-10"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	off
     }
@@ -1355,15 +1286,9 @@ Model {
     Line {
       SrcBlock		      "x*thetadot^2"
       SrcPort		      1
-      Points		      [15, 0; 0, -110; -420, 0; 0, 30]
-      Branch {
-	DstBlock		"Sum"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Scope"
-	DstPort			1
-      }
+      Points		      [15, 0; 0, -110; -420, 0]
+      DstBlock		      "Sum"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Acc to Vel"
@@ -1385,12 +1310,11 @@ Model {
 	  Branch {
 	    Points		    [0, 55]
 	    Branch {
-	      Points		      [-130, 0]
+	      Points		      [-135, 0]
 	      DstBlock		      "Viscous\nFriction"
 	      DstPort		      1
 	    }
 	    Branch {
-	      Points		      [0, 30]
 	      DstBlock		      "BackEMF"
 	      DstPort		      1
 	    }
@@ -1406,7 +1330,7 @@ Model {
     Line {
       SrcBlock		      "Gain3"
       SrcPort		      1
-      Points		      [-65, 0]
+      Points		      [-45, 0]
       DstBlock		      "Sum1"
       DstPort		      3
     }
@@ -1454,15 +1378,9 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Gain"
-      SrcPort		      1
-      DstBlock		      "Gain\nSaturation"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Gain\nSaturation"
       SrcPort		      1
-      Points		      [5, 0; 0, 2]
+      Points		      [0, 2]
       DstBlock		      "Sum1"
       DstPort		      2
     }
@@ -1495,7 +1413,6 @@ Model {
     Line {
       SrcBlock		      "Viscous\nFriction"
       SrcPort		      1
-      Points		      [-30, 0]
       DstBlock		      "Sum2"
       DstPort		      2
     }
@@ -1528,15 +1445,17 @@ Model {
     Line {
       SrcBlock		      "Feedback"
       SrcPort		      1
-      Points		      [15, 0; 0, -60]
-      DstBlock		      "Sum3"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Prefilter"
-      SrcPort		      1
-      DstBlock		      "Sum3"
-      DstPort		      1
+      Points		      [15, 0]
+      Branch {
+	Points			[0, -60]
+	DstBlock		"Sum3"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 5]
+	DstBlock		"Mux"
+	DstPort			2
+      }
     }
     Line {
       SrcBlock		      "Compensator"
@@ -1551,16 +1470,59 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Step"
-      SrcPort		      1
-      DstBlock		      "Prefilter"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Ball Position\nQuantization"
       SrcPort		      1
       Points		      [10, 0; 0, -130; -655, 0]
       DstBlock		      "Feedback"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "F"
+      SrcPort		      1
+      Points		      [0, 55]
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain"
+      SrcPort		      1
+      Points		      [5, 0]
+      Branch {
+	DstBlock		"Gain\nSaturation"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 90]
+	DstBlock		"Scope"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Pulse\nGenerator"
+      SrcPort		      1
+      Points		      [0, 30]
+      Branch {
+	DstBlock		"F"
+	DstPort			1
+      }
+      Branch {
+	Points			[40, 0; 0, 45]
+	Branch {
+	  DstBlock		  "Scope1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 200]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      Points		      [0, -5]
+      DstBlock		      "Scope2"
       DstPort		      1
     }
     Annotation {

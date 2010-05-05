@@ -42,3 +42,16 @@ K = (2/5)*(R/r)^2; % factor multiplying angular acceleration
 M = 1 + (2/5)*(R/r)^2; % factor multiplying linear acceleration
 
 Jeff= Jm + Jg + Js; % effective inertia (add ball and track here)
+
+s = tf('s');
+Gnum = ((-4*Kt*g)/(Lm*s*Jeff*s*s*N*M*s*s));
+Gden = (1+((1/Lm)*(Rm/s)+Bm/(Jeff*s)+(Kt*Kt)/(Lm*s*Jeff*s))+(R*Bm)/(Lm*s^2*Jeff));
+G = tf(Gnum/Gden);
+G = minreal(G);
+
+ck = -100;
+C = zpk([-1 -1 -1],[-3 -3 -3],1);
+Cn = zero(C)';
+Cd = pole(C)';
+
+
