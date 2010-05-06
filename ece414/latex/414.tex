@@ -1,8 +1,9 @@
 \documentclass[11pt]{article}	%Default was article
-\usepackage{fullpage,graphicx,listings}		%Reduces line margins to a more reasonable 1". also graphix
+\usepackage{fullpage,graphicx,listings, placeins}		%Reduces line margins to a more reasonable 1". also graphix - PLACEINS adds \FloatBarrier - flush floats before THIS LINE
 
 \title{ECE-414 - Control system project} %EDIT THESE! the \\ gives a new line!
-\author{Cameron S. McGary, Antoinette Demers} 
+\author{Cameron S. McGary, Antoinette N. Demers} 
+
 \date{\today} 			% The \today command fills in the date when printed, you can type what ever you want here!
 
 
@@ -17,10 +18,15 @@
 \thispagestyle{empty} 		% We dont want any page numbers on THIS page
 \setcounter{page}{0} 		% Reset the page count to zero. 
 
+\listoffigures
+\thispagestyle{empty} 		% We dont want any page numbers on THIS page
+\setcounter{page}{0} 		% Reset the page count to zero. 
 
 \newpage			% This starts a new page, handy to keep sections at the top of pages. LaTeX is smart about the rest of the text, so trust it!
 
 \input{section01.tex}		% The additional sections work like this
+\clearpage
+\input{transfunct.tex}
 \clearpage
 \input{section02.tex}
 \clearpage
@@ -29,6 +35,9 @@
 \input{section04.tex}
 \clearpage
 \section{Conclusion}
+The controller works. It manages to successfully guide the plant in moving the ball to a given position on the track. The initial control effort is fairly high, but it settles out to a  moderate value. With the final design the overshoot is so minimal that the ball will not fall off the track entirely and can in fact be stopped at the target position. While the initial attempts to design the control system using Linear algebraic method was unsuccessful due to the nature of the plant, the latter attempts using a root locus design were quite successful in achieving a workable controller. A more accurate and less wasteful design was completed using the sisotool in MATLAB. 
+\clearpage
+\input{appendices.tex}
 
 
 
