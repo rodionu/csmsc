@@ -15,9 +15,9 @@ r = 0.3; % rolling radius of ball in cm
 % typical motor parameters
 Jm = 5e-5;
 Bm = 3e-6;
-Kt = 0.125;
-Rm = 4;
-Lm = 7.5e-3;
+Kt = 0.225;
+Rm = 8;
+Lm = 25e-3;
 
 % other parameters
 Jg = 5.2e-6;
@@ -29,7 +29,7 @@ Xquant = 0.01; % (0.1v/cm)*(1cm/10mm) = 0.01v/mm position quantization volts
 Tquant = 2*pi/1024; % theta quantization
 
 % gear box ratio
-N = 100; % between 10 and 500
+N = 465; % between 10 and 500
 
 % add other things you need to add?
 
@@ -44,14 +44,23 @@ M = 1 + (2/5)*(R/r)^2; % factor multiplying linear acceleration
 Jeff= Jm + Jg + Js; % effective inertia (add ball and track here)
 
 s = tf('s');
-Gnum = ((-4*Kt*g)/(Lm*s*Jeff*s*s*N*M*s*s));
+F = tf(1/(s^2));
+Gnum = ((-Gv*Kt*g)/(Lm*s*Jeff*s*s*N*M*s*s));
 Gden = (1+((1/Lm)*(Rm/s)+Bm/(Jeff*s)+(Kt*Kt)/(Lm*s*Jeff*s))+(R*Bm)/(Lm*s^2*Jeff));
 G = tf(Gnum/Gden);
 G = minreal(G);
 
-ck = -100;
-C = zpk([-1 -1 -1],[-3 -3 -3],1);
+ck = -400;
+C = zpk([-1 -1 -1],[-5 -3.5 -4],ck);
 Cn = zero(C)';
 Cd = pole(C)';
-
-
+L = G*C;
+T = L/(1+L);
+[Lz,Lp] = tfdata(L,'v');
+figure(1); clf;
+rlocus(Lz,Lp,0:1:2000);  %Precision rlocus
+%rlocus(-G);
+%rlocus(L);
+stepinfo(T)
+%figure(2); clf;
+%step(T,15,1000);
