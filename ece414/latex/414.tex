@@ -1,0 +1,35 @@
+\documentclass[11pt]{article}	%Default was article
+\usepackage{fullpage,graphicx,listings}		%Reduces line margins to a more reasonable 1". also graphix
+
+\title{ECE-414 - Control system project} %EDIT THESE! the \\ gives a new line!
+\author{Cameron S. McGary, Antoinette Demers} 
+\date{\today} 			% The \today command fills in the date when printed, you can type what ever you want here!
+
+
+\begin{document} 		% We being to put stuff on a page! weee!
+\maketitle 			% Output all the title information here
+
+
+\thispagestyle{empty} 		% We dont want any page numbers on THIS page
+\clearpage			% We aren't in report document class, so we need to clear the page buffer. 
+
+\tableofcontents
+\thispagestyle{empty} 		% We dont want any page numbers on THIS page
+\setcounter{page}{0} 		% Reset the page count to zero. 
+
+
+\newpage			% This starts a new page, handy to keep sections at the top of pages. LaTeX is smart about the rest of the text, so trust it!
+
+\input{section01.tex}		% The additional sections work like this
+\clearpage
+\input{section02.tex}
+\clearpage
+\input{section03.tex}
+\clearpage
+\input{section04.tex}
+\clearpage
+\section{Conclusion}
+
+
+
+\end{document}			% Must be included to end the document. 
