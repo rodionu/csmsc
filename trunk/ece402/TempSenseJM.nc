@@ -7,7 +7,6 @@ module TempSenseJM {
 	uses {
 		interface Leds;
 		interface Timer;
-		interface ReceiveMsg;
 
 		interface SplitControl as SensorControl;
 		interface ADC as Temp;
@@ -15,7 +14,7 @@ module TempSenseJM {
 
 		interface StdControl as CommControl;
 		interface SendMsg as DataMsg;
-		interface ReceiveMsg as RecMsg;
+		interface ReceiveMsg as ForwardMsg;
 		
 	}
 }
@@ -24,9 +23,9 @@ implementation {
 	norace uint16_t packetnum=0;	//keeps track of packet number
 	norace uint8_t count;		//number of samples to average
 	norace TOS_Msg msg;
+	norace TOS_Msg *ReceivedMsg;
 	//norace TOS_MsgPtr saved;
 	norace XDataMsg* data;
-	norace XDataMsg tempData;
 	
 	//////////////////////////////////////////////////////////
 	// TASKS TO INITIALIZE CONVERSION AND MESSAGE SEND
@@ -44,16 +43,16 @@ implementation {
 	task void send_msg() {
 		data->packet_id=packetnum;
 		packetnum++;	
-		if (call DataMsg.send(TOS_BCAST_ADDR,sizeof(XDataMsg),&msg)!=SUCCESS)
-//			call Leds.greenToggle();
-//		else
-			call Leds.redToggle();
+		if (call DataMsg.send(TOS_BCAST_ADDR,sizeof(XDataMsg),&msg)!=SUCCESS);
+	//		call Leds.redToggle();
+	//	else
+	//		call Leds.greenToggle();
 	}
 	task void forward_msg() {
-		if (call DataMsg.send(TOS_BCAST_ADDR,sizeof(XDataMsg),&msg)!=SUCCESS)
-//			call Leds.yellowToggle();
-//		else
-			call Leds.redToggle();
+		if (call DataMsg.send(TOS_BCAST_ADDR,sizeof(XDataMsg),ReceivedMsg)!=SUCCESS);
+	//		call Leds.redToggle();
+	//	else
+	//		call Leds.greenToggle();
 	}
 	
 	//////////////////////////////////////////////////////////
@@ -77,13 +76,11 @@ implementation {
 		return SUCCESS;
 	}
 	event result_t SensorControl.initDone() {
-		call Leds.greenOn();
 		call SensorControl.start();
 		return SUCCESS;
 	}
 	event result_t SensorControl.startDone() {
-		call Leds.redOn();
-		call Timer.start(TIMER_REPEAT,10000);
+		call Timer.start(TIMER_REPEAT,20000);
 		return SUCCESS;
 	}
 	event result_t SensorControl.stopDone() {
@@ -94,8 +91,7 @@ implementation {
 	// EVENTS CREATED BY ADC FINISHING CONVERSION
 	////////////////////////////////////////////////////////////
 	event result_t Timer.fired() {
-		call Leds.yellowToggle();
-		call Leds.redOff();
+		//call Leds.yellowToggle();
 		atomic count=0;
 		atomic avtemp=0;
 		atomic avhumid=0;
@@ -124,16 +120,26 @@ implementation {
 	// EVENT CREATED BY FINISHING RADIO SEND
 	/////////////////////////////////////////////////////////////
 	event result_t DataMsg.sendDone(TOS_MsgPtr sent, result_t success) {
-		if (success==SUCCESS)
-			call Leds.greenToggle();
+		if (success!=SUCCESS)
+	//		call Leds.redToggle();
 		return SUCCESS;
 	}
 
 	/////////////////////////////////////////////////////////////
 	// EVENT CREATED BY RECEIVING MESSAGE ??????????????????????
 	/////////////////////////////////////////////////////////////
-	event result_t RecMsg.receive(TOS_MsgPtr received, result_t success) {
-		msg = *received;
-		post forward_msg();
+	event TOS_MsgPtr ForwardMsg.receive(TOS_MsgPtr received) {
+		XDataMsg *boobs;
+		call Leds.greenToggle();
+		boobs=(XDataMsg*)(received->data);
+		if (boobs->node_id<TOS_LOCAL_ADDRESS){
+			call Leds.redToggle();
+			return received;
+		}
+		else{
+			call Leds.yellowToggle();
+			ReceivedMsg = received;
+			post forward_msg();
+		}	
 	}
 }
