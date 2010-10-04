@@ -1,0 +1,129 @@
+Quartus II
+Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+11
+3700
+OFF
+OFF
+OFF
+ON
+ON
+ON
+FV_OFF
+Level2
+0
+0
+VRSM_ON
+VHSM_ON
+0
+-- Start Library Paths --
+-- End Library Paths --
+-- Start VHDL Libraries --
+-- End VHDL Libraries --
+# entity
+4bitRCA
+# storage
+db|lab1.(1).cnf
+db|lab1.(1).cnf
+# case_insensitive
+# source_file
+4bitrca.bdf
+2582f9a3bb3a039a962448c12de168
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# macro_sequence
+
+# end
+# entity
+4x4bitRCA
+# storage
+db|lab1.(0).cnf
+db|lab1.(0).cnf
+# case_insensitive
+# source_file
+4x4bitrca.bdf
+517f3a6db1e220d6709d97e0c43a77
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# macro_sequence
+
+# end
+# entity
+lab1
+# storage
+db|lab1.(2).cnf
+db|lab1.(2).cnf
+# case_insensitive
+# source_file
+lab1.bdf
+dbcd2bd98aa5f959859de0fe906712
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+4bitCSA:inst1|lab1:inst
+4bitCSA:inst1|lab1:inst2
+4bitCSA:inst1|lab1:inst3
+4bitCSA:inst1|lab1:inst4
+4bitCSA:inst|lab1:inst
+4bitCSA:inst|lab1:inst2
+4bitCSA:inst|lab1:inst3
+4bitCSA:inst|lab1:inst4
+lab1:inst5
+lab1:inst4
+lab1:inst3
+lab1:inst2
+}
+# macro_sequence
+
+# end
+# entity
+4bitCSA
+# storage
+db|lab1.(3).cnf
+db|lab1.(3).cnf
+# case_insensitive
+# source_file
+4bitcsa.bdf
+9024b122bba616c57cc0b6e543d1d75
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+4bitCSA:inst1
+4bitCSA:inst
+}
+# macro_sequence
+
+# end
+# entity
+4x4bitCSA
+# storage
+db|lab1.(4).cnf
+db|lab1.(4).cnf
+# case_insensitive
+# source_file
+4x4bitcsa.bdf
+4761c1923078fdd7a6bcd1f8c8c5561
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+|
+}
+# macro_sequence
+
+# end
+# complete
+

@@ -1,0 +1,239 @@
+|4x4bitCSA
+s[0] <= 4bitCSA:inst1.s0
+s[1] <= lab1:inst5.sum
+s[2] <= lab1:inst4.sum
+s[3] <= lab1:inst3.sum
+s[4] <= lab1:inst2.sum
+s[5] <= lab1:inst2.cout
+a3 => 4bitCSA:inst.a3
+b3 => 4bitCSA:inst.b3
+f3 => 4bitCSA:inst.f3
+a2 => 4bitCSA:inst.a2
+b2 => 4bitCSA:inst.b2
+f2 => 4bitCSA:inst.f2
+a1 => 4bitCSA:inst.a1
+b1 => 4bitCSA:inst.b1
+f1 => 4bitCSA:inst.f1
+a0 => 4bitCSA:inst.a0
+b0 => 4bitCSA:inst.b0
+f0 => 4bitCSA:inst.f0
+e3 => 4bitCSA:inst1.f3
+e2 => 4bitCSA:inst1.f2
+e1 => 4bitCSA:inst1.f1
+e0 => 4bitCSA:inst1.b0
+
+
+|4x4bitCSA|4bitCSA:inst1
+c3 <= lab1:inst.cout
+a3 => lab1:inst.a
+b3 => lab1:inst.b
+f3 => lab1:inst.cin
+s3 <= lab1:inst.sum
+c2 <= lab1:inst2.cout
+a2 => lab1:inst2.a
+b2 => lab1:inst2.b
+f2 => lab1:inst2.cin
+s2 <= lab1:inst2.sum
+c1 <= lab1:inst3.cout
+a1 => lab1:inst3.a
+b1 => lab1:inst3.b
+f1 => lab1:inst3.cin
+s1 <= lab1:inst3.sum
+c0 <= lab1:inst4.cout
+a0 => lab1:inst4.a
+b0 => lab1:inst4.b
+f0 => lab1:inst4.cin
+s0 <= lab1:inst4.sum
+
+
+|4x4bitCSA|4bitCSA:inst1|lab1:inst
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst1|lab1:inst2
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst1|lab1:inst3
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst1|lab1:inst4
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst
+c3 <= lab1:inst.cout
+a3 => lab1:inst.a
+b3 => lab1:inst.b
+f3 => lab1:inst.cin
+s3 <= lab1:inst.sum
+c2 <= lab1:inst2.cout
+a2 => lab1:inst2.a
+b2 => lab1:inst2.b
+f2 => lab1:inst2.cin
+s2 <= lab1:inst2.sum
+c1 <= lab1:inst3.cout
+a1 => lab1:inst3.a
+b1 => lab1:inst3.b
+f1 => lab1:inst3.cin
+s1 <= lab1:inst3.sum
+c0 <= lab1:inst4.cout
+a0 => lab1:inst4.a
+b0 => lab1:inst4.b
+f0 => lab1:inst4.cin
+s0 <= lab1:inst4.sum
+
+
+|4x4bitCSA|4bitCSA:inst|lab1:inst
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst|lab1:inst2
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst|lab1:inst3
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|4bitCSA:inst|lab1:inst4
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|lab1:inst5
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|lab1:inst4
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|lab1:inst3
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4x4bitCSA|lab1:inst2
+cout <= inst7.DB_MAX_OUTPUT_PORT_TYPE
+b => inst5.IN0
+b => inst6.IN1
+b => inst.IN1
+a => inst5.IN1
+a => inst4.IN0
+a => inst.IN0
+cin => inst6.IN0
+cin => inst4.IN1
+cin => inst3.IN1
+sum <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+
+
