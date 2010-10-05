@@ -1,17 +1,16 @@
-# Matrix multiplier
+# Matrix multiplier - NEW TEST CASE (3x2 * 2x3)
 # 10/3/10
 # Cameron McGary
 
 .data
-aMatrix:	.word 1 2 -1 3 0 4
-bMatrix:	.word 1 -4 2 5 -3 6
-cMatrix:	.word 0 0 0 0
-aXdim:		.word 3		#Row length
-aYdim:		.word 2		#Column length
-bXdim:		.word 2
-bYdim:		.word 3
-cXdim:		.word 2		#Reserving memory space
-cYdim:		.word 2
+aMatrix:	.word 6 8 15 0 -5 9
+bMatrix:	.word 2 0 5 86 1 -9
+cMatrix:	.word 0 0 0 0 0 0 0 0 0
+aXdim:		.word 2		#Row length
+aYdim:		.word 3		#Column length
+#It is assumed bXdim = aYdim and bYdim = aXdim. Also, c dimensions
+#do not matter for the purpose of calculation, but the appropriate
+#number of spaces must be reserved (if you don't want to overwrite random data)
 
 .text
 #This section establishes the width and length of the matrices
