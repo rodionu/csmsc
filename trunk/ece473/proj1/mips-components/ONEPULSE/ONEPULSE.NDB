@@ -1,0 +1,59 @@
+NDB006
+The number of symbol table entries is: 1
+The length of the symbol table is: 13
+
+Index Hierarchy Path
+----- --------------
+!	&null_hpath&
+
+The number of name info structs is : 47
+
+InsOrder BitField SymTableIndex NextSyn SynParent Loc ChainType NextChain ChainParent FanOut DirExp ParExp ShareExp NodeName
+-------- -------- ------------- ------- --------- --- --------- --------- ----------- ------ ------ ------ -------- --------
+"	IdL3	!	20	2	:15	{
+#	IdL#	!	12	18	:3	p
+$	IdL3	!	30	5	:30	",
+%	IdL3	!	30	5	:31	"-
+&	IFkI	!	:36	"2
+'	IFkI	!	:37	"3
+(	IFkI	!	:38	"4
+)	IFkI	!	:39	"5
+*	IFkI	!	:40	"6
++	IFkI	!	:41	"7
+,	IFkI	!	:42	"8
+-	IFkI	!	:43	"9
+.	IFkI	!	:44	":
+/	IFkI	!	:45	";
+0	IFkI	!	:46	"<
+1	IFkI	!	:47	"=
+2	Is6{	!	P	17	9	:5	q
+3	IFkI	!	:52	"B
+4	IFkI	!	:53	"C
+5	IFkI	!	:54	"D
+6	IFkI	!	:55	"E
+7	IFkI	!	:56	"F
+8	IFkI	!	:57	"G
+9	IFkI	!	:58	"H
+:	IFkI	!	:59	"I
+;	Is6{	!	N	17	9	:6	r
+<	IFkI	!	:60	"J
+=	IFkI	!	:61	"K
+>	IFkI	!	:62	"L
+?	IFkI	!	:63	"M
+@	IFkI	!	:64	"N
+A	IFkI	!	:65	"O
+B	IFkI	!	:66	"P
+C	IFkI	!	:67	"Q
+D	IFkI	!	:68	"R
+E	IFkI	!	:69	"S
+F	IFkI	!	:70	"T
+G	IFkI	!	:71	"U
+H	IFkI	!	:72	"V
+I	IFkI	!	:73	"W
+J	IFkI	!	:74	"X
+K	IFkI	!	:75	"Y
+L	IdLL	!	11	14	clock	n
+M	IdLL	!	11	14	PB_debounced	m
+N	IM|_	!	;	PB_debounced_delay	r
+O	IdLM	!	12	18	PB_single_pulse	o
+P	IM|_	!	2	Power_on	q
