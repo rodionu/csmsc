@@ -1,0 +1,253 @@
+Version 8.0 Build 231 07/10/2008 Service Pack 1 SJ Web Edition
+11
+1009
+OFF
+OFF
+OFF
+OFF
+ON
+ON
+OFF
+FV_OFF
+Level2
+0
+0
+VRSM_ON
+VHSM_ON
+0
+-- Start Partition --
+-- End Partition --
+-- Start Library Paths --
+-- End Library Paths --
+-- Start VHDL Libraries --
+-- End VHDL Libraries --
+# entity
+2x32Mux
+# storage
+db|MIPS.(1).cnf
+db|MIPS.(1).cnf
+# case_insensitive
+# source_file
+2x32Mux.bdf
+f840e33c48a6b59c6cee7867035314f
+25
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+2x32Mux:inst17
+}
+# macro_sequence
+
+# end
+# entity
+2x8mux
+# storage
+db|MIPS.(2).cnf
+db|MIPS.(2).cnf
+# case_insensitive
+# source_file
+c:|altera|80sp1|quartus|libraries|others|maxplus2|2x8mux.bdf
+884a78518f4822d9e261942d3de29ad
+25
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+2x32Mux:inst17|2x8mux:inst16
+2x32Mux:inst17|2x8mux:inst
+2x32Mux:inst17|2x8mux:inst1
+2x32Mux:inst17|2x8mux:inst2
+}
+# macro_sequence
+
+# end
+# entity
+Ifetch
+# storage
+db|MIPS.(3).cnf
+db|MIPS.(3).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+IFETCH.VHD
+59f76931bab59c34d11b465a9dfc9d43
+4
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+Ifetch:inst
+}
+# lmf
+c:|altera|80sp1|quartus|lmf|maxplus2.lmf
+9a59d39b0706640b4b2718e8a1ff1f
+# macro_sequence
+
+# end
+# entity
+Idecode
+# storage
+db|MIPS.(4).cnf
+db|MIPS.(4).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+IDECODE.VHD
+48eddae2492aaa38ebf82d8183179ad9
+4
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+Idecode:inst5
+}
+# lmf
+c:|altera|80sp1|quartus|lmf|maxplus2.lmf
+9a59d39b0706640b4b2718e8a1ff1f
+# macro_sequence
+
+# end
+# entity
+Execute
+# storage
+db|MIPS.(5).cnf
+db|MIPS.(5).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+EXECUTE.vhd
+6d35970d73979ebf1e6535089d9bb17
+4
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+Execute:inst6
+}
+# lmf
+c:|altera|80sp1|quartus|lmf|maxplus2.lmf
+9a59d39b0706640b4b2718e8a1ff1f
+# macro_sequence
+
+# end
+# entity
+dmemory
+# storage
+db|MIPS.(6).cnf
+db|MIPS.(6).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+DMEMORY.VHD
+d4754c9fce5b5e5441838208d89012
+4
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+dmemory:inst7
+}
+# lmf
+c:|altera|80sp1|quartus|lmf|maxplus2.lmf
+9a59d39b0706640b4b2718e8a1ff1f
+# macro_sequence
+
+# end
+# entity
+control
+# storage
+db|MIPS.(7).cnf
+db|MIPS.(7).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_insensitive
+# source_file
+CONTROL.VHD
+8466fca1cebc506584f97044af97b3
+4
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+}
+# hierarchies {
+control:inst4
+}
+# lmf
+c:|altera|80sp1|quartus|lmf|maxplus2.lmf
+9a59d39b0706640b4b2718e8a1ff1f
+# macro_sequence
+
+# end
+# entity
+MIPS
+# storage
+db|MIPS.(0).cnf
+db|MIPS.(0).cnf
+# case_insensitive
+# source_file
+MIPS.bdf
+a87698fdab846161152dabc3d8434b0
+25
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+|
+}
+# macro_sequence
+
+# end
+# complete
+

@@ -1,0 +1,937 @@
+Timing Analyzer report for MIPS
+Wed Sep 20 22:50:48 2006
+Version 6.0 Build 202 06/20/2006 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Timing Analyzer Settings
+  4. Clock Settings Summary
+  5. Clock Setup: 'clk_in'
+  6. tsu
+  7. tco
+  8. th
+  9. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2006 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                            ;
++------------------------------+-------+---------------+----------------------------------+-----------------------------+-------------------------------------+------------+----------+--------------+
+; Type                         ; Slack ; Required Time ; Actual Time                      ; From                        ; To                                  ; From Clock ; To Clock ; Failed Paths ;
++------------------------------+-------+---------------+----------------------------------+-----------------------------+-------------------------------------+------------+----------+--------------+
+; Worst-case tsu               ; N/A   ; None          ; 4.207 ns                         ; reset_in                    ; Idecode:inst1|register_array[2][3]  ; --         ; clk_in   ; 0            ;
+; Worst-case tco               ; N/A   ; None          ; 19.953 ns                        ; Ifetch:inst|Instruction[17] ; Zero_out                            ; clk_in     ; --       ; 0            ;
+; Worst-case th                ; N/A   ; None          ; 0.617 ns                         ; reset_in                    ; Idecode:inst1|register_array[3][23] ; --         ; clk_in   ; 0            ;
+; Clock Setup: 'clk_in'        ; N/A   ; None          ; 35.08 MHz ( period = 28.506 ns ) ; Ifetch:inst|Instruction[16] ; dmemory:inst3|ram[13][0]            ; clk_in     ; clk_in   ; 0            ;
+; Total number of failed paths ;       ;               ;                                  ;                             ;                                     ;            ;          ; 0            ;
++------------------------------+-------+---------------+----------------------------------+-----------------------------+-------------------------------------+------------+----------+--------------+
+
+
++------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                             ;
++-------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                ; Setting            ; From ; To ; Entity Name ;
++-------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                           ; EP2C35F672C6       ;      ;    ;             ;
+; Timing Models                                         ; Final              ;      ;    ;             ;
+; Number of source nodes to report per destination node ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                 ; 10                 ;      ;    ;             ;
+; Number of paths to report                             ; 200                ;      ;    ;             ;
+; Report Minimum Timing Checks                          ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                            ; Off                ;      ;    ;             ;
+; Default hold multicycle                               ; Same As Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains             ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                ; On                 ;      ;    ;             ;
+; Cut off feedback from I/O pins                        ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                      ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                 ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements               ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                      ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                  ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                         ; Off                ;      ;    ;             ;
++-------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; clk_in          ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'clk_in'                                                                                                                                                                                                                                                     ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+--------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack                                   ; Actual fmax (period)                                ; From                               ; To                       ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+--------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A                                     ; 35.08 MHz ( period = 28.506 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.989 ns               ;
+; N/A                                     ; 35.12 MHz ( period = 28.474 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.973 ns               ;
+; N/A                                     ; 35.65 MHz ( period = 28.050 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.761 ns               ;
+; N/A                                     ; 36.05 MHz ( period = 27.742 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.611 ns               ;
+; N/A                                     ; 36.20 MHz ( period = 27.622 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.554 ns               ;
+; N/A                                     ; 36.22 MHz ( period = 27.610 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.541 ns               ;
+; N/A                                     ; 36.35 MHz ( period = 27.512 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.492 ns               ;
+; N/A                                     ; 36.47 MHz ( period = 27.422 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.451 ns               ;
+; N/A                                     ; 36.73 MHz ( period = 27.224 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.348 ns               ;
+; N/A                                     ; 36.73 MHz ( period = 27.222 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.347 ns               ;
+; N/A                                     ; 36.79 MHz ( period = 27.180 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.333 ns               ;
+; N/A                                     ; 37.09 MHz ( period = 26.960 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.216 ns               ;
+; N/A                                     ; 37.15 MHz ( period = 26.920 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.196 ns               ;
+; N/A                                     ; 37.25 MHz ( period = 26.844 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.165 ns               ;
+; N/A                                     ; 37.46 MHz ( period = 26.698 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.084 ns               ;
+; N/A                                     ; 37.62 MHz ( period = 26.584 ns )                    ; Idecode:inst1|register_array[0][2] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 13.032 ns               ;
+; N/A                                     ; 37.75 MHz ( period = 26.492 ns )                    ; Idecode:inst1|register_array[3][0] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.992 ns               ;
+; N/A                                     ; 37.88 MHz ( period = 26.398 ns )                    ; Ifetch:inst|Instruction[0]         ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.942 ns               ;
+; N/A                                     ; 38.01 MHz ( period = 26.310 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.911 ns               ;
+; N/A                                     ; 38.05 MHz ( period = 26.278 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.895 ns               ;
+; N/A                                     ; 38.32 MHz ( period = 26.094 ns )                    ; Idecode:inst1|register_array[2][3] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.789 ns               ;
+; N/A                                     ; 38.68 MHz ( period = 25.854 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.683 ns               ;
+; N/A                                     ; 38.76 MHz ( period = 25.800 ns )                    ; Idecode:inst1|register_array[3][2] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.640 ns               ;
+; N/A                                     ; 38.86 MHz ( period = 25.734 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.621 ns               ;
+; N/A                                     ; 38.87 MHz ( period = 25.728 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.618 ns               ;
+; N/A                                     ; 38.91 MHz ( period = 25.702 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.605 ns               ;
+; N/A                                     ; 38.92 MHz ( period = 25.696 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.602 ns               ;
+; N/A                                     ; 39.07 MHz ( period = 25.594 ns )                    ; Idecode:inst1|register_array[0][3] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.532 ns               ;
+; N/A                                     ; 39.15 MHz ( period = 25.546 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.533 ns               ;
+; N/A                                     ; 39.33 MHz ( period = 25.426 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.476 ns               ;
+; N/A                                     ; 39.35 MHz ( period = 25.414 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.463 ns               ;
+; N/A                                     ; 39.35 MHz ( period = 25.414 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.444 ns               ;
+; N/A                                     ; 39.40 MHz ( period = 25.382 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.428 ns               ;
+; N/A                                     ; 39.42 MHz ( period = 25.368 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.421 ns               ;
+; N/A                                     ; 39.43 MHz ( period = 25.362 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.418 ns               ;
+; N/A                                     ; 39.43 MHz ( period = 25.362 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.418 ns               ;
+; N/A                                     ; 39.44 MHz ( period = 25.358 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.416 ns               ;
+; N/A                                     ; 39.47 MHz ( period = 25.336 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.405 ns               ;
+; N/A                                     ; 39.48 MHz ( period = 25.330 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.402 ns               ;
+; N/A                                     ; 39.48 MHz ( period = 25.330 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.402 ns               ;
+; N/A                                     ; 39.49 MHz ( period = 25.326 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.400 ns               ;
+; N/A                                     ; 39.50 MHz ( period = 25.316 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.414 ns               ;
+; N/A                                     ; 39.56 MHz ( period = 25.278 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.393 ns               ;
+; N/A                                     ; 39.57 MHz ( period = 25.272 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.390 ns               ;
+; N/A                                     ; 39.64 MHz ( period = 25.228 ns )                    ; Idecode:inst1|register_array[2][0] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.349 ns               ;
+; N/A                                     ; 39.64 MHz ( period = 25.226 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.373 ns               ;
+; N/A                                     ; 39.76 MHz ( period = 25.154 ns )                    ; Idecode:inst1|register_array[1][3] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.312 ns               ;
+; N/A                                     ; 39.96 MHz ( period = 25.028 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.270 ns               ;
+; N/A                                     ; 39.96 MHz ( period = 25.026 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.269 ns               ;
+; N/A                                     ; 40.03 MHz ( period = 24.984 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.255 ns               ;
+; N/A                                     ; 40.05 MHz ( period = 24.970 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.243 ns               ;
+; N/A                                     ; 40.06 MHz ( period = 24.964 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.240 ns               ;
+; N/A                                     ; 40.07 MHz ( period = 24.958 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.216 ns               ;
+; N/A                                     ; 40.14 MHz ( period = 24.912 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.193 ns               ;
+; N/A                                     ; 40.15 MHz ( period = 24.906 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.190 ns               ;
+; N/A                                     ; 40.15 MHz ( period = 24.906 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.190 ns               ;
+; N/A                                     ; 40.16 MHz ( period = 24.902 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.188 ns               ;
+; N/A                                     ; 40.17 MHz ( period = 24.892 ns )                    ; Ifetch:inst|Instruction[3]         ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.189 ns               ;
+; N/A                                     ; 40.24 MHz ( period = 24.850 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.186 ns               ;
+; N/A                                     ; 40.25 MHz ( period = 24.844 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.183 ns               ;
+; N/A                                     ; 40.26 MHz ( period = 24.838 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.173 ns               ;
+; N/A                                     ; 40.27 MHz ( period = 24.832 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.170 ns               ;
+; N/A                                     ; 40.35 MHz ( period = 24.786 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.164 ns               ;
+; N/A                                     ; 40.38 MHz ( period = 24.764 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.138 ns               ;
+; N/A                                     ; 40.40 MHz ( period = 24.754 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.148 ns               ;
+; N/A                                     ; 40.42 MHz ( period = 24.740 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.124 ns               ;
+; N/A                                     ; 40.43 MHz ( period = 24.734 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.121 ns               ;
+; N/A                                     ; 40.45 MHz ( period = 24.724 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.118 ns               ;
+; N/A                                     ; 40.54 MHz ( period = 24.668 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.071 ns               ;
+; N/A                                     ; 40.57 MHz ( period = 24.650 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.083 ns               ;
+; N/A                                     ; 40.57 MHz ( period = 24.650 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.066 ns               ;
+; N/A                                     ; 40.57 MHz ( period = 24.648 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.087 ns               ;
+; N/A                                     ; 40.58 MHz ( period = 24.644 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.080 ns               ;
+; N/A                                     ; 40.59 MHz ( period = 24.638 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.056 ns               ;
+; N/A                                     ; 40.59 MHz ( period = 24.636 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.055 ns               ;
+; N/A                                     ; 40.64 MHz ( period = 24.606 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.040 ns               ;
+; N/A                                     ; 40.64 MHz ( period = 24.604 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.043 ns               ;
+; N/A                                     ; 40.65 MHz ( period = 24.598 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.040 ns               ;
+; N/A                                     ; 40.65 MHz ( period = 24.598 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.040 ns               ;
+; N/A                                     ; 40.66 MHz ( period = 24.594 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.038 ns               ;
+; N/A                                     ; 40.77 MHz ( period = 24.530 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.009 ns               ;
+; N/A                                     ; 40.79 MHz ( period = 24.518 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.996 ns               ;
+; N/A                                     ; 40.81 MHz ( period = 24.502 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 12.006 ns               ;
+; N/A                                     ; 40.84 MHz ( period = 24.484 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.986 ns               ;
+; N/A                                     ; 40.85 MHz ( period = 24.478 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.983 ns               ;
+; N/A                                     ; 40.85 MHz ( period = 24.478 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.983 ns               ;
+; N/A                                     ; 40.86 MHz ( period = 24.474 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.981 ns               ;
+; N/A                                     ; 40.86 MHz ( period = 24.472 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.973 ns               ;
+; N/A                                     ; 40.87 MHz ( period = 24.466 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.970 ns               ;
+; N/A                                     ; 40.87 MHz ( period = 24.466 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.970 ns               ;
+; N/A                                     ; 40.88 MHz ( period = 24.462 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.968 ns               ;
+; N/A                                     ; 40.90 MHz ( period = 24.452 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.980 ns               ;
+; N/A                                     ; 40.90 MHz ( period = 24.450 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.979 ns               ;
+; N/A                                     ; 40.91 MHz ( period = 24.446 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.977 ns               ;
+; N/A                                     ; 40.91 MHz ( period = 24.444 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.976 ns               ;
+; N/A                                     ; 40.95 MHz ( period = 24.420 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.947 ns               ;
+; N/A                                     ; 40.97 MHz ( period = 24.408 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.965 ns               ;
+; N/A                                     ; 40.98 MHz ( period = 24.402 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.962 ns               ;
+; N/A                                     ; 41.00 MHz ( period = 24.388 ns )                    ; Idecode:inst1|register_array[0][2] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.954 ns               ;
+; N/A                                     ; 41.03 MHz ( period = 24.374 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.924 ns               ;
+; N/A                                     ; 41.03 MHz ( period = 24.374 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.943 ns               ;
+; N/A                                     ; 41.04 MHz ( period = 24.368 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.921 ns               ;
+; N/A                                     ; 41.04 MHz ( period = 24.368 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.921 ns               ;
+; N/A                                     ; 41.04 MHz ( period = 24.364 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.919 ns               ;
+; N/A                                     ; 41.08 MHz ( period = 24.342 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.927 ns               ;
+; N/A                                     ; 41.10 MHz ( period = 24.330 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.936 ns               ;
+; N/A                                     ; 41.10 MHz ( period = 24.330 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.906 ns               ;
+; N/A                                     ; 41.16 MHz ( period = 24.296 ns )                    ; Idecode:inst1|register_array[3][0] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.914 ns               ;
+; N/A                                     ; 41.18 MHz ( period = 24.284 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.883 ns               ;
+; N/A                                     ; 41.19 MHz ( period = 24.278 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.880 ns               ;
+; N/A                                     ; 41.19 MHz ( period = 24.278 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.880 ns               ;
+; N/A                                     ; 41.20 MHz ( period = 24.274 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.878 ns               ;
+; N/A                                     ; 41.30 MHz ( period = 24.212 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.843 ns               ;
+; N/A                                     ; 41.32 MHz ( period = 24.202 ns )                    ; Ifetch:inst|Instruction[0]         ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.864 ns               ;
+; N/A                                     ; 41.34 MHz ( period = 24.188 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.848 ns               ;
+; N/A                                     ; 41.35 MHz ( period = 24.182 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.845 ns               ;
+; N/A                                     ; 41.35 MHz ( period = 24.182 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.828 ns               ;
+; N/A                                     ; 41.41 MHz ( period = 24.148 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.828 ns               ;
+; N/A                                     ; 41.42 MHz ( period = 24.142 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.825 ns               ;
+; N/A                                     ; 41.44 MHz ( period = 24.134 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.823 ns               ;
+; N/A                                     ; 41.44 MHz ( period = 24.132 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.803 ns               ;
+; N/A                                     ; 41.44 MHz ( period = 24.130 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.802 ns               ;
+; N/A                                     ; 41.49 MHz ( period = 24.102 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.807 ns               ;
+; N/A                                     ; 41.51 MHz ( period = 24.088 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.788 ns               ;
+; N/A                                     ; 41.52 MHz ( period = 24.086 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.780 ns               ;
+; N/A                                     ; 41.52 MHz ( period = 24.084 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.779 ns               ;
+; N/A                                     ; 41.53 MHz ( period = 24.080 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.777 ns               ;
+; N/A                                     ; 41.53 MHz ( period = 24.080 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.777 ns               ;
+; N/A                                     ; 41.53 MHz ( period = 24.078 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.776 ns               ;
+; N/A                                     ; 41.53 MHz ( period = 24.078 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.776 ns               ;
+; N/A                                     ; 41.54 MHz ( period = 24.076 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.775 ns               ;
+; N/A                                     ; 41.54 MHz ( period = 24.074 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.774 ns               ;
+; N/A                                     ; 41.54 MHz ( period = 24.072 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.797 ns               ;
+; N/A                                     ; 41.55 MHz ( period = 24.066 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.794 ns               ;
+; N/A                                     ; 41.59 MHz ( period = 24.042 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.765 ns               ;
+; N/A                                     ; 41.60 MHz ( period = 24.036 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.762 ns               ;
+; N/A                                     ; 41.60 MHz ( period = 24.036 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.762 ns               ;
+; N/A                                     ; 41.61 MHz ( period = 24.032 ns )                    ; Ifetch:inst|Instruction[26]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.760 ns               ;
+; N/A                                     ; 41.62 MHz ( period = 24.026 ns )                    ; Idecode:inst1|register_array[3][3] ; dmemory:inst3|ram[13][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.748 ns               ;
+; N/A                                     ; 41.63 MHz ( period = 24.022 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.786 ns               ;
+; N/A                                     ; 41.80 MHz ( period = 23.926 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.716 ns               ;
+; N/A                                     ; 41.81 MHz ( period = 23.920 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.713 ns               ;
+; N/A                                     ; 41.81 MHz ( period = 23.918 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.715 ns               ;
+; N/A                                     ; 41.83 MHz ( period = 23.904 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.693 ns               ;
+; N/A                                     ; 41.84 MHz ( period = 23.902 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.729 ns               ;
+; N/A                                     ; 41.84 MHz ( period = 23.898 ns )                    ; Idecode:inst1|register_array[2][3] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.711 ns               ;
+; N/A                                     ; 41.86 MHz ( period = 23.890 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.716 ns               ;
+; N/A                                     ; 41.89 MHz ( period = 23.874 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.678 ns               ;
+; N/A                                     ; 41.90 MHz ( period = 23.868 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.671 ns               ;
+; N/A                                     ; 41.97 MHz ( period = 23.828 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.651 ns               ;
+; N/A                                     ; 41.98 MHz ( period = 23.822 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.648 ns               ;
+; N/A                                     ; 41.99 MHz ( period = 23.816 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.645 ns               ;
+; N/A                                     ; 41.99 MHz ( period = 23.816 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.645 ns               ;
+; N/A                                     ; 42.00 MHz ( period = 23.812 ns )                    ; Ifetch:inst|Instruction[22]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.643 ns               ;
+; N/A                                     ; 42.00 MHz ( period = 23.812 ns )                    ; Idecode:inst1|register_array[0][2] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.664 ns               ;
+; N/A                                     ; 42.01 MHz ( period = 23.806 ns )                    ; Idecode:inst1|register_array[0][2] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.661 ns               ;
+; N/A                                     ; 42.03 MHz ( period = 23.792 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.667 ns               ;
+; N/A                                     ; 42.05 MHz ( period = 23.784 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.636 ns               ;
+; N/A                                     ; 42.05 MHz ( period = 23.782 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.628 ns               ;
+; N/A                                     ; 42.06 MHz ( period = 23.776 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.625 ns               ;
+; N/A                                     ; 42.06 MHz ( period = 23.776 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.625 ns               ;
+; N/A                                     ; 42.07 MHz ( period = 23.772 ns )                    ; Idecode:inst1|register_array[3][1] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.623 ns               ;
+; N/A                                     ; 42.07 MHz ( period = 23.772 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.623 ns               ;
+; N/A                                     ; 42.10 MHz ( period = 23.754 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.621 ns               ;
+; N/A                                     ; 42.10 MHz ( period = 23.752 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.620 ns               ;
+; N/A                                     ; 42.12 MHz ( period = 23.742 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.614 ns               ;
+; N/A                                     ; 42.12 MHz ( period = 23.742 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.608 ns               ;
+; N/A                                     ; 42.13 MHz ( period = 23.738 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[29][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.612 ns               ;
+; N/A                                     ; 42.16 MHz ( period = 23.720 ns )                    ; Idecode:inst1|register_array[3][0] ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.624 ns               ;
+; N/A                                     ; 42.17 MHz ( period = 23.714 ns )                    ; Idecode:inst1|register_array[3][0] ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.621 ns               ;
+; N/A                                     ; 42.18 MHz ( period = 23.710 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.598 ns               ;
+; N/A                                     ; 42.18 MHz ( period = 23.706 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.597 ns               ;
+; N/A                                     ; 42.18 MHz ( period = 23.706 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[29][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.596 ns               ;
+; N/A                                     ; 42.19 MHz ( period = 23.702 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.626 ns               ;
+; N/A                                     ; 42.19 MHz ( period = 23.700 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 42.19 MHz ( period = 23.700 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 42.20 MHz ( period = 23.696 ns )                    ; Ifetch:inst|Instruction[29]        ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.592 ns               ;
+; N/A                                     ; 42.23 MHz ( period = 23.678 ns )                    ; Idecode:inst1|register_array[2][1] ; dmemory:inst3|ram[29][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.595 ns               ;
+; N/A                                     ; 42.24 MHz ( period = 23.674 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.574 ns               ;
+; N/A                                     ; 42.29 MHz ( period = 23.644 ns )                    ; Idecode:inst1|register_array[0][1] ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.559 ns               ;
+; N/A                                     ; 42.33 MHz ( period = 23.626 ns )                    ; Ifetch:inst|Instruction[0]         ; dmemory:inst3|ram[29][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.574 ns               ;
+; N/A                                     ; 42.34 MHz ( period = 23.620 ns )                    ; Ifetch:inst|Instruction[0]         ; dmemory:inst3|ram[29][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.571 ns               ;
+; N/A                                     ; 42.35 MHz ( period = 23.610 ns )                    ; Idecode:inst1|register_array[1][2] ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.565 ns               ;
+; N/A                                     ; 42.36 MHz ( period = 23.606 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 42.37 MHz ( period = 23.604 ns )                    ; Idecode:inst1|register_array[3][2] ; dmemory:inst3|ram[29][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.562 ns               ;
+; N/A                                     ; 42.40 MHz ( period = 23.584 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][3] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.533 ns               ;
+; N/A                                     ; 42.42 MHz ( period = 23.574 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[4][4]  ; clk_in     ; clk_in   ; None                        ; None                      ; 11.552 ns               ;
+; N/A                                     ; 42.42 MHz ( period = 23.574 ns )                    ; Ifetch:inst|Instruction[16]        ; dmemory:inst3|ram[4][6]  ; clk_in     ; clk_in   ; None                        ; None                      ; 11.552 ns               ;
+; N/A                                     ; 42.44 MHz ( period = 23.560 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][7] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.516 ns               ;
+; N/A                                     ; 42.46 MHz ( period = 23.554 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][6] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.513 ns               ;
+; N/A                                     ; 42.46 MHz ( period = 23.554 ns )                    ; Idecode:inst1|register_array[2][2] ; dmemory:inst3|ram[13][1] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.518 ns               ;
+; N/A                                     ; 42.46 MHz ( period = 23.554 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][2] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.513 ns               ;
+; N/A                                     ; 42.46 MHz ( period = 23.550 ns )                    ; Idecode:inst1|register_array[0][0] ; dmemory:inst3|ram[13][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.511 ns               ;
+; N/A                                     ; 42.48 MHz ( period = 23.542 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[4][4]  ; clk_in     ; clk_in   ; None                        ; None                      ; 11.536 ns               ;
+; N/A                                     ; 42.48 MHz ( period = 23.542 ns )                    ; Ifetch:inst|Instruction[17]        ; dmemory:inst3|ram[4][6]  ; clk_in     ; clk_in   ; None                        ; None                      ; 11.536 ns               ;
+; N/A                                     ; 42.55 MHz ( period = 23.504 ns )                    ; Ifetch:inst|Instruction[28]        ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.523 ns               ;
+; N/A                                     ; 42.55 MHz ( period = 23.502 ns )                    ; Idecode:inst1|register_array[1][0] ; dmemory:inst3|ram[29][4] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.522 ns               ;
+; N/A                                     ; 42.57 MHz ( period = 23.492 ns )                    ; Idecode:inst1|register_array[0][2] ; dmemory:inst3|ram[13][5] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.487 ns               ;
+; N/A                                     ; 42.57 MHz ( period = 23.490 ns )                    ; Ifetch:inst|Instruction[2]         ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.508 ns               ;
+; N/A                                     ; 42.59 MHz ( period = 23.478 ns )                    ; Idecode:inst1|register_array[1][1] ; dmemory:inst3|ram[29][0] ; clk_in     ; clk_in   ; None                        ; None                      ; 11.495 ns               ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                    ;                          ;            ;          ;                             ;                           ;                         ;
++-----------------------------------------+-----------------------------------------------------+------------------------------------+--------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++-----------------------------------------------------------------------------------------------+
+; tsu                                                                                           ;
++-------+--------------+------------+----------+-------------------------------------+----------+
+; Slack ; Required tsu ; Actual tsu ; From     ; To                                  ; To Clock ;
++-------+--------------+------------+----------+-------------------------------------+----------+
+; N/A   ; None         ; 4.207 ns   ; reset_in ; Idecode:inst1|register_array[2][7]  ; clk_in   ;
+; N/A   ; None         ; 4.207 ns   ; reset_in ; Idecode:inst1|register_array[2][3]  ; clk_in   ;
+; N/A   ; None         ; 3.889 ns   ; reset_in ; Idecode:inst1|register_array[2][5]  ; clk_in   ;
+; N/A   ; None         ; 3.615 ns   ; reset_in ; Idecode:inst1|register_array[2][20] ; clk_in   ;
+; N/A   ; None         ; 3.615 ns   ; reset_in ; Idecode:inst1|register_array[2][28] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][10] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][22] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][15] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][17] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][21] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][19] ; clk_in   ;
+; N/A   ; None         ; 3.357 ns   ; reset_in ; Idecode:inst1|register_array[2][18] ; clk_in   ;
+; N/A   ; None         ; 3.277 ns   ; reset_in ; Idecode:inst1|register_array[3][3]  ; clk_in   ;
+; N/A   ; None         ; 3.186 ns   ; reset_in ; Idecode:inst1|register_array[0][16] ; clk_in   ;
+; N/A   ; None         ; 3.139 ns   ; reset_in ; Idecode:inst1|register_array[0][0]  ; clk_in   ;
+; N/A   ; None         ; 3.125 ns   ; reset_in ; Idecode:inst1|register_array[0][4]  ; clk_in   ;
+; N/A   ; None         ; 3.111 ns   ; reset_in ; Idecode:inst1|register_array[2][29] ; clk_in   ;
+; N/A   ; None         ; 3.111 ns   ; reset_in ; Idecode:inst1|register_array[2][27] ; clk_in   ;
+; N/A   ; None         ; 3.111 ns   ; reset_in ; Idecode:inst1|register_array[2][12] ; clk_in   ;
+; N/A   ; None         ; 3.111 ns   ; reset_in ; Idecode:inst1|register_array[2][16] ; clk_in   ;
+; N/A   ; None         ; 3.101 ns   ; reset_in ; Idecode:inst1|register_array[0][29] ; clk_in   ;
+; N/A   ; None         ; 3.101 ns   ; reset_in ; Idecode:inst1|register_array[0][30] ; clk_in   ;
+; N/A   ; None         ; 3.101 ns   ; reset_in ; Idecode:inst1|register_array[0][27] ; clk_in   ;
+; N/A   ; None         ; 3.101 ns   ; reset_in ; Idecode:inst1|register_array[0][31] ; clk_in   ;
+; N/A   ; None         ; 3.101 ns   ; reset_in ; Idecode:inst1|register_array[0][28] ; clk_in   ;
+; N/A   ; None         ; 3.086 ns   ; reset_in ; Idecode:inst1|register_array[0][5]  ; clk_in   ;
+; N/A   ; None         ; 3.057 ns   ; reset_in ; Idecode:inst1|register_array[0][3]  ; clk_in   ;
+; N/A   ; None         ; 3.051 ns   ; reset_in ; Idecode:inst1|register_array[2][13] ; clk_in   ;
+; N/A   ; None         ; 3.051 ns   ; reset_in ; Idecode:inst1|register_array[2][8]  ; clk_in   ;
+; N/A   ; None         ; 3.051 ns   ; reset_in ; Idecode:inst1|register_array[2][11] ; clk_in   ;
+; N/A   ; None         ; 2.969 ns   ; reset_in ; Idecode:inst1|register_array[1][8]  ; clk_in   ;
+; N/A   ; None         ; 2.969 ns   ; reset_in ; Idecode:inst1|register_array[1][2]  ; clk_in   ;
+; N/A   ; None         ; 2.969 ns   ; reset_in ; Idecode:inst1|register_array[1][9]  ; clk_in   ;
+; N/A   ; None         ; 2.920 ns   ; reset_in ; Idecode:inst1|register_array[2][0]  ; clk_in   ;
+; N/A   ; None         ; 2.890 ns   ; reset_in ; Idecode:inst1|register_array[2][4]  ; clk_in   ;
+; N/A   ; None         ; 2.822 ns   ; reset_in ; Idecode:inst1|register_array[2][2]  ; clk_in   ;
+; N/A   ; None         ; 2.822 ns   ; reset_in ; Idecode:inst1|register_array[2][9]  ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][29] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][25] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][31] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][30] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][22] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][23] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][27] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][28] ; clk_in   ;
+; N/A   ; None         ; 2.770 ns   ; reset_in ; Idecode:inst1|register_array[1][24] ; clk_in   ;
+; N/A   ; None         ; 2.767 ns   ; reset_in ; Idecode:inst1|register_array[0][10] ; clk_in   ;
+; N/A   ; None         ; 2.767 ns   ; reset_in ; Idecode:inst1|register_array[0][7]  ; clk_in   ;
+; N/A   ; None         ; 2.767 ns   ; reset_in ; Idecode:inst1|register_array[0][11] ; clk_in   ;
+; N/A   ; None         ; 2.764 ns   ; reset_in ; Idecode:inst1|register_array[0][1]  ; clk_in   ;
+; N/A   ; None         ; 2.739 ns   ; reset_in ; Idecode:inst1|register_array[1][21] ; clk_in   ;
+; N/A   ; None         ; 2.739 ns   ; reset_in ; Idecode:inst1|register_array[1][19] ; clk_in   ;
+; N/A   ; None         ; 2.670 ns   ; reset_in ; Idecode:inst1|register_array[3][20] ; clk_in   ;
+; N/A   ; None         ; 2.670 ns   ; reset_in ; Idecode:inst1|register_array[3][23] ; clk_in   ;
+; N/A   ; None         ; 2.670 ns   ; reset_in ; Idecode:inst1|register_array[3][27] ; clk_in   ;
+; N/A   ; None         ; 2.670 ns   ; reset_in ; Idecode:inst1|register_array[3][31] ; clk_in   ;
+; N/A   ; None         ; 2.670 ns   ; reset_in ; Idecode:inst1|register_array[3][0]  ; clk_in   ;
+; N/A   ; None         ; 2.599 ns   ; reset_in ; Idecode:inst1|register_array[0][9]  ; clk_in   ;
+; N/A   ; None         ; 2.569 ns   ; reset_in ; Idecode:inst1|register_array[2][23] ; clk_in   ;
+; N/A   ; None         ; 2.569 ns   ; reset_in ; Idecode:inst1|register_array[2][24] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][20] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][15] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][17] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][21] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][14] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][19] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][18] ; clk_in   ;
+; N/A   ; None         ; 2.528 ns   ; reset_in ; Idecode:inst1|register_array[0][12] ; clk_in   ;
+; N/A   ; None         ; 2.514 ns   ; reset_in ; Idecode:inst1|register_array[2][6]  ; clk_in   ;
+; N/A   ; None         ; 2.514 ns   ; reset_in ; Idecode:inst1|register_array[2][25] ; clk_in   ;
+; N/A   ; None         ; 2.514 ns   ; reset_in ; Idecode:inst1|register_array[2][26] ; clk_in   ;
+; N/A   ; None         ; 2.439 ns   ; reset_in ; Idecode:inst1|register_array[3][15] ; clk_in   ;
+; N/A   ; None         ; 2.433 ns   ; reset_in ; Idecode:inst1|register_array[1][6]  ; clk_in   ;
+; N/A   ; None         ; 2.433 ns   ; reset_in ; Idecode:inst1|register_array[1][4]  ; clk_in   ;
+; N/A   ; None         ; 2.433 ns   ; reset_in ; Idecode:inst1|register_array[1][5]  ; clk_in   ;
+; N/A   ; None         ; 2.433 ns   ; reset_in ; Idecode:inst1|register_array[1][26] ; clk_in   ;
+; N/A   ; None         ; 2.271 ns   ; reset_in ; Idecode:inst1|register_array[3][9]  ; clk_in   ;
+; N/A   ; None         ; 2.259 ns   ; reset_in ; Idecode:inst1|register_array[3][16] ; clk_in   ;
+; N/A   ; None         ; 2.221 ns   ; reset_in ; Idecode:inst1|register_array[0][13] ; clk_in   ;
+; N/A   ; None         ; 2.216 ns   ; reset_in ; Idecode:inst1|register_array[1][10] ; clk_in   ;
+; N/A   ; None         ; 2.216 ns   ; reset_in ; Idecode:inst1|register_array[1][7]  ; clk_in   ;
+; N/A   ; None         ; 2.216 ns   ; reset_in ; Idecode:inst1|register_array[1][3]  ; clk_in   ;
+; N/A   ; None         ; 2.216 ns   ; reset_in ; Idecode:inst1|register_array[1][11] ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][6]  ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][22] ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][23] ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][25] ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][8]  ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][26] ; clk_in   ;
+; N/A   ; None         ; 2.210 ns   ; reset_in ; Idecode:inst1|register_array[0][24] ; clk_in   ;
+; N/A   ; None         ; 2.207 ns   ; reset_in ; Idecode:inst1|register_array[1][1]  ; clk_in   ;
+; N/A   ; None         ; 2.184 ns   ; reset_in ; Idecode:inst1|register_array[3][29] ; clk_in   ;
+; N/A   ; None         ; 2.184 ns   ; reset_in ; Idecode:inst1|register_array[3][12] ; clk_in   ;
+; N/A   ; None         ; 2.184 ns   ; reset_in ; Idecode:inst1|register_array[3][28] ; clk_in   ;
+; N/A   ; None         ; 2.178 ns   ; reset_in ; Idecode:inst1|register_array[3][13] ; clk_in   ;
+; N/A   ; None         ; 2.178 ns   ; reset_in ; Idecode:inst1|register_array[3][25] ; clk_in   ;
+; N/A   ; None         ; 2.178 ns   ; reset_in ; Idecode:inst1|register_array[3][8]  ; clk_in   ;
+; N/A   ; None         ; 2.178 ns   ; reset_in ; Idecode:inst1|register_array[3][7]  ; clk_in   ;
+; N/A   ; None         ; 2.178 ns   ; reset_in ; Idecode:inst1|register_array[3][11] ; clk_in   ;
+; N/A   ; None         ; 2.161 ns   ; reset_in ; Idecode:inst1|register_array[1][15] ; clk_in   ;
+; N/A   ; None         ; 2.159 ns   ; reset_in ; Idecode:inst1|register_array[1][17] ; clk_in   ;
+; N/A   ; None         ; 2.159 ns   ; reset_in ; Idecode:inst1|register_array[1][20] ; clk_in   ;
+; N/A   ; None         ; 2.159 ns   ; reset_in ; Idecode:inst1|register_array[1][18] ; clk_in   ;
+; N/A   ; None         ; 2.159 ns   ; reset_in ; Idecode:inst1|register_array[1][12] ; clk_in   ;
+; N/A   ; None         ; 2.159 ns   ; reset_in ; Idecode:inst1|register_array[1][16] ; clk_in   ;
+; N/A   ; None         ; 2.109 ns   ; reset_in ; Idecode:inst1|register_array[2][30] ; clk_in   ;
+; N/A   ; None         ; 2.109 ns   ; reset_in ; Idecode:inst1|register_array[2][14] ; clk_in   ;
+; N/A   ; None         ; 2.109 ns   ; reset_in ; Idecode:inst1|register_array[2][31] ; clk_in   ;
+; N/A   ; None         ; 1.993 ns   ; reset_in ; Idecode:inst1|register_array[3][10] ; clk_in   ;
+; N/A   ; None         ; 1.993 ns   ; reset_in ; Idecode:inst1|register_array[3][21] ; clk_in   ;
+; N/A   ; None         ; 1.993 ns   ; reset_in ; Idecode:inst1|register_array[3][19] ; clk_in   ;
+; N/A   ; None         ; 1.981 ns   ; reset_in ; Idecode:inst1|register_array[3][22] ; clk_in   ;
+; N/A   ; None         ; 1.981 ns   ; reset_in ; Idecode:inst1|register_array[3][17] ; clk_in   ;
+; N/A   ; None         ; 1.981 ns   ; reset_in ; Idecode:inst1|register_array[3][18] ; clk_in   ;
+; N/A   ; None         ; 1.965 ns   ; reset_in ; Idecode:inst1|register_array[3][1]  ; clk_in   ;
+; N/A   ; None         ; 1.932 ns   ; reset_in ; Idecode:inst1|register_array[3][6]  ; clk_in   ;
+; N/A   ; None         ; 1.932 ns   ; reset_in ; Idecode:inst1|register_array[3][4]  ; clk_in   ;
+; N/A   ; None         ; 1.932 ns   ; reset_in ; Idecode:inst1|register_array[3][5]  ; clk_in   ;
+; N/A   ; None         ; 1.932 ns   ; reset_in ; Idecode:inst1|register_array[3][26] ; clk_in   ;
+; N/A   ; None         ; 1.919 ns   ; reset_in ; Idecode:inst1|register_array[3][24] ; clk_in   ;
+; N/A   ; None         ; 1.881 ns   ; reset_in ; Idecode:inst1|register_array[1][13] ; clk_in   ;
+; N/A   ; None         ; 1.881 ns   ; reset_in ; Idecode:inst1|register_array[1][14] ; clk_in   ;
+; N/A   ; None         ; 1.868 ns   ; reset_in ; Idecode:inst1|register_array[3][30] ; clk_in   ;
+; N/A   ; None         ; 1.868 ns   ; reset_in ; Idecode:inst1|register_array[3][14] ; clk_in   ;
+; N/A   ; None         ; 1.767 ns   ; reset_in ; Idecode:inst1|register_array[3][2]  ; clk_in   ;
+; N/A   ; None         ; 1.766 ns   ; reset_in ; Idecode:inst1|register_array[0][2]  ; clk_in   ;
+; N/A   ; None         ; 1.532 ns   ; reset_in ; Ifetch:inst|Instruction[22]         ; clk_in   ;
+; N/A   ; None         ; 1.531 ns   ; reset_in ; Ifetch:inst|Instruction[16]         ; clk_in   ;
+; N/A   ; None         ; 1.528 ns   ; reset_in ; Ifetch:inst|Instruction[17]         ; clk_in   ;
+; N/A   ; None         ; 1.526 ns   ; reset_in ; Ifetch:inst|Instruction[28]         ; clk_in   ;
+; N/A   ; None         ; 0.957 ns   ; reset_in ; Ifetch:inst|Instruction[26]         ; clk_in   ;
+; N/A   ; None         ; 0.953 ns   ; reset_in ; Ifetch:inst|Instruction[2]          ; clk_in   ;
+; N/A   ; None         ; 0.952 ns   ; reset_in ; Ifetch:inst|Instruction[0]          ; clk_in   ;
+; N/A   ; None         ; 0.951 ns   ; reset_in ; Ifetch:inst|Instruction[3]          ; clk_in   ;
+; N/A   ; None         ; 0.950 ns   ; reset_in ; Ifetch:inst|Instruction[29]         ; clk_in   ;
+; N/A   ; None         ; 0.949 ns   ; reset_in ; Ifetch:inst|Instruction[5]          ; clk_in   ;
+; N/A   ; None         ; 0.677 ns   ; reset_in ; Idecode:inst1|register_array[2][1]  ; clk_in   ;
+; N/A   ; None         ; 0.677 ns   ; reset_in ; Idecode:inst1|register_array[1][0]  ; clk_in   ;
+; N/A   ; None         ; 0.079 ns   ; reset_in ; Ifetch:inst|PC[3]                   ; clk_in   ;
+; N/A   ; None         ; -0.009 ns  ; reset_in ; Ifetch:inst|PC[4]                   ; clk_in   ;
+; N/A   ; None         ; -0.132 ns  ; reset_in ; Ifetch:inst|PC[5]                   ; clk_in   ;
+; N/A   ; None         ; -0.150 ns  ; reset_in ; Ifetch:inst|PC[9]                   ; clk_in   ;
+; N/A   ; None         ; -0.150 ns  ; reset_in ; Ifetch:inst|PC[8]                   ; clk_in   ;
+; N/A   ; None         ; -0.150 ns  ; reset_in ; Ifetch:inst|PC[7]                   ; clk_in   ;
+; N/A   ; None         ; -0.150 ns  ; reset_in ; Ifetch:inst|PC[6]                   ; clk_in   ;
+; N/A   ; None         ; -0.274 ns  ; reset_in ; Ifetch:inst|PC[2]                   ; clk_in   ;
++-------+--------------+------------+----------+-------------------------------------+----------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; tco                                                                                                                                                                                ;
++-----------------------------------------+-----------------------------------------------------+------------+-------------------------------------+--------------------+------------+
+; Slack                                   ; Required tco                                        ; Actual tco ; From                                ; To                 ; From Clock ;
++-----------------------------------------+-----------------------------------------------------+------------+-------------------------------------+--------------------+------------+
+; N/A                                     ; None                                                ; 19.953 ns  ; Ifetch:inst|Instruction[17]         ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 19.876 ns  ; Ifetch:inst|Instruction[16]         ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 19.663 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.586 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.514 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.437 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.387 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.372 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.357 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.334 ns  ; Idecode:inst1|register_array[2][5]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 19.319 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.310 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.295 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.280 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.242 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.144 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.128 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.067 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.051 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 19.044 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.924 ns  ; Idecode:inst1|register_array[0][5]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.895 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.890 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[22] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.878 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.813 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[22] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.801 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.783 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.768 ns  ; Idecode:inst1|register_array[2][5]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.753 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.745 ns  ; Idecode:inst1|register_array[1][22] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.738 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.720 ns  ; Idecode:inst1|register_array[2][7]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.706 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.703 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[9]  ; clk_in     ;
+; N/A                                     ; None                                                ; 18.700 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.634 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.626 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[9]  ; clk_in     ;
+; N/A                                     ; None                                                ; 18.581 ns  ; Idecode:inst1|register_array[2][21] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.525 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.509 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.485 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.461 ns  ; Ifetch:inst|Instruction[28]         ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.455 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.444 ns  ; Ifetch:inst|Instruction[22]         ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.430 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.429 ns  ; Idecode:inst1|register_array[1][5]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.358 ns  ; Idecode:inst1|register_array[0][5]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.350 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.343 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.331 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.328 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.323 ns  ; Idecode:inst1|register_array[2][9]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.306 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.299 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.292 ns  ; Idecode:inst1|register_array[1][20] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.291 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.290 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.281 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.273 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.271 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[22] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.259 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.254 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.234 ns  ; Idecode:inst1|register_array[1][14] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.222 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.219 ns  ; Idecode:inst1|register_array[1][26] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.215 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[23] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.212 ns  ; Idecode:inst1|register_array[1][6]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.193 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.191 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.183 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[26] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.179 ns  ; Idecode:inst1|register_array[1][22] ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.171 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.165 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[20] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.164 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.164 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.161 ns  ; Idecode:inst1|register_array[0][20] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.154 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.154 ns  ; Idecode:inst1|register_array[2][7]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.149 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.142 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.139 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.139 ns  ; Idecode:inst1|register_array[1][5]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.138 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[23] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.124 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.119 ns  ; Idecode:inst1|register_array[0][6]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.116 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.115 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.114 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.111 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.106 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[26] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.105 ns  ; Idecode:inst1|register_array[1][11] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.099 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.088 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[20] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.086 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.084 ns  ; Idecode:inst1|register_array[2][5]  ; write_data_out[9]  ; clk_in     ;
+; N/A                                     ; None                                                ; 18.048 ns  ; Idecode:inst1|register_array[0][12] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.043 ns  ; Idecode:inst1|register_array[2][17] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.033 ns  ; Idecode:inst1|register_array[2][9]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.024 ns  ; Ifetch:inst|Instruction[26]         ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.022 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.019 ns  ; Idecode:inst1|register_array[3][5]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 18.015 ns  ; Idecode:inst1|register_array[2][21] ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.005 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.002 ns  ; Idecode:inst1|register_array[1][20] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 18.000 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.999 ns  ; Idecode:inst1|register_array[2][19] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.994 ns  ; Idecode:inst1|register_array[0][11] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.990 ns  ; Idecode:inst1|register_array[1][5]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.985 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.985 ns  ; Idecode:inst1|register_array[0][7]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.964 ns  ; Idecode:inst1|register_array[0][19] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.963 ns  ; Idecode:inst1|register_array[1][2]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.960 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[23] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.947 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.944 ns  ; Idecode:inst1|register_array[1][14] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.936 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.929 ns  ; Idecode:inst1|register_array[1][26] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.927 ns  ; Idecode:inst1|register_array[1][8]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.922 ns  ; Idecode:inst1|register_array[1][6]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.911 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.903 ns  ; Ifetch:inst|Instruction[2]          ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.895 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.895 ns  ; Ifetch:inst|Instruction[28]         ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.884 ns  ; Idecode:inst1|register_array[2][9]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.883 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[23] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.883 ns  ; Idecode:inst1|register_array[0][21] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.880 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.878 ns  ; Ifetch:inst|Instruction[22]         ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.875 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[17] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.871 ns  ; Idecode:inst1|register_array[0][20] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.865 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.864 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.863 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.863 ns  ; Idecode:inst1|register_array[1][5]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.861 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[22] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.853 ns  ; Idecode:inst1|register_array[1][20] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.851 ns  ; Idecode:inst1|register_array[0][13] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.849 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.848 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.848 ns  ; Idecode:inst1|register_array[1][5]  ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.833 ns  ; Idecode:inst1|register_array[1][5]  ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.829 ns  ; Idecode:inst1|register_array[0][6]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.827 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.815 ns  ; Idecode:inst1|register_array[1][11] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.810 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.810 ns  ; Idecode:inst1|register_array[1][7]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.807 ns  ; Idecode:inst1|register_array[2][3]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.803 ns  ; Idecode:inst1|register_array[2][2]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.802 ns  ; Idecode:inst1|register_array[2][1]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.798 ns  ; Ifetch:inst|Instruction[16]         ; write_data_out[17] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.795 ns  ; Idecode:inst1|register_array[1][14] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.795 ns  ; Idecode:inst1|register_array[1][5]  ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.787 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.780 ns  ; Idecode:inst1|register_array[1][26] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.773 ns  ; Idecode:inst1|register_array[1][6]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.772 ns  ; Idecode:inst1|register_array[2][21] ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.759 ns  ; Ifetch:inst|Instruction[5]          ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.758 ns  ; Idecode:inst1|register_array[0][12] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.757 ns  ; Idecode:inst1|register_array[2][9]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.754 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.753 ns  ; Idecode:inst1|register_array[2][17] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.750 ns  ; Ifetch:inst|Instruction[17]         ; ALU_result_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.742 ns  ; Idecode:inst1|register_array[2][9]  ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.734 ns  ; Ifetch:inst|Instruction[26]         ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.731 ns  ; Idecode:inst1|register_array[2][5]  ; ALU_result_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.729 ns  ; Idecode:inst1|register_array[3][5]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.727 ns  ; Idecode:inst1|register_array[2][9]  ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.726 ns  ; Idecode:inst1|register_array[1][20] ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.724 ns  ; Idecode:inst1|register_array[3][20] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.722 ns  ; Idecode:inst1|register_array[0][20] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.712 ns  ; Idecode:inst1|register_array[2][5]  ; ALU_result_out[15] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.711 ns  ; Idecode:inst1|register_array[1][20] ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.709 ns  ; Idecode:inst1|register_array[2][19] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.704 ns  ; Idecode:inst1|register_array[0][11] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.696 ns  ; Idecode:inst1|register_array[1][20] ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.695 ns  ; Idecode:inst1|register_array[0][7]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.689 ns  ; Idecode:inst1|register_array[2][9]  ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.680 ns  ; Idecode:inst1|register_array[0][6]  ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.680 ns  ; Idecode:inst1|register_array[2][5]  ; ALU_result_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.676 ns  ; Ifetch:inst|Instruction[17]         ; write_data_out[19] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.674 ns  ; Idecode:inst1|register_array[0][5]  ; write_data_out[9]  ; clk_in     ;
+; N/A                                     ; None                                                ; 17.674 ns  ; Idecode:inst1|register_array[0][19] ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.673 ns  ; Idecode:inst1|register_array[1][2]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.673 ns  ; Ifetch:inst|Instruction[16]         ; ALU_result_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.670 ns  ; Idecode:inst1|register_array[1][22] ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.668 ns  ; Idecode:inst1|register_array[1][14] ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.666 ns  ; Idecode:inst1|register_array[1][11] ; write_data_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.660 ns  ; Idecode:inst1|register_array[3][6]  ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.658 ns  ; Idecode:inst1|register_array[1][20] ; write_data_out[28] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.657 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[22] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.653 ns  ; Idecode:inst1|register_array[1][14] ; write_data_out[25] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.653 ns  ; Idecode:inst1|register_array[1][26] ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.652 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[29] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.646 ns  ; Idecode:inst1|register_array[1][6]  ; ALU_result_out[27] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.646 ns  ; Idecode:inst1|register_array[0][14] ; Zero_out           ; clk_in     ;
+; N/A                                     ; None                                                ; 17.645 ns  ; Idecode:inst1|register_array[2][7]  ; write_data_out[31] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.638 ns  ; Idecode:inst1|register_array[1][14] ; write_data_out[24] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.637 ns  ; Idecode:inst1|register_array[1][8]  ; write_data_out[30] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.636 ns  ; Ifetch:inst|Instruction[28]         ; write_data_out[13] ; clk_in     ;
+; N/A                                     ; None                                                ; 17.635 ns  ; Ifetch:inst|Instruction[22]         ; write_data_out[29] ; clk_in     ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;            ;                                     ;                    ;            ;
++-----------------------------------------+-----------------------------------------------------+------------+-------------------------------------+--------------------+------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; th                                                                                                  ;
++---------------+-------------+-----------+----------+-------------------------------------+----------+
+; Minimum Slack ; Required th ; Actual th ; From     ; To                                  ; To Clock ;
++---------------+-------------+-----------+----------+-------------------------------------+----------+
+; N/A           ; None        ; 0.617 ns  ; reset_in ; Idecode:inst1|register_array[3][23] ; clk_in   ;
+; N/A           ; None        ; 0.616 ns  ; reset_in ; Idecode:inst1|register_array[3][20] ; clk_in   ;
+; N/A           ; None        ; 0.616 ns  ; reset_in ; Idecode:inst1|register_array[3][0]  ; clk_in   ;
+; N/A           ; None        ; 0.615 ns  ; reset_in ; Idecode:inst1|register_array[3][27] ; clk_in   ;
+; N/A           ; None        ; 0.615 ns  ; reset_in ; Idecode:inst1|register_array[3][31] ; clk_in   ;
+; N/A           ; None        ; 0.504 ns  ; reset_in ; Ifetch:inst|PC[2]                   ; clk_in   ;
+; N/A           ; None        ; 0.380 ns  ; reset_in ; Ifetch:inst|PC[9]                   ; clk_in   ;
+; N/A           ; None        ; 0.380 ns  ; reset_in ; Ifetch:inst|PC[8]                   ; clk_in   ;
+; N/A           ; None        ; 0.380 ns  ; reset_in ; Ifetch:inst|PC[7]                   ; clk_in   ;
+; N/A           ; None        ; 0.380 ns  ; reset_in ; Ifetch:inst|PC[6]                   ; clk_in   ;
+; N/A           ; None        ; 0.362 ns  ; reset_in ; Ifetch:inst|PC[5]                   ; clk_in   ;
+; N/A           ; None        ; 0.328 ns  ; reset_in ; Idecode:inst1|register_array[0][1]  ; clk_in   ;
+; N/A           ; None        ; 0.239 ns  ; reset_in ; Ifetch:inst|PC[4]                   ; clk_in   ;
+; N/A           ; None        ; 0.213 ns  ; reset_in ; Idecode:inst1|register_array[1][22] ; clk_in   ;
+; N/A           ; None        ; 0.151 ns  ; reset_in ; Ifetch:inst|PC[3]                   ; clk_in   ;
+; N/A           ; None        ; 0.148 ns  ; reset_in ; Idecode:inst1|register_array[3][1]  ; clk_in   ;
+; N/A           ; None        ; 0.112 ns  ; reset_in ; Idecode:inst1|register_array[2][14] ; clk_in   ;
+; N/A           ; None        ; 0.109 ns  ; reset_in ; Idecode:inst1|register_array[2][30] ; clk_in   ;
+; N/A           ; None        ; -0.052 ns ; reset_in ; Idecode:inst1|register_array[1][24] ; clk_in   ;
+; N/A           ; None        ; -0.053 ns ; reset_in ; Idecode:inst1|register_array[1][29] ; clk_in   ;
+; N/A           ; None        ; -0.053 ns ; reset_in ; Idecode:inst1|register_array[0][28] ; clk_in   ;
+; N/A           ; None        ; -0.123 ns ; reset_in ; Idecode:inst1|register_array[0][13] ; clk_in   ;
+; N/A           ; None        ; -0.130 ns ; reset_in ; Idecode:inst1|register_array[0][16] ; clk_in   ;
+; N/A           ; None        ; -0.148 ns ; reset_in ; Idecode:inst1|register_array[0][11] ; clk_in   ;
+; N/A           ; None        ; -0.173 ns ; reset_in ; Idecode:inst1|register_array[3][6]  ; clk_in   ;
+; N/A           ; None        ; -0.174 ns ; reset_in ; Idecode:inst1|register_array[1][5]  ; clk_in   ;
+; N/A           ; None        ; -0.182 ns ; reset_in ; Idecode:inst1|register_array[3][4]  ; clk_in   ;
+; N/A           ; None        ; -0.231 ns ; reset_in ; Idecode:inst1|register_array[2][3]  ; clk_in   ;
+; N/A           ; None        ; -0.232 ns ; reset_in ; Idecode:inst1|register_array[2][7]  ; clk_in   ;
+; N/A           ; None        ; -0.250 ns ; reset_in ; Idecode:inst1|register_array[1][19] ; clk_in   ;
+; N/A           ; None        ; -0.256 ns ; reset_in ; Idecode:inst1|register_array[3][10] ; clk_in   ;
+; N/A           ; None        ; -0.256 ns ; reset_in ; Idecode:inst1|register_array[1][21] ; clk_in   ;
+; N/A           ; None        ; -0.261 ns ; reset_in ; Idecode:inst1|register_array[2][25] ; clk_in   ;
+; N/A           ; None        ; -0.286 ns ; reset_in ; Idecode:inst1|register_array[0][12] ; clk_in   ;
+; N/A           ; None        ; -0.345 ns ; reset_in ; Idecode:inst1|register_array[2][31] ; clk_in   ;
+; N/A           ; None        ; -0.380 ns ; reset_in ; Idecode:inst1|register_array[1][17] ; clk_in   ;
+; N/A           ; None        ; -0.402 ns ; reset_in ; Idecode:inst1|register_array[2][23] ; clk_in   ;
+; N/A           ; None        ; -0.405 ns ; reset_in ; Idecode:inst1|register_array[1][1]  ; clk_in   ;
+; N/A           ; None        ; -0.409 ns ; reset_in ; Idecode:inst1|register_array[1][26] ; clk_in   ;
+; N/A           ; None        ; -0.425 ns ; reset_in ; Idecode:inst1|register_array[3][14] ; clk_in   ;
+; N/A           ; None        ; -0.429 ns ; reset_in ; Idecode:inst1|register_array[3][30] ; clk_in   ;
+; N/A           ; None        ; -0.447 ns ; reset_in ; Idecode:inst1|register_array[2][1]  ; clk_in   ;
+; N/A           ; None        ; -0.447 ns ; reset_in ; Idecode:inst1|register_array[1][0]  ; clk_in   ;
+; N/A           ; None        ; -0.474 ns ; reset_in ; Ifetch:inst|Instruction[26]         ; clk_in   ;
+; N/A           ; None        ; -0.480 ns ; reset_in ; Ifetch:inst|Instruction[2]          ; clk_in   ;
+; N/A           ; None        ; -0.482 ns ; reset_in ; Ifetch:inst|Instruction[0]          ; clk_in   ;
+; N/A           ; None        ; -0.483 ns ; reset_in ; Ifetch:inst|Instruction[3]          ; clk_in   ;
+; N/A           ; None        ; -0.483 ns ; reset_in ; Ifetch:inst|Instruction[5]          ; clk_in   ;
+; N/A           ; None        ; -0.484 ns ; reset_in ; Ifetch:inst|Instruction[29]         ; clk_in   ;
+; N/A           ; None        ; -0.523 ns ; reset_in ; Idecode:inst1|register_array[1][8]  ; clk_in   ;
+; N/A           ; None        ; -0.528 ns ; reset_in ; Idecode:inst1|register_array[1][2]  ; clk_in   ;
+; N/A           ; None        ; -0.529 ns ; reset_in ; Idecode:inst1|register_array[1][9]  ; clk_in   ;
+; N/A           ; None        ; -0.591 ns ; reset_in ; Idecode:inst1|register_array[0][29] ; clk_in   ;
+; N/A           ; None        ; -0.603 ns ; reset_in ; Ifetch:inst|Instruction[17]         ; clk_in   ;
+; N/A           ; None        ; -0.603 ns ; reset_in ; Ifetch:inst|Instruction[16]         ; clk_in   ;
+; N/A           ; None        ; -0.604 ns ; reset_in ; Ifetch:inst|Instruction[22]         ; clk_in   ;
+; N/A           ; None        ; -0.606 ns ; reset_in ; Ifetch:inst|Instruction[28]         ; clk_in   ;
+; N/A           ; None        ; -0.629 ns ; reset_in ; Idecode:inst1|register_array[1][23] ; clk_in   ;
+; N/A           ; None        ; -0.633 ns ; reset_in ; Idecode:inst1|register_array[1][31] ; clk_in   ;
+; N/A           ; None        ; -0.633 ns ; reset_in ; Idecode:inst1|register_array[0][31] ; clk_in   ;
+; N/A           ; None        ; -0.648 ns ; reset_in ; Idecode:inst1|register_array[2][15] ; clk_in   ;
+; N/A           ; None        ; -0.654 ns ; reset_in ; Idecode:inst1|register_array[2][18] ; clk_in   ;
+; N/A           ; None        ; -0.656 ns ; reset_in ; Idecode:inst1|register_array[2][27] ; clk_in   ;
+; N/A           ; None        ; -0.724 ns ; reset_in ; Idecode:inst1|register_array[1][4]  ; clk_in   ;
+; N/A           ; None        ; -0.740 ns ; reset_in ; Idecode:inst1|register_array[1][6]  ; clk_in   ;
+; N/A           ; None        ; -0.742 ns ; reset_in ; Idecode:inst1|register_array[2][20] ; clk_in   ;
+; N/A           ; None        ; -0.797 ns ; reset_in ; Idecode:inst1|register_array[3][21] ; clk_in   ;
+; N/A           ; None        ; -0.830 ns ; reset_in ; Idecode:inst1|register_array[1][12] ; clk_in   ;
+; N/A           ; None        ; -0.860 ns ; reset_in ; Idecode:inst1|register_array[0][30] ; clk_in   ;
+; N/A           ; None        ; -0.861 ns ; reset_in ; Idecode:inst1|register_array[1][30] ; clk_in   ;
+; N/A           ; None        ; -0.868 ns ; reset_in ; Idecode:inst1|register_array[1][27] ; clk_in   ;
+; N/A           ; None        ; -0.870 ns ; reset_in ; Idecode:inst1|register_array[0][27] ; clk_in   ;
+; N/A           ; None        ; -0.915 ns ; reset_in ; Idecode:inst1|register_array[0][23] ; clk_in   ;
+; N/A           ; None        ; -0.943 ns ; reset_in ; Idecode:inst1|register_array[1][20] ; clk_in   ;
+; N/A           ; None        ; -0.946 ns ; reset_in ; Idecode:inst1|register_array[0][20] ; clk_in   ;
+; N/A           ; None        ; -1.001 ns ; reset_in ; Idecode:inst1|register_array[0][25] ; clk_in   ;
+; N/A           ; None        ; -1.009 ns ; reset_in ; Idecode:inst1|register_array[2][21] ; clk_in   ;
+; N/A           ; None        ; -1.024 ns ; reset_in ; Idecode:inst1|register_array[1][28] ; clk_in   ;
+; N/A           ; None        ; -1.047 ns ; reset_in ; Idecode:inst1|register_array[0][22] ; clk_in   ;
+; N/A           ; None        ; -1.069 ns ; reset_in ; Idecode:inst1|register_array[2][2]  ; clk_in   ;
+; N/A           ; None        ; -1.108 ns ; reset_in ; Idecode:inst1|register_array[3][26] ; clk_in   ;
+; N/A           ; None        ; -1.117 ns ; reset_in ; Idecode:inst1|register_array[0][17] ; clk_in   ;
+; N/A           ; None        ; -1.156 ns ; reset_in ; Idecode:inst1|register_array[3][5]  ; clk_in   ;
+; N/A           ; None        ; -1.161 ns ; reset_in ; Idecode:inst1|register_array[1][11] ; clk_in   ;
+; N/A           ; None        ; -1.191 ns ; reset_in ; Idecode:inst1|register_array[3][18] ; clk_in   ;
+; N/A           ; None        ; -1.207 ns ; reset_in ; Idecode:inst1|register_array[3][2]  ; clk_in   ;
+; N/A           ; None        ; -1.233 ns ; reset_in ; Idecode:inst1|register_array[2][5]  ; clk_in   ;
+; N/A           ; None        ; -1.234 ns ; reset_in ; Idecode:inst1|register_array[2][19] ; clk_in   ;
+; N/A           ; None        ; -1.236 ns ; reset_in ; Idecode:inst1|register_array[0][5]  ; clk_in   ;
+; N/A           ; None        ; -1.246 ns ; reset_in ; Idecode:inst1|register_array[3][19] ; clk_in   ;
+; N/A           ; None        ; -1.269 ns ; reset_in ; Idecode:inst1|register_array[3][25] ; clk_in   ;
+; N/A           ; None        ; -1.318 ns ; reset_in ; Idecode:inst1|register_array[2][12] ; clk_in   ;
+; N/A           ; None        ; -1.320 ns ; reset_in ; Idecode:inst1|register_array[3][12] ; clk_in   ;
+; N/A           ; None        ; -1.332 ns ; reset_in ; Idecode:inst1|register_array[0][24] ; clk_in   ;
+; N/A           ; None        ; -1.337 ns ; reset_in ; Idecode:inst1|register_array[3][29] ; clk_in   ;
+; N/A           ; None        ; -1.338 ns ; reset_in ; Idecode:inst1|register_array[2][29] ; clk_in   ;
+; N/A           ; None        ; -1.382 ns ; reset_in ; Idecode:inst1|register_array[3][22] ; clk_in   ;
+; N/A           ; None        ; -1.382 ns ; reset_in ; Idecode:inst1|register_array[2][22] ; clk_in   ;
+; N/A           ; None        ; -1.384 ns ; reset_in ; Idecode:inst1|register_array[1][14] ; clk_in   ;
+; N/A           ; None        ; -1.410 ns ; reset_in ; Idecode:inst1|register_array[2][17] ; clk_in   ;
+; N/A           ; None        ; -1.411 ns ; reset_in ; Idecode:inst1|register_array[3][17] ; clk_in   ;
+; N/A           ; None        ; -1.421 ns ; reset_in ; Idecode:inst1|register_array[0][14] ; clk_in   ;
+; N/A           ; None        ; -1.442 ns ; reset_in ; Idecode:inst1|register_array[2][28] ; clk_in   ;
+; N/A           ; None        ; -1.443 ns ; reset_in ; Idecode:inst1|register_array[2][4]  ; clk_in   ;
+; N/A           ; None        ; -1.443 ns ; reset_in ; Idecode:inst1|register_array[0][4]  ; clk_in   ;
+; N/A           ; None        ; -1.447 ns ; reset_in ; Idecode:inst1|register_array[2][6]  ; clk_in   ;
+; N/A           ; None        ; -1.449 ns ; reset_in ; Idecode:inst1|register_array[0][6]  ; clk_in   ;
+; N/A           ; None        ; -1.490 ns ; reset_in ; Idecode:inst1|register_array[0][26] ; clk_in   ;
+; N/A           ; None        ; -1.493 ns ; reset_in ; Idecode:inst1|register_array[2][26] ; clk_in   ;
+; N/A           ; None        ; -1.497 ns ; reset_in ; Idecode:inst1|register_array[0][8]  ; clk_in   ;
+; N/A           ; None        ; -1.500 ns ; reset_in ; Idecode:inst1|register_array[0][2]  ; clk_in   ;
+; N/A           ; None        ; -1.516 ns ; reset_in ; Idecode:inst1|register_array[1][25] ; clk_in   ;
+; N/A           ; None        ; -1.523 ns ; reset_in ; Idecode:inst1|register_array[1][7]  ; clk_in   ;
+; N/A           ; None        ; -1.523 ns ; reset_in ; Idecode:inst1|register_array[0][7]  ; clk_in   ;
+; N/A           ; None        ; -1.525 ns ; reset_in ; Idecode:inst1|register_array[0][10] ; clk_in   ;
+; N/A           ; None        ; -1.526 ns ; reset_in ; Idecode:inst1|register_array[1][10] ; clk_in   ;
+; N/A           ; None        ; -1.530 ns ; reset_in ; Idecode:inst1|register_array[3][7]  ; clk_in   ;
+; N/A           ; None        ; -1.545 ns ; reset_in ; Idecode:inst1|register_array[2][11] ; clk_in   ;
+; N/A           ; None        ; -1.545 ns ; reset_in ; Idecode:inst1|register_array[3][11] ; clk_in   ;
+; N/A           ; None        ; -1.548 ns ; reset_in ; Idecode:inst1|register_array[0][19] ; clk_in   ;
+; N/A           ; None        ; -1.594 ns ; reset_in ; Idecode:inst1|register_array[3][28] ; clk_in   ;
+; N/A           ; None        ; -1.611 ns ; reset_in ; Idecode:inst1|register_array[2][24] ; clk_in   ;
+; N/A           ; None        ; -1.612 ns ; reset_in ; Idecode:inst1|register_array[3][24] ; clk_in   ;
+; N/A           ; None        ; -1.648 ns ; reset_in ; Idecode:inst1|register_array[1][13] ; clk_in   ;
+; N/A           ; None        ; -1.662 ns ; reset_in ; Idecode:inst1|register_array[1][16] ; clk_in   ;
+; N/A           ; None        ; -1.687 ns ; reset_in ; Idecode:inst1|register_array[0][18] ; clk_in   ;
+; N/A           ; None        ; -1.688 ns ; reset_in ; Idecode:inst1|register_array[1][18] ; clk_in   ;
+; N/A           ; None        ; -1.707 ns ; reset_in ; Idecode:inst1|register_array[3][13] ; clk_in   ;
+; N/A           ; None        ; -1.710 ns ; reset_in ; Idecode:inst1|register_array[2][13] ; clk_in   ;
+; N/A           ; None        ; -1.775 ns ; reset_in ; Idecode:inst1|register_array[1][3]  ; clk_in   ;
+; N/A           ; None        ; -1.798 ns ; reset_in ; Idecode:inst1|register_array[2][8]  ; clk_in   ;
+; N/A           ; None        ; -1.798 ns ; reset_in ; Idecode:inst1|register_array[3][8]  ; clk_in   ;
+; N/A           ; None        ; -1.799 ns ; reset_in ; Idecode:inst1|register_array[2][10] ; clk_in   ;
+; N/A           ; None        ; -1.830 ns ; reset_in ; Idecode:inst1|register_array[0][21] ; clk_in   ;
+; N/A           ; None        ; -1.843 ns ; reset_in ; Idecode:inst1|register_array[3][3]  ; clk_in   ;
+; N/A           ; None        ; -1.844 ns ; reset_in ; Idecode:inst1|register_array[0][3]  ; clk_in   ;
+; N/A           ; None        ; -1.929 ns ; reset_in ; Idecode:inst1|register_array[1][15] ; clk_in   ;
+; N/A           ; None        ; -1.930 ns ; reset_in ; Idecode:inst1|register_array[0][15] ; clk_in   ;
+; N/A           ; None        ; -1.948 ns ; reset_in ; Idecode:inst1|register_array[3][9]  ; clk_in   ;
+; N/A           ; None        ; -1.954 ns ; reset_in ; Idecode:inst1|register_array[3][15] ; clk_in   ;
+; N/A           ; None        ; -1.954 ns ; reset_in ; Idecode:inst1|register_array[3][16] ; clk_in   ;
+; N/A           ; None        ; -1.980 ns ; reset_in ; Idecode:inst1|register_array[0][9]  ; clk_in   ;
+; N/A           ; None        ; -2.028 ns ; reset_in ; Idecode:inst1|register_array[2][16] ; clk_in   ;
+; N/A           ; None        ; -2.442 ns ; reset_in ; Idecode:inst1|register_array[2][0]  ; clk_in   ;
+; N/A           ; None        ; -2.443 ns ; reset_in ; Idecode:inst1|register_array[0][0]  ; clk_in   ;
+; N/A           ; None        ; -2.583 ns ; reset_in ; Idecode:inst1|register_array[2][9]  ; clk_in   ;
++---------------+-------------+-----------+----------+-------------------------------------+----------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Timing Analyzer
+    Info: Version 6.0 Build 202 06/20/2006 Service Pack 1 SJ Web Edition
+    Info: Processing started: Wed Sep 20 22:50:46 2006
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off MIPS -c MIPS --timing_analysis_only
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "clk_in" is an undefined clock
+Info: Clock "clk_in" has Internal fmax of 35.08 MHz between source register "Ifetch:inst|Instruction[16]" and destination register "dmemory:inst3|ram[13][0]" (period= 28.506 ns)
+    Info: + Longest register to register delay is 13.989 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X29_Y19_N25; Fanout = 55; REG Node = 'Ifetch:inst|Instruction[16]'
+        Info: 2: + IC(0.843 ns) + CELL(0.437 ns) = 1.280 ns; Loc. = LCCOMB_X29_Y21_N18; Fanout = 1; COMB Node = 'Idecode:inst1|Mux61~55'
+        Info: 3: + IC(0.242 ns) + CELL(0.150 ns) = 1.672 ns; Loc. = LCCOMB_X29_Y21_N16; Fanout = 34; COMB Node = 'Idecode:inst1|Mux61~56'
+        Info: 4: + IC(0.981 ns) + CELL(0.150 ns) = 2.803 ns; Loc. = LCCOMB_X30_Y19_N14; Fanout = 3; COMB Node = 'Execute:inst2|Binput[2]~1518'
+        Info: 5: + IC(0.270 ns) + CELL(0.275 ns) = 3.348 ns; Loc. = LCCOMB_X30_Y19_N10; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13120'
+        Info: 6: + IC(0.268 ns) + CELL(0.438 ns) = 4.054 ns; Loc. = LCCOMB_X30_Y19_N22; Fanout = 1; COMB Node = 'Execute:inst2|Add1~12978'
+        Info: 7: + IC(0.240 ns) + CELL(0.150 ns) = 4.444 ns; Loc. = LCCOMB_X30_Y19_N6; Fanout = 1; COMB Node = 'Execute:inst2|Add1~12983'
+        Info: 8: + IC(0.246 ns) + CELL(0.149 ns) = 4.839 ns; Loc. = LCCOMB_X30_Y19_N2; Fanout = 9; COMB Node = 'Execute:inst2|Add1~12985'
+        Info: 9: + IC(1.217 ns) + CELL(0.150 ns) = 6.206 ns; Loc. = LCCOMB_X35_Y17_N20; Fanout = 137; COMB Node = 'Execute:inst2|ALU_Result[2]~1872'
+        Info: 10: + IC(0.814 ns) + CELL(0.275 ns) = 7.295 ns; Loc. = LCCOMB_X35_Y16_N16; Fanout = 4; COMB Node = 'dmemory:inst3|Decoder2~664'
+        Info: 11: + IC(2.477 ns) + CELL(0.415 ns) = 10.187 ns; Loc. = LCCOMB_X35_Y16_N12; Fanout = 12; COMB Node = 'dmemory:inst3|ram[13][4]~18019'
+        Info: 12: + IC(2.408 ns) + CELL(0.419 ns) = 13.014 ns; Loc. = LCCOMB_X35_Y16_N24; Fanout = 1; COMB Node = 'dmemory:inst3|ram~18561'
+        Info: 13: + IC(0.741 ns) + CELL(0.150 ns) = 13.905 ns; Loc. = LCCOMB_X34_Y12_N22; Fanout = 1; COMB Node = 'dmemory:inst3|ram~18562'
+        Info: 14: + IC(0.000 ns) + CELL(0.084 ns) = 13.989 ns; Loc. = LCFF_X34_Y12_N23; Fanout = 2; REG Node = 'dmemory:inst3|ram[13][0]'
+        Info: Total cell delay = 3.242 ns ( 23.18 % )
+        Info: Total interconnect delay = 10.747 ns ( 76.82 % )
+    Info: - Smallest clock skew is -0.050 ns
+        Info: + Shortest clock path from clock "clk_in" to destination register is 2.646 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_P2; Fanout = 1; CLK Node = 'clk_in'
+            Info: 2: + IC(0.118 ns) + CELL(0.000 ns) = 1.117 ns; Loc. = CLKCTRL_G3; Fanout = 434; COMB Node = 'clk_in~clkctrl'
+            Info: 3: + IC(0.992 ns) + CELL(0.537 ns) = 2.646 ns; Loc. = LCFF_X34_Y12_N23; Fanout = 2; REG Node = 'dmemory:inst3|ram[13][0]'
+            Info: Total cell delay = 1.536 ns ( 58.05 % )
+            Info: Total interconnect delay = 1.110 ns ( 41.95 % )
+        Info: - Longest clock path from clock "clk_in" to source register is 2.696 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_P2; Fanout = 1; CLK Node = 'clk_in'
+            Info: 2: + IC(0.118 ns) + CELL(0.000 ns) = 1.117 ns; Loc. = CLKCTRL_G3; Fanout = 434; COMB Node = 'clk_in~clkctrl'
+            Info: 3: + IC(1.042 ns) + CELL(0.537 ns) = 2.696 ns; Loc. = LCFF_X29_Y19_N25; Fanout = 55; REG Node = 'Ifetch:inst|Instruction[16]'
+            Info: Total cell delay = 1.536 ns ( 56.97 % )
+            Info: Total interconnect delay = 1.160 ns ( 43.03 % )
+    Info: + Micro clock to output delay of source is 0.250 ns
+    Info: + Micro setup delay of destination is -0.036 ns
+    Info: Delay path is controlled by inverted clocks -- if clock duty cycle is 50, fmax is divided by two
+Info: tsu for register "Idecode:inst1|register_array[2][7]" (data pin = "reset_in", clock pin = "clk_in") is 4.207 ns
+    Info: + Longest pin to register delay is 6.933 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.979 ns) = 0.979 ns; Loc. = PIN_C13; Fanout = 51; PIN Node = 'reset_in'
+        Info: 2: + IC(2.129 ns) + CELL(0.149 ns) = 3.257 ns; Loc. = LCCOMB_X29_Y21_N10; Fanout = 31; COMB Node = 'Idecode:inst1|register_array[2][20]~15354'
+        Info: 3: + IC(3.016 ns) + CELL(0.660 ns) = 6.933 ns; Loc. = LCFF_X30_Y15_N1; Fanout = 2; REG Node = 'Idecode:inst1|register_array[2][7]'
+        Info: Total cell delay = 1.788 ns ( 25.79 % )
+        Info: Total interconnect delay = 5.145 ns ( 74.21 % )
+    Info: + Micro setup delay of destination is -0.036 ns
+    Info: - Shortest clock path from clock "clk_in" to destination register is 2.690 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_P2; Fanout = 1; CLK Node = 'clk_in'
+        Info: 2: + IC(0.118 ns) + CELL(0.000 ns) = 1.117 ns; Loc. = CLKCTRL_G3; Fanout = 434; COMB Node = 'clk_in~clkctrl'
+        Info: 3: + IC(1.036 ns) + CELL(0.537 ns) = 2.690 ns; Loc. = LCFF_X30_Y15_N1; Fanout = 2; REG Node = 'Idecode:inst1|register_array[2][7]'
+        Info: Total cell delay = 1.536 ns ( 57.10 % )
+        Info: Total interconnect delay = 1.154 ns ( 42.90 % )
+Info: tco from clock "clk_in" to destination pin "Zero_out" through register "Ifetch:inst|Instruction[17]" is 19.953 ns
+    Info: + Longest clock path from clock "clk_in" to source register is 2.696 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_P2; Fanout = 1; CLK Node = 'clk_in'
+        Info: 2: + IC(0.118 ns) + CELL(0.000 ns) = 1.117 ns; Loc. = CLKCTRL_G3; Fanout = 434; COMB Node = 'clk_in~clkctrl'
+        Info: 3: + IC(1.042 ns) + CELL(0.537 ns) = 2.696 ns; Loc. = LCFF_X29_Y19_N15; Fanout = 54; REG Node = 'Ifetch:inst|Instruction[17]'
+        Info: Total cell delay = 1.536 ns ( 56.97 % )
+        Info: Total interconnect delay = 1.160 ns ( 43.03 % )
+    Info: + Micro clock to output delay of source is 0.250 ns
+    Info: + Longest register to pin delay is 17.007 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X29_Y19_N15; Fanout = 54; REG Node = 'Ifetch:inst|Instruction[17]'
+        Info: 2: + IC(0.911 ns) + CELL(0.437 ns) = 1.348 ns; Loc. = LCCOMB_X30_Y16_N4; Fanout = 1; COMB Node = 'Idecode:inst1|Mux58~47'
+        Info: 3: + IC(0.757 ns) + CELL(0.150 ns) = 2.255 ns; Loc. = LCCOMB_X29_Y20_N8; Fanout = 34; COMB Node = 'Idecode:inst1|Mux58~48'
+        Info: 4: + IC(1.848 ns) + CELL(0.150 ns) = 4.253 ns; Loc. = LCCOMB_X30_Y16_N28; Fanout = 2; COMB Node = 'Execute:inst2|Binput[5]~1521'
+        Info: 5: + IC(0.253 ns) + CELL(0.150 ns) = 4.656 ns; Loc. = LCCOMB_X30_Y16_N6; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13123'
+        Info: 6: + IC(0.781 ns) + CELL(0.414 ns) = 5.851 ns; Loc. = LCCOMB_X30_Y19_N28; Fanout = 2; COMB Node = 'Execute:inst2|Add1~12996'
+        Info: 7: + IC(0.000 ns) + CELL(0.146 ns) = 5.997 ns; Loc. = LCCOMB_X30_Y19_N30; Fanout = 2; COMB Node = 'Execute:inst2|Add1~12998'
+        Info: 8: + IC(0.000 ns) + CELL(0.071 ns) = 6.068 ns; Loc. = LCCOMB_X30_Y18_N0; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13000'
+        Info: 9: + IC(0.000 ns) + CELL(0.071 ns) = 6.139 ns; Loc. = LCCOMB_X30_Y18_N2; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13002'
+        Info: 10: + IC(0.000 ns) + CELL(0.071 ns) = 6.210 ns; Loc. = LCCOMB_X30_Y18_N4; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13004'
+        Info: 11: + IC(0.000 ns) + CELL(0.071 ns) = 6.281 ns; Loc. = LCCOMB_X30_Y18_N6; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13006'
+        Info: 12: + IC(0.000 ns) + CELL(0.071 ns) = 6.352 ns; Loc. = LCCOMB_X30_Y18_N8; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13008'
+        Info: 13: + IC(0.000 ns) + CELL(0.071 ns) = 6.423 ns; Loc. = LCCOMB_X30_Y18_N10; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13029'
+        Info: 14: + IC(0.000 ns) + CELL(0.071 ns) = 6.494 ns; Loc. = LCCOMB_X30_Y18_N12; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13031'
+        Info: 15: + IC(0.000 ns) + CELL(0.159 ns) = 6.653 ns; Loc. = LCCOMB_X30_Y18_N14; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13033'
+        Info: 16: + IC(0.000 ns) + CELL(0.071 ns) = 6.724 ns; Loc. = LCCOMB_X30_Y18_N16; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13035'
+        Info: 17: + IC(0.000 ns) + CELL(0.071 ns) = 6.795 ns; Loc. = LCCOMB_X30_Y18_N18; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13037'
+        Info: 18: + IC(0.000 ns) + CELL(0.071 ns) = 6.866 ns; Loc. = LCCOMB_X30_Y18_N20; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13039'
+        Info: 19: + IC(0.000 ns) + CELL(0.071 ns) = 6.937 ns; Loc. = LCCOMB_X30_Y18_N22; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13041'
+        Info: 20: + IC(0.000 ns) + CELL(0.071 ns) = 7.008 ns; Loc. = LCCOMB_X30_Y18_N24; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13043'
+        Info: 21: + IC(0.000 ns) + CELL(0.071 ns) = 7.079 ns; Loc. = LCCOMB_X30_Y18_N26; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13045'
+        Info: 22: + IC(0.000 ns) + CELL(0.071 ns) = 7.150 ns; Loc. = LCCOMB_X30_Y18_N28; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13047'
+        Info: 23: + IC(0.000 ns) + CELL(0.146 ns) = 7.296 ns; Loc. = LCCOMB_X30_Y18_N30; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13049'
+        Info: 24: + IC(0.000 ns) + CELL(0.071 ns) = 7.367 ns; Loc. = LCCOMB_X30_Y17_N0; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13051'
+        Info: 25: + IC(0.000 ns) + CELL(0.071 ns) = 7.438 ns; Loc. = LCCOMB_X30_Y17_N2; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13053'
+        Info: 26: + IC(0.000 ns) + CELL(0.071 ns) = 7.509 ns; Loc. = LCCOMB_X30_Y17_N4; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13055'
+        Info: 27: + IC(0.000 ns) + CELL(0.071 ns) = 7.580 ns; Loc. = LCCOMB_X30_Y17_N6; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13057'
+        Info: 28: + IC(0.000 ns) + CELL(0.071 ns) = 7.651 ns; Loc. = LCCOMB_X30_Y17_N8; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13067'
+        Info: 29: + IC(0.000 ns) + CELL(0.071 ns) = 7.722 ns; Loc. = LCCOMB_X30_Y17_N10; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13069'
+        Info: 30: + IC(0.000 ns) + CELL(0.071 ns) = 7.793 ns; Loc. = LCCOMB_X30_Y17_N12; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13093'
+        Info: 31: + IC(0.000 ns) + CELL(0.410 ns) = 8.203 ns; Loc. = LCCOMB_X30_Y17_N14; Fanout = 2; COMB Node = 'Execute:inst2|Add1~13103'
+        Info: 32: + IC(0.790 ns) + CELL(0.242 ns) = 9.235 ns; Loc. = LCCOMB_X30_Y15_N16; Fanout = 1; COMB Node = 'Execute:inst2|Equal0~827'
+        Info: 33: + IC(0.259 ns) + CELL(0.275 ns) = 9.769 ns; Loc. = LCCOMB_X30_Y15_N4; Fanout = 1; COMB Node = 'Execute:inst2|Equal0~828'
+        Info: 34: + IC(1.215 ns) + CELL(0.150 ns) = 11.134 ns; Loc. = LCCOMB_X32_Y19_N8; Fanout = 2; COMB Node = 'Execute:inst2|Equal0~835'
+        Info: 35: + IC(1.062 ns) + CELL(0.415 ns) = 12.611 ns; Loc. = LCCOMB_X30_Y16_N18; Fanout = 1; COMB Node = 'Execute:inst2|Equal0~836'
+        Info: 36: + IC(1.774 ns) + CELL(2.622 ns) = 17.007 ns; Loc. = PIN_T23; Fanout = 0; PIN Node = 'Zero_out'
+        Info: Total cell delay = 7.357 ns ( 43.26 % )
+        Info: Total interconnect delay = 9.650 ns ( 56.74 % )
+Info: th for register "Idecode:inst1|register_array[3][23]" (data pin = "reset_in", clock pin = "clk_in") is 0.617 ns
+    Info: + Longest clock path from clock "clk_in" to destination register is 2.686 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.999 ns) = 0.999 ns; Loc. = PIN_P2; Fanout = 1; CLK Node = 'clk_in'
+        Info: 2: + IC(0.118 ns) + CELL(0.000 ns) = 1.117 ns; Loc. = CLKCTRL_G3; Fanout = 434; COMB Node = 'clk_in~clkctrl'
+        Info: 3: + IC(1.032 ns) + CELL(0.537 ns) = 2.686 ns; Loc. = LCFF_X30_Y23_N29; Fanout = 2; REG Node = 'Idecode:inst1|register_array[3][23]'
+        Info: Total cell delay = 1.536 ns ( 57.19 % )
+        Info: Total interconnect delay = 1.150 ns ( 42.81 % )
+    Info: + Micro hold delay of destination is 0.266 ns
+    Info: - Shortest pin to register delay is 2.335 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.979 ns) = 0.979 ns; Loc. = PIN_C13; Fanout = 51; PIN Node = 'reset_in'
+        Info: 2: + IC(1.122 ns) + CELL(0.150 ns) = 2.251 ns; Loc. = LCCOMB_X30_Y23_N28; Fanout = 4; COMB Node = 'Idecode:inst1|register_array~15381'
+        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 2.335 ns; Loc. = LCFF_X30_Y23_N29; Fanout = 2; REG Node = 'Idecode:inst1|register_array[3][23]'
+        Info: Total cell delay = 1.213 ns ( 51.95 % )
+        Info: Total interconnect delay = 1.122 ns ( 48.05 % )
+Info: Quartus II Timing Analyzer was successful. 0 errors, 1 warning
+    Info: Processing ended: Wed Sep 20 22:50:48 2006
+    Info: Elapsed time: 00:00:03
+
+
