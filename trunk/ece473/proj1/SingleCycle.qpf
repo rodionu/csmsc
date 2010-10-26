@@ -18,13 +18,13 @@
 #
 # Quartus II
 # Version 9.0 Build 132 02/25/2009 SJ Full Version
-# Date created = 15:37:21  October 08, 2010
+# Date created = 16:08:23  October 07, 2010
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "9.0"
-DATE = "15:37:21  October 08, 2010"
+DATE = "16:08:23  October 07, 2010"
 
 # Revisions
 
-PROJECT_REVISION = "project1"
+PROJECT_REVISION = "SingleCycle"
