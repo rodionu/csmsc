@@ -11,7 +11,7 @@ module SCALUJ(
 	DataOut,
 	Zero);
 	
-	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2, CLOCK;
+	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2;
 	output DataOut, Zero;
 	
 	wire [3:0] ALUOp;
@@ -20,6 +20,7 @@ module SCALUJ(
 	wire [31:0] regData2;
 	wire [31:0] immData2;
 	reg [31:0] DataIn2;
+	reg [31:0] tempData;
 	reg [31:0] DataOut;
 	reg Zero;
 	
@@ -28,11 +29,6 @@ module SCALUJ(
 			DataIn2=regData2;
 		end else begin
 			DataIn2=immData2;
-		end
-		if(DataOut==32'b0) begin
-			Zero=1;
-		end else begin
-			Zero=0;
 		end
 		if(ALUOp==4'h1) begin				//0001 --> add	needs more
 			DataOut = DataIn1 + DataIn2;
@@ -62,14 +58,24 @@ module SCALUJ(
 			DataOut = DataIn2 >>> shamt;
 		end else if(ALUOp==4'hC) begin		//1100 --> jr
 			DataOut = DataIn1;
-		end else if(ALUOp==4'hD) begin		//1101 --> Does Nothing
-			DataOut = 32'b0;
+		end else if(ALUOp==4'hD) begin		//1101 --> bne inverse zero
+			tempData=(DataIn1-DataIn2);
+			if(tempData==0) begin
+				DataOut=32'b1;
+			end else begin
+				DataOut = 32'b0;
+			end
 		end else if(ALUOp==4'hE) begin		//1110 --> Does Nothing
 			DataOut = 32'b0;
 		end else if(ALUOp==4'hF) begin		//1111 --> Does Nothing
 			DataOut = 32'b0;
 		end else  begin						//0000 --> Does Nothing
 			DataOut = 32'b0;
+		end
+		if(DataOut==32'b0) begin
+			Zero=1;
+		end else begin
+			Zero=0;
 		end
 	end
 endmodule 

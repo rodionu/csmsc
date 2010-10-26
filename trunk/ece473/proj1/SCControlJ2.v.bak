@@ -1,11 +1,13 @@
 // file: SCControlJ2.v
-// Controller for Project 1 - Version: 0.2
+// Controller for Project 1 - Version: 0.4
 
 module SCControlJ2(
     opcode,
     shamt,
     func,
     zero,
+    branch,
+    jump,
     RESET,
     CLOCK,
     RegDst,
@@ -18,12 +20,12 @@ module SCControlJ2(
     ALUOp);
 
     input opcode, shamt, func, zero, RESET, CLOCK;
-    output RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc, ALUOp;
+    output branch, jump, RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc, ALUOp;
 
     wire [5:0] opcode;
     wire [4:0] shamt;
     wire [5:0] func;
-    reg RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc;
+    reg RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc, branch, jump;
     reg [3:0] ALUOp;
 
     always @(posedge CLOCK) begin
@@ -40,7 +42,6 @@ module SCControlJ2(
 //          RegWrite=1'b1;
             MemRead=1'b0;
             MemWrite=1'b0;
-            PCSrc=1'b0;
 			if(func==6'h20) begin			//add
 				ALUOp=4'h1;
 			end else if(func==6'h21) begin	//addu
@@ -67,6 +68,15 @@ module SCControlJ2(
 				ALUOp=4'hC;
 			end
         end else if(opcode==6'b10 || opcode==6'b11) begin
+			PCSrc=1'b1;
+			branch=1'b1;
+			if(opcode==6'b10) begin
+				jump=1'b0;
+				ALUOp=4'hE;
+			end else begin
+				jump=1'b1;
+				ALUOp=4'hF;
+			end
             //Jump instructions here
         end else begin
 			RegDst=1'b0;
@@ -75,7 +85,6 @@ module SCControlJ2(
 			RegWrite=1'b1;
 			MemRead=1'b0;
 			MemWrite=1'b0;
-			PCSrc=1'b0;
 			if(opcode==6'h0C) begin			//andi
 				ALUOp=4'h5;
 			end else if(opcode==6'h0D) begin	//ori
@@ -87,20 +96,16 @@ module SCControlJ2(
 			end else if(opcode==6'h09) begin	//subi
 				ALUOp=4'h3;
 			end else if(opcode==6'h04) begin	//beq
-				ALUSrc=1'b0;
+				PCSrc=1'b0;
 				RegWrite=1'b0;
 				ALUOp=4'h3;
-				if(zero==1) begin
-					PCSrc=1'b1;
-				end
+				branch=1'b1;
 			end else if(opcode==6'h05) begin	//bne
-				ALUSrc=1'b0;
+				PCSrc=1'b0;
 				RegWrite=1'b0;
-				ALUOp=4'h3;
-				if(zero==0) begin
-					PCSrc=1'b1;
-				end 
-			end else if(opcode==6'h22) begin	//lw
+				ALUOp=4'hD;
+				branch=1'b1;
+			end else if(opcode==6'h23) begin	//lw
 				MemtoReg=1'b1;
 				MemRead=1'b1;
 				ALUOp=4'h1;
