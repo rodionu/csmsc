@@ -28,7 +28,7 @@ module SCControlJ2(
     reg RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc, branch, jump;
     reg [3:0] ALUOp;
 
-    always @(posedge CLOCK) begin
+    always @* begin
         if(opcode == 6'b0) begin
 			if(shamt==5'b0 && func==6'h00) begin	//nop
 				RegWrite=1'b0;
@@ -66,6 +66,7 @@ module SCControlJ2(
 				ALUOp=4'hB;
 			end else if(func==6'h08) begin	//jr
 				ALUOp=4'hC;
+				jump=1'b1;
 			end
         end else if(opcode==6'b10 || opcode==6'b11) begin
 			PCSrc=1'b1;
@@ -74,7 +75,7 @@ module SCControlJ2(
 				jump=1'b0;
 				ALUOp=4'h0;
 			end else begin
-				jump=1'b1;
+				jump=1'b0;
 				ALUOp=4'hE;
 			end
             //Jump instructions here
