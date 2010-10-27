@@ -59,7 +59,7 @@ BEGIN
 
 PROCESS
 	BEGIN
-		WAIT UNTIL clock'EVENT AND clock = '1';
+		WAIT UNTIL clock'EVENT AND clock = '0';
 		IF reset = '1' THEN
 					-- Initial register values on reset are register = reg#
 					-- use loop to automatically generate reset logic 

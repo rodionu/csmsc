@@ -78,6 +78,9 @@ module SCALUJ(
 		end else  begin						//0000 --> Does Nothing
 			DataOut = 32'b0;
 		end
+	end
+	
+	always @* begin
 		if(DataOut==32'b0) begin
 			Zero=1;
 		end else begin

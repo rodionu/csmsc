@@ -1027,7 +1027,7 @@ applicable agreement for further details.
 	(pt 136 -8)
 )
 (connector
-	(text "jump" (rect 134 -8 157 4)(font "Arial" ))
+	(text "jump" (rect 142 0 165 12)(font "Arial" ))
 	(pt 104 8)
 	(pt 136 8)
 )
@@ -1060,11 +1060,6 @@ applicable agreement for further details.
 	(text "MemWrite" (rect 135 96 184 108)(font "Arial" ))
 	(pt 104 104)
 	(pt 136 104)
-)
-(connector
-	(text "PCsrc" (rect 136 112 166 124)(font "Arial" ))
-	(pt 104 120)
-	(pt 136 120)
 )
 (connector
 	(text "ALUop[3..0]" (rect 144 128 203 140)(font "Arial" ))
@@ -1227,4 +1222,9 @@ applicable agreement for further details.
 	(pt 344 96)
 	(pt 288 96)
 	(bus)
+)
+(connector
+	(text "PCSrc" (rect 136 112 167 124)(font "Arial" ))
+	(pt 104 120)
+	(pt 136 120)
 )
