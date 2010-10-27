@@ -20,7 +20,7 @@ module SCALUJ(
 	wire [31:0] regData2;
 	wire [31:0] immData2;
 	reg [31:0] DataIn2;
-	reg [31:0] tempData;
+	reg [31:0] Data;
 	reg [31:0] DataOut;
 	reg Zero;
 	
@@ -59,8 +59,7 @@ module SCALUJ(
 		end else if(ALUOp==4'hC) begin		//1100 --> jr
 			DataOut = DataIn1;
 		end else if(ALUOp==4'hD) begin		//1101 --> bne inverse zero
-			tempData=(DataIn1-DataIn2);
-			if(tempData==0) begin
+			if((DataIn1-DataIn2)==0) begin
 				DataOut=32'b1;
 			end else begin
 				DataOut = 32'b0;
