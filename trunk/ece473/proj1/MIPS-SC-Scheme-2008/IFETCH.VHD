@@ -65,10 +65,11 @@ BEGIN
 			WAIT UNTIL ( clock'EVENT ) AND ( clock = '1' );
 			IF reset = '1' THEN
 				   PC( 9 DOWNTO 2) <= "00000000" ;
+				   Instruction <= iram(CONV_INTEGER(0));
 			ELSE 
 				   PC( 9 DOWNTO 2 ) <= next_PC;
+				   Instruction <= iram(CONV_INTEGER(Mem_Addr));
 			END IF;
-			Instruction <= iram(CONV_INTEGER(Mem_Addr));
 	END PROCESS;
 END behavior;
 
