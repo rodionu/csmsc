@@ -29,6 +29,9 @@ module SCControlJ2(
     reg [3:0] ALUOp;
 
     always @* begin
+		RegWrite=1'b0;			// From John
+		MemWrite=1'b0;			// From John
+		branch=1'b0;
         if(opcode == 6'b0) begin
 			if(shamt==5'b0 && func==6'h00) begin	//nop
 				RegWrite=1'b0;
@@ -71,10 +74,11 @@ module SCControlJ2(
         end else if(opcode==6'b10 || opcode==6'b11) begin
 			PCSrc=1'b1;
 			branch=1'b1;
-			if(opcode==6'b10) begin
+			if(opcode==6'b10) begin		//j
 				jump=1'b0;
 				ALUOp=4'h0;
-			end else begin
+			end else begin				//jal
+				
 				jump=1'b0;
 				ALUOp=4'hE;
 			end

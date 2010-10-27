@@ -8,10 +8,12 @@ module SCALUJ(
 	DataIn1,
 	regData2,
 	immData2,
+	PC,
+	jump,
 	DataOut,
 	Zero);
 	
-	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2;
+	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2,PC,jump;
 	output DataOut, Zero;
 	
 	wire [3:0] ALUOp;
@@ -19,16 +21,21 @@ module SCALUJ(
 	wire [31:0] DataIn1;
 	wire [31:0] regData2;
 	wire [31:0] immData2;
+	wire [9:0] PC;
 	reg [31:0] DataIn2;
 	reg [31:0] Data;
 	reg [31:0] DataOut;
 	reg Zero;
 	
 	always @* begin
-		if (ALUSrc==0) begin
-			DataIn2=regData2;
+		if (jump!=0) begin
+			DataIn2=PC;
 		end else begin
-			DataIn2=immData2;
+			if (ALUSrc==0) begin
+				DataIn2=regData2;
+			end else begin
+				DataIn2=immData2;
+			end
 		end
 		if(ALUOp==4'h1) begin				//0001 --> add	needs more
 			DataOut = DataIn1 + DataIn2;

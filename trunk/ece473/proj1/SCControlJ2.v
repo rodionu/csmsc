@@ -74,11 +74,12 @@ module SCControlJ2(
         end else if(opcode==6'b10 || opcode==6'b11) begin
 			PCSrc=1'b1;
 			branch=1'b1;
-			if(opcode==6'b10) begin
+			if(opcode==6'b10) begin		//j
 				jump=1'b0;
 				ALUOp=4'h0;
-			end else begin
-				jump=1'b0;
+			end else begin				//jal
+				
+				jump=1'b1;
 				ALUOp=4'hE;
 			end
             //Jump instructions here
