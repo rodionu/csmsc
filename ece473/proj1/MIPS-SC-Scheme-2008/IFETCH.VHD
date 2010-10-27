@@ -19,17 +19,19 @@ ENTITY Ifetch IS
 END Ifetch;
 
 ARCHITECTURE behavior OF Ifetch IS
-   TYPE INST_MEM IS ARRAY (0 to 7) of STD_LOGIC_VECTOR (31 DOWNTO 0);
+   TYPE INST_MEM IS ARRAY (0 to 2) of STD_LOGIC_VECTOR (31 DOWNTO 0);
    SIGNAL iram : INST_MEM := (
 --      X"00000000",   -- nop
-      X"3C011001",
-	  X"34280000",
-	  X"00008020",
-	  X"8D0A0000", 
-	  X"020a8020", 
-	  X"21080004", 
-	  X"1540fffc",
-	  X"08100007"
+		X"20010007",		--addi $1,$0,7
+		X"20020003",		--addi $2,$0,3
+      X"00411820"
+-- X"34280000",
+-- X"00008020",
+-- X"8D0A0000", 
+-- X"020a8020", 
+-- X"21080004", 
+-- X"1540fffc",
+-- X"08100007"
 --      X"8C020000",   -- lw $2,0 ;memory(00)=55555555
 --      X"8C030004",   -- lw $3,4 ;memory(04)=AAAAAAAA
 --      X"00430820",   -- add $1,$2,$3
