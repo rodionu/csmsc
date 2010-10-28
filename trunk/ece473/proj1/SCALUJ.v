@@ -29,7 +29,7 @@ module SCALUJ(
 	
 	always @* begin
 		if (jump!=0) begin
-			DataIn2=PC;
+			DataIn2=PC | 32'h0;
 		end else begin
 			if (ALUSrc==0) begin
 				DataIn2=regData2;
@@ -71,8 +71,8 @@ module SCALUJ(
 			end else begin
 				DataOut = 32'b0;
 			end
-		end else if(ALUOp==4'hE) begin		//1110 --> Does Nothing
-			DataOut = 32'b0;
+		end else if(ALUOp==4'hE) begin		//1110 --> JAL
+			DataOut = DataIn2;
 		end else if(ALUOp==4'hF) begin		//1111 --> Does Nothing
 			DataOut = 32'b0;
 		end else  begin						//0000 --> Does Nothing
@@ -81,7 +81,7 @@ module SCALUJ(
 	end
 	
 	always @* begin
-		if(DataOut==32'b0) begin
+	if((DataOut==32'b0) || (ALUOp==4'b1110) || (ALUOp==4'b1100)) begin
 			Zero=1;
 		end else begin
 			Zero=0;
