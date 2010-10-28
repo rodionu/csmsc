@@ -19,26 +19,33 @@ ENTITY Ifetch IS
 END Ifetch;
 
 ARCHITECTURE behavior OF Ifetch IS
-   TYPE INST_MEM IS ARRAY (0 to 2) of STD_LOGIC_VECTOR (31 DOWNTO 0);
+   TYPE INST_MEM IS ARRAY (0 to 8) of STD_LOGIC_VECTOR (31 DOWNTO 0);
    SIGNAL iram : INST_MEM := (
---      X"00000000",   -- nop
-		X"20010007",		--addi $1,$0,7
-		X"20020003",		--addi $2,$0,3
-      X"00411820"
--- X"34280000",
--- X"00008020",
--- X"8D0A0000", 
--- X"020a8020", 
--- X"21080004", 
--- X"1540fffc",
--- X"08100007"
---      X"8C020000",   -- lw $2,0 ;memory(00)=55555555
---      X"8C030004",   -- lw $3,4 ;memory(04)=AAAAAAAA
---      X"00430820",   -- add $1,$2,$3
---      X"AC010008",   -- sw $1,3 ;memory(0C)=FFFFFFFF
---      X"1022FFFF",   -- beq $1,$2,-4  
---      X"1021FFFA"    -- beq $1,$1,-24 (Assume delay slot present, so it  
-                     -- New PC = PC+4-24 = PC-20
+        X"00000000",   -- nop
+        X"3c011001",	--Test Program 1
+        X"34280000",
+        X"00008020",
+        X"8d0a0000", 
+        X"020a8020", 
+        X"21080004", 
+        X"1540fffc",
+        X"08100007"
+        
+--		X"2001000F",
+--       X"20020008",
+--        X"00411825",
+--        X"00411827",
+--		X"0C10002C",	--JAL TO PC = 44 (2C)
+--        X"2001000F",
+--        X"20020008",
+--        X"2001000F",
+--        X"20020008",
+--        X"200500FA",
+--        X"00411820",
+--		X"03E00008"		--Jump Return
+
+       
+       
    );
     
 	SIGNAL PC, PC_plus_4 	 : STD_LOGIC_VECTOR( 9 DOWNTO 0 );

@@ -19,40 +19,20 @@ ENTITY dmemory IS
 END dmemory;
 
 ARCHITECTURE behavior OF dmemory IS 
-   TYPE DATA_RAM IS ARRAY (0 to 31) OF STD_LOGIC_VECTOR (7 DOWNTO 0);
+   TYPE DATA_RAM IS ARRAY (0 to 11) OF STD_LOGIC_VECTOR (7 DOWNTO 0);
    SIGNAL ram: DATA_RAM := (
-      X"55",
-      X"55",
-      X"55",
-      X"55",
-      X"AA",
-      X"AA",
-      X"AA",
-      X"AA",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00",
-      X"00"
+     X"00",
+     X"01",
+     X"02",
+     X"03", 
+     X"04",
+     X"05",
+     X"06",
+     X"07",
+     X"08",
+     X"09",
+	 X"0A",
+     X"00"
    );
    BEGIN
        PROCESS(clock, MemRead, Memwrite, address)

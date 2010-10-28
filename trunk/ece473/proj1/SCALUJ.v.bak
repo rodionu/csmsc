@@ -72,12 +72,15 @@ module SCALUJ(
 				DataOut = 32'b0;
 			end
 		end else if(ALUOp==4'hE) begin		//1110 --> Does Nothing
-			DataOut = 32'b0;
+			DataOut = 32'b0
 		end else if(ALUOp==4'hF) begin		//1111 --> Does Nothing
 			DataOut = 32'b0;
 		end else  begin						//0000 --> Does Nothing
 			DataOut = 32'b0;
 		end
+	end
+	
+	always @* begin
 		if(DataOut==32'b0) begin
 			Zero=1;
 		end else begin
