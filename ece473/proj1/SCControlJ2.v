@@ -68,11 +68,12 @@ module SCControlJ2(
 			end else if(shamt>5'b0 && func==6'h03) begin	//sra
 				ALUOp=4'hB;
 			end else if(func==6'h08) begin	//jr
+				RegWrite = 0;
 				PCSrc = 1;
 				branch = 1;
 				ALUSrc = 0;
 				ALUOp=4'hC;
-				jump=1'b1;
+				jump=1'b0;
 			end
         end else if((opcode==6'b000010) || (opcode==6'b000011)) begin
 			ALUSrc=1'b0;
@@ -83,7 +84,7 @@ module SCControlJ2(
 				ALUOp=4'h0;
 			end else begin				//jal
 				jump=1'b1;
-				ALUOp=4'h0;			//JAL ALUcode
+				ALUOp=4'hE;			//JAL ALUcode
 				RegWrite=1;			//Save value to register
 			end
             //Jump instructions here
