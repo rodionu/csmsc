@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="test_1">
+		<CBX_INST_ENTRY INSTANCE_NAME="|board|SingleCycle:inst7|Ifetch:inst|altsyncram:iram_rtl_0" CBX_FILE_NAME="altsyncram_bj81.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|board|SingleCycle:inst7|dmemory:inst5|altsyncram:ram_rtl_1" CBX_FILE_NAME="altsyncram_a5k1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>
