@@ -72,7 +72,7 @@ applicable agreement for further details.
 	(input)
 	(rect -440 -192 -272 -176)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
-	(text "Data_Add[4..0]" (rect 5 0 79 12)(font "Arial" ))
+	(text "Data_Sel[4..0]" (rect 5 0 75 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 92 12)(pt 117 12)(line_width 1))
