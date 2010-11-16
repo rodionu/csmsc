@@ -8,8 +8,6 @@ module SCControlJ2(
     zero,
     branch,
     jump,
-    RESET,
-    CLOCK,
     RegDst,
     ALUSrc,
     MemtoReg,
@@ -19,7 +17,7 @@ module SCControlJ2(
     PCSrc,
     ALUOp);
 
-    input opcode, shamt, func, zero, RESET, CLOCK;
+    input opcode, shamt, func, zero;
     output branch, jump, RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, PCSrc, ALUOp;
 
     wire [5:0] opcode;
@@ -32,6 +30,8 @@ module SCControlJ2(
 		RegWrite=1'b0;			// From John
 		MemWrite=1'b0;			// From John
 		branch=1'b0;
+		jump=1'b0;
+		PCSrc=1'b0;
         if(opcode == 6'b0) begin
 			if(shamt==5'b0 && func==6'h00) begin	//nop
 				RegWrite=1'b0;
@@ -68,19 +68,24 @@ module SCControlJ2(
 			end else if(shamt>5'b0 && func==6'h03) begin	//sra
 				ALUOp=4'hB;
 			end else if(func==6'h08) begin	//jr
+				RegWrite = 0;
+				PCSrc = 1;
+				branch = 1;
+				ALUSrc = 0;
 				ALUOp=4'hC;
-				jump=1'b1;
+				jump=1'b0;
 			end
-        end else if(opcode==6'b10 || opcode==6'b11) begin
+        end else if((opcode==6'b000010) || (opcode==6'b000011)) begin
+			ALUSrc=1'b0;
 			PCSrc=1'b1;
 			branch=1'b1;
 			if(opcode==6'b10) begin		//j
-				jump=1'b0;
+				jump=1'b1;
 				ALUOp=4'h0;
 			end else begin				//jal
-				
 				jump=1'b1;
-				ALUOp=4'hE;
+				ALUOp=4'hE;			//JAL ALUcode
+				RegWrite=1;			//Save value to register
 			end
             //Jump instructions here
         end else begin
@@ -104,7 +109,7 @@ module SCControlJ2(
 				ALUSrc=1'b0;
 				PCSrc=1'b0;
 				RegWrite=1'b0;
-				ALUOp=4'h3;
+				ALUOp=4'hF;
 				branch=1'b1;
 			end else if(opcode==6'h05) begin	//bne
 				ALUSrc=1'b0;
