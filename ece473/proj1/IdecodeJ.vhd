@@ -72,7 +72,7 @@ PROCESS
  			END LOOP;
 					-- Write back to register - don't write to register 0
 		END IF;
-		WAIT UNTIL clock'EVENT AND clock = '1';
+		WAIT UNTIL clock'EVENT AND clock = '0';
   		IF RegWrite = '1' AND write_register_address /= 0 THEN
 		      register_array( CONV_INTEGER( write_register_address)) <= write_data;
 		END IF;
