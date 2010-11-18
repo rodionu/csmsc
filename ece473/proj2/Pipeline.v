@@ -4,7 +4,7 @@ module Pipeline(
 input wire CLOCK,
 
 //STAGE 1 INPUTS (IF/ID stage)___________________________________
-input wire [9:0] PCplusfour,
+input wire [9:0] PCPlusFour,
 input wire [31:0] Instruction,
 //OUTPUTS
 output reg [4:0] RS,	//Instruction [25-11]
@@ -47,7 +47,7 @@ input wire [31:0] ALU_Result,
 output reg MemRENABLE,
 output reg MemWENABLE,
 output reg BranchOut,
-output reg [9:0] PC_BranchOut,	//PC output to PC block, will not handle logic in here
+output reg [9:0] PCBranchOut,	//PC output to PC block, will not handle logic in here
 output reg [31:0] ALU_ResultOut,	//Address
 output reg [31:0] WDOut,			//Data
 
@@ -63,9 +63,9 @@ output reg MemToRegOut,
 output reg [4:0] RegDSTaddrOut,
 output reg [31:0] DataOut,
 output reg RegWEnableOut);	
-
-	initial begin	//Internal variables used to save on output wires, etc
-		//Internally passed variables from Stage 1 to 2
+	
+	always @(posedge CLOCK) begin
+		//Internally passed variable from stage 1 to 2
 		reg [9:0] PC_Stage_2;
 		
 		//Internally passed variables from Stage 2 to 3
@@ -81,20 +81,15 @@ output reg RegWEnableOut);
 		reg 	  MemToReg_Stage_4;
 		reg		  RegWEnable_Stage_4;
 		
-	end
-	
-	
-	always @(posedge CLOCK) begin
+		
 		//STAGE 1 INPUTS
-		PC_Stage_2 = PcPlusFour;
+		PC_Stage_2 = PCPlusFour;
 		RS = Instruction[25:21];
 		RD = Instruction[20:16];
 		RT = Instruction[15:11];
 		Control_IN = Instruction;
 		//STAGE 1 COMPLETE
-	end
 	
-	always @(posedge CLOCK) begin
 	
 		//STAGE 2_________________________________________________________________
 		
@@ -122,9 +117,7 @@ output reg RegWEnableOut);
 			MemToReg_Stage_3 = MemToReg;
 			Branch_Stage_3 = Branch;
 			RegWEnable_Stage_3 = RegWEnable;
-	end
 	
-	always @(posedge CLOCK) begin
 		//STAGE 3______________________________________________________________________
 		//Set OUTPUTS to CPU Hardware (Memory access stage)
 		PCBranchOut = PC_Stage_3;		//Address to branch to
@@ -138,16 +131,13 @@ output reg RegWEnableOut);
 		RegDSTaddr_Stage_4= RegDSTaddr_Stage_3;
 		MemToReg_Stage_4 = MemToReg_Stage_3;
 		RegWEnable_Stage_4 = RegWEnable_Stage_3;
-	end
 	
-	
-	always @(posedge CLOCK) begin
 		//STAGE 4_________________________________________________________________________
 		//OUTPUT is DATA and TARGET WRITE REGISTER & WRITE FLAG ONLY!
 		if(MemToReg_Stage_4 == 0) begin
-			Data_Out = ALU_Result;		//Integrates MemToReg Mux into pipeline block
+			DataOut = ALU_Result;		//Integrates MemToReg Mux into pipeline block
 		end else begin					//Take ALU data if 0, Memory read data if 1
-			Data_Out = Read_Data;
+			DataOut = Read_Data;
 		end
 		
 		RegDSTaddrOut = RegDSTaddr_Stage_4;
