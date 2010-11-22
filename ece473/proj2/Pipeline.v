@@ -23,7 +23,7 @@ input wire [31:0] RD2in,
 input wire 		 RegDST,		//Execution stage RGDST from controller
 input wire		 ALUSrc,		//ALU Immediate or Register data
 input wire [3:0] ALUOp,			//Execution stage control signal (ALUOp)
-input wire [1:0] MemoryRWflags,	//Memory read/write enable control signals
+input wire [1:0] MemoryRWflags,	//Memory read/write enable control signals READ = BV0, WRITE = BV1
 input wire 		 MemToReg,		//Self-explanatory
 input wire		 RegWEnable,	//Register WEN control signal flag
 input wire		 Branch,			//Control input branch flag
@@ -62,35 +62,58 @@ input wire [31:0] Read_Data,
 output reg MemToRegOut,
 output reg [4:0] RegDSTaddrOut,
 output reg [31:0] DataOut,
-output reg RegWEnableOut);	
+output reg RegWEnableOut);
+//END DECLARE MODULE - START INTERNAL DECLARATIONS____________________
+
+//Internally passed variable from stage 1 to 2
+reg [9:0] PC_Stage_2;
+		
+//Internally passed variables from Stage 2 to 3
+reg [9:0] PC_Stage_3;
+reg [4:0] RegDSTaddr_Stage_3;
+reg [1:0] MemoryRWflags_Stage_3;
+reg 	  MemToReg_Stage_3;
+reg		  Branch_Stage_3;
+reg		  RegWEnable_Stage_3;
+
+//Internally passed variables from Stage 3 to 4
+reg [4:0] RegDSTaddr_Stage_4;
+reg 	  MemToReg_Stage_4;
+reg		  RegWEnable_Stage_4;	
 	
 	always @(posedge CLOCK) begin
-		//Internally passed variable from stage 1 to 2
-		reg [9:0] PC_Stage_2;
+	//*Note - The order of these operations are reversed from what is normally expected,
+	//If the stages were performed in-order, the same information would propagate to every
+	//stage, instead of pipelining through like it should. All stages have to be performed
+	//from right to left.
+
+
+		//STAGE 4______________________________________________________________
+		//OUTPUT is DATA and TARGET WRITE REGISTER & WRITE FLAG ONLY!
+		if(MemToReg_Stage_4 == 0) begin
+			DataOut = ALU_Result;		//Integrates MemToReg Mux into pipeline block
+		end else begin					//Take ALU data if 0, Memory read data if 1
+			DataOut = Read_Data;
+		end
 		
-		//Internally passed variables from Stage 2 to 3
-		reg [9:0] PC_Stage_3;
-		reg [4:0] RegDSTaddr_Stage_3;
-		reg [1:0] MemoryRWflags_Stage_3;
-		reg 	  MemToReg_Stage_3;
-		reg		  Branch_Stage_3;
-		reg		  RegWEnable_Stage_3;
-		
-		//Internally passed variables from Stage 3 to 4
-		reg [4:0] RegDSTaddr_Stage_4;
-		reg 	  MemToReg_Stage_4;
-		reg		  RegWEnable_Stage_4;
-		
-		
-		//STAGE 1 INPUTS
-		PC_Stage_2 = PCPlusFour;
-		RS = Instruction[25:21];
-		RD = Instruction[20:16];
-		RT = Instruction[15:11];
-		Control_IN = Instruction;
-		//STAGE 1 COMPLETE
+		RegDSTaddrOut = RegDSTaddr_Stage_4;
+		RegWEnableOut = RegWEnable_Stage_4;
 	
-	
+		//STAGE 3______________________________________________________________________
+		//Set OUTPUTS to CPU Hardware (Memory access stage)
+		PCBranchOut = PC_Stage_3;		//Address to branch to
+		BranchOut = Branch_Stage_3;		//Branch bit set/not set
+		MemRENABLE = MemoryRWflags_Stage_3[0];
+		MemWENABLE = MemoryRWflags_Stage_3[1];
+		ALU_ResultOut = ALU_Result;
+		WDOut = RD2;
+		
+		//"Internal" outputs to next pipe stage
+		RegDSTaddr_Stage_4= RegDSTaddr_Stage_3;
+		MemToReg_Stage_4 = MemToReg_Stage_3;
+		RegWEnable_Stage_4 = RegWEnable_Stage_3;
+		
+		
 		//STAGE 2_________________________________________________________________
 		
 		RD1 = RD1in;	//This first bit handles all INPUT/OUTPUT items
@@ -118,29 +141,13 @@ output reg RegWEnableOut);
 			Branch_Stage_3 = Branch;
 			RegWEnable_Stage_3 = RegWEnable;
 	
-		//STAGE 3______________________________________________________________________
-		//Set OUTPUTS to CPU Hardware (Memory access stage)
-		PCBranchOut = PC_Stage_3;		//Address to branch to
-		BranchOut = Branch_Stage_3;		//Branch bit set/not set
-		MemRENABLE = MemoryRWflags_Stage_3[0];
-		MemWENABLE = MemoryRWflags_Stage_3[1];
-		ALU_ResultOut = ALU_Result;
-		WDOut = RD2;
-		
-		//"Internal" outputs to next pipe stage
-		RegDSTaddr_Stage_4= RegDSTaddr_Stage_3;
-		MemToReg_Stage_4 = MemToReg_Stage_3;
-		RegWEnable_Stage_4 = RegWEnable_Stage_3;
+		//STAGE 1 
+		PC_Stage_2 = PCPlusFour;
+		RS = Instruction[25:21];
+		RD = Instruction[20:16];
+		RT = Instruction[15:11];
+		Control_IN = Instruction;
+		//STAGE 1 COMPLETE
+	end
 	
-		//STAGE 4_________________________________________________________________________
-		//OUTPUT is DATA and TARGET WRITE REGISTER & WRITE FLAG ONLY!
-		if(MemToReg_Stage_4 == 0) begin
-			DataOut = ALU_Result;		//Integrates MemToReg Mux into pipeline block
-		end else begin					//Take ALU data if 0, Memory read data if 1
-			DataOut = Read_Data;
-		end
-		
-		RegDSTaddrOut = RegDSTaddr_Stage_4;
-		RegWEnableOut = RegWEnable_Stage_4;
-		end
 endmodule
