@@ -1,7 +1,7 @@
 // file: SCALUJ.v
 // ALU for Project 1 - Version: 0.1
 
-module SCALUJ(
+module ALU(
 	ALUSrc,
 	ALUOp,
 	shamt,
