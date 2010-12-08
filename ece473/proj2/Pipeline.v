@@ -7,9 +7,9 @@ input wire CLOCK,
 input wire [9:0] PCPlusFour,
 input wire [31:0] Instruction,
 //OUTPUTS
-output reg [4:0] RS,	//Instruction [25-11]
-output reg [4:0] RD,	//Instruction [20-16]
-output reg [4:0] RT,	//Instruction [15-11]
+//output reg [4:0] RS,	//Instruction [25-11]	//Individual registers not necessary
+//output reg [4:0] RD,	//Instruction [20-16]	//With this implementation
+//output reg [4:0] RT,	//Instruction [15-11]	//Passing instruction is fine
 output reg [31:0] Control_IN, //Basically the whole instruction, delayed 1CLK
 
 
@@ -18,22 +18,24 @@ output reg [31:0] Control_IN, //Basically the whole instruction, delayed 1CLK
 //INTERNAL PASS SIGN_EXTENDED IMMEDIATE [15:0]
 //INTERNAL PASS RD [4:0]
 //INTERNAL PASS RT [4:0]
-input wire [31:0] RD1in,
+input wire [31:0] RD1in,		//Input direct from register (output to execution stage)
 input wire [31:0] RD2in,
 input wire 		 RegDST,		//Execution stage RGDST from controller
 input wire		 ALUSrc,		//ALU Immediate or Register data
 input wire [3:0] ALUOp,			//Execution stage control signal (ALUOp)
-input wire [1:0] MemoryRWflags,	//Memory read/write enable control signals READ = BV0, WRITE = BV1
+input wire 		 MemRead,		//Memory read/write control signals
+input wire		 MemWrite,
 input wire 		 MemToReg,		//Self-explanatory
 input wire		 RegWEnable,	//Register WEN control signal flag
-input wire		 Branch,			//Control input branch flag
+input wire		 Branch,		//Control input branch flag
+input wire		 Jump,			//Control input jump flag
 //OUTPUTS
 output reg [31:0] RD1,
 output reg [31:0] RD2,
 output reg [31:0] SignXtend,	//This will be handled in the pipeline block
 output reg [3:0] ALUOpOut,		//Execution stage control signals
 output reg		 ALUSrcOut,		//Execution stage ALU Input mux
-
+output reg		 JumpOut,
 
 //STAGE 3 INPUTS (EX/Mem stage)___________________________________
 input wire [31:0] ALU_Result,
@@ -42,14 +44,13 @@ input wire [31:0] ALU_Result,
 //INTERNAL PASS MEMORY signals
 //INTERNAL PASS WRITEBACK signals
 //INTERNAL PASS RD2 [31:0]
-//INTERNAL PASS 
 //OUTPUTS
 output reg MemRENABLE,
 output reg MemWENABLE,
 output reg BranchOut,
 output reg [9:0] PCBranchOut,	//PC output to PC block, will not handle logic in here
 output reg [31:0] ALU_ResultOut,	//Address
-output reg [31:0] WDOut,			//Data
+output reg [31:0] WDOut,			//Data OUTPUT TO MEMORY
 
 
 //STAGE 4 INPUTS (MEM/WB stage)___________________________________
@@ -59,7 +60,7 @@ input wire [31:0] Read_Data,
 //INTERNAL PASS ALU_ResultOut [31:0]
 //INTERNAL PASS RegDst [4:0]
 //OUTPUTS
-output reg MemToRegOut,
+output reg MemToRegOut,				//UNUSED (Passover handled internally)
 output reg [4:0] RegDSTaddrOut,
 output reg [31:0] DataOut,
 output reg RegWEnableOut);
@@ -71,10 +72,12 @@ reg [9:0] PC_Stage_2;
 //Internally passed variables from Stage 2 to 3
 reg [9:0] PC_Stage_3;
 reg [4:0] RegDSTaddr_Stage_3;
-reg [1:0] MemoryRWflags_Stage_3;
+reg [1:0] _Stage_3;
 reg 	  MemToReg_Stage_3;
 reg		  Branch_Stage_3;
 reg		  RegWEnable_Stage_3;
+reg		  MemRead_Stage_3;
+reg		  MemWrite_Stage_3;
 
 //Internally passed variables from Stage 3 to 4
 reg [4:0] RegDSTaddr_Stage_4;
@@ -95,7 +98,7 @@ reg		  RegWEnable_Stage_4;
 		end else begin					//Take ALU data if 0, Memory read data if 1
 			DataOut = Read_Data;
 		end
-		
+		MemToRegOut = MemToReg_Stage_4;		//DEBUG output
 		RegDSTaddrOut = RegDSTaddr_Stage_4;
 		RegWEnableOut = RegWEnable_Stage_4;
 	
@@ -103,8 +106,8 @@ reg		  RegWEnable_Stage_4;
 		//Set OUTPUTS to CPU Hardware (Memory access stage)
 		PCBranchOut = PC_Stage_3;		//Address to branch to
 		BranchOut = Branch_Stage_3;		//Branch bit set/not set
-		MemRENABLE = MemoryRWflags_Stage_3[0];
-		MemWENABLE = MemoryRWflags_Stage_3[1];
+		MemRENABLE = MemRead_Stage_3;
+		MemWENABLE = MemWrite_Stage_3;
 		ALU_ResultOut = ALU_Result;
 		WDOut = RD2;
 		
@@ -136,16 +139,19 @@ reg		  RegWEnable_Stage_4;
 			RegDSTaddr_Stage_3 = Control_IN[15:11];
 		end
 			//Simple values, stored and passed out
-			MemoryRWflags_Stage_3 = MemoryRWflags;
+			MemRead_Stage_3 = MemRead;
+			MemWrite_Stage_3 = MemWrite;
 			MemToReg_Stage_3 = MemToReg;
 			Branch_Stage_3 = Branch;
 			RegWEnable_Stage_3 = RegWEnable;
+		//STAGE 2 COMPLETE
+			
 	
 		//STAGE 1 
 		PC_Stage_2 = PCPlusFour;
-		RS = Instruction[25:21];
-		RD = Instruction[20:16];
-		RT = Instruction[15:11];
+		//RS = Instruction[25:21];
+		//RD = Instruction[20:16];
+		//RT = Instruction[15:11];
 		Control_IN = Instruction;
 		//STAGE 1 COMPLETE
 	end
