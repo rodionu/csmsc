@@ -2,6 +2,7 @@
 
 module Pipeline(
 input wire CLOCK,
+input wire RESET,
 
 //STAGE 1 INPUTS (IF/ID stage)___________________________________
 input wire [9:0] PCPlusFour,
@@ -36,6 +37,7 @@ output reg [31:0] SignXtend,	//This will be handled in the pipeline block
 output reg [3:0] ALUOpOut,		//Execution stage control signals
 output reg		 ALUSrcOut,		//Execution stage ALU Input mux
 output reg		 JumpOut,
+output reg [9:0] PCBrAddr,
 
 //STAGE 3 INPUTS (EX/Mem stage)___________________________________
 input wire [31:0] ALU_Result,
@@ -48,7 +50,6 @@ input wire [31:0] ALU_Result,
 output reg MemRENABLE,
 output reg MemWENABLE,
 output reg BranchOut,
-output reg [9:0] PCBranchOut,	//PC output to PC block, will not handle logic in here
 output reg [31:0] ALU_ResultOut,	//Address
 output reg [31:0] WDOut,			//Data OUTPUT TO MEMORY
 
@@ -70,11 +71,9 @@ output reg RegWEnableOut);
 reg [9:0] PC_Stage_2;
 		
 //Internally passed variables from Stage 2 to 3
-reg [9:0] PC_Stage_3;
 reg [4:0] RegDSTaddr_Stage_3;
 reg [1:0] _Stage_3;
 reg 	  MemToReg_Stage_3;
-reg		  Branch_Stage_3;
 reg		  RegWEnable_Stage_3;
 reg		  MemRead_Stage_3;
 reg		  MemWrite_Stage_3;
@@ -89,7 +88,7 @@ reg		  RegWEnable_Stage_4;
 	//If the stages were performed in-order, the same information would propagate to every
 	//stage, instead of pipelining through like it should. All stages have to be performed
 	//from right to left.
-
+	if(RESET != 0) begin
 
 		//STAGE 4______________________________________________________________
 		//OUTPUT is DATA and TARGET WRITE REGISTER & WRITE FLAG ONLY!
@@ -104,8 +103,6 @@ reg		  RegWEnable_Stage_4;
 	
 		//STAGE 3______________________________________________________________________
 		//Set OUTPUTS to CPU Hardware (Memory access stage)
-		PCBranchOut = PC_Stage_3;		//Address to branch to
-		BranchOut = Branch_Stage_3;		//Branch bit set/not set
 		MemRENABLE = MemRead_Stage_3;
 		MemWENABLE = MemWrite_Stage_3;
 		ALU_ResultOut = ALU_Result;
@@ -128,11 +125,13 @@ reg		  RegWEnable_Stage_4;
 	
 		SignXtend[15:0] = Control_IN[15:0];
 		if(SignXtend[15] == 0) begin
-			SignXtend[31:16] = 4'h0000;	//Set 0 if non-negative
+			SignXtend[31:16] = 32'h0000;	//Set 0 if non-negative
 		end else begin
-			SignXtend[31:16] = 4'hFFFF;	//Set all 1's if negative
+			SignXtend[31:16] = 32'hFFFF;	//Set all 1's if negative
 		end	
-		PC_Stage_3 = PC_Stage_2 +(SignXtend[11:2]);	//Left shift SignXtended and add
+		PCBrAddr = PC_Stage_2;				//PC+4 Delayed 2 cycles
+		BranchOut = Branch;					//Branch delayed 1 cycle
+		
 		if(RegDST == 0) begin
 			RegDSTaddr_Stage_3 = Control_IN[20:16];
 		end else begin
@@ -142,7 +141,6 @@ reg		  RegWEnable_Stage_4;
 			MemRead_Stage_3 = MemRead;
 			MemWrite_Stage_3 = MemWrite;
 			MemToReg_Stage_3 = MemToReg;
-			Branch_Stage_3 = Branch;
 			RegWEnable_Stage_3 = RegWEnable;
 		//STAGE 2 COMPLETE
 			
@@ -154,6 +152,25 @@ reg		  RegWEnable_Stage_4;
 		//RT = Instruction[15:11];
 		Control_IN = Instruction;
 		//STAGE 1 COMPLETE
+		
+	end else if (RESET == 1) begin		//Clear the ENTIRE pipe on Reset
+		Control_IN = 0;
+		RD1 = 0;
+		RD2 = 0;
+		SignXtend = 0;
+		ALUOpOut = 0;
+		ALUSrcOut = 0;
+		JumpOut = 0;
+		PCBrAddr = 0;
+		MemRENABLE = 0;
+		MemWENABLE = 0;
+		BranchOut = 0;
+		ALU_ResultOut = 0;
+		WDOut = 0;
+		MemToRegOut = 0;
+		RegDSTaddrOut = 0;
+		DataOut = 0;
+		RegWEnableOut = 0;
 	end
-	
+end
 endmodule
