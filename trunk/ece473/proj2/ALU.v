@@ -8,8 +8,6 @@ module ALU(
 	DataIn1,
 	regData2,
 	immData2,
-	PC,
-	jump,
 	DataOut,
 	Zero);
 	
@@ -28,15 +26,12 @@ module ALU(
 	reg Zero;
 	
 	always @* begin
-		if (jump!=0) begin
-			DataIn2=PC;
+		if (ALUSrc==0) begin
+			DataIn2=regData2;
 		end else begin
-			if (ALUSrc==0) begin
-				DataIn2=regData2;
-			end else begin
-				DataIn2=immData2;
-			end
+			DataIn2=immData2;
 		end
+		
 		if(ALUOp==4'h1) begin				//0001 --> add	needs more
 			DataOut = DataIn1 + DataIn2;
 		end else if(ALUOp==4'h2) begin		//0010 --> addu needs more

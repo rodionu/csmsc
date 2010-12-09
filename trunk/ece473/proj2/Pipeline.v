@@ -3,9 +3,10 @@
 module Pipeline(
 input wire CLOCK,
 input wire RESET,
+input wire IFID_CLR,	//In case of branch or jump, clear instructions AFTER branch inst
 
 //STAGE 1 INPUTS (IF/ID stage)___________________________________
-input wire [9:0] PCPlusFour,
+input wire [9:0] PC,
 input wire [31:0] Instruction,
 //OUTPUTS
 //output reg [4:0] RS,	//Instruction [25-11]	//Individual registers not necessary
@@ -29,15 +30,15 @@ input wire		 MemWrite,
 input wire 		 MemToReg,		//Self-explanatory
 input wire		 RegWEnable,	//Register WEN control signal flag
 input wire		 Branch,		//Control input branch flag
-input wire		 Jump,			//Control input jump flag
+//input wire		 Jump,			//Control input jump flag
 //OUTPUTS
 output reg [31:0] RD1,
 output reg [31:0] RD2,
 output reg [31:0] SignXtend,	//This will be handled in the pipeline block
-output reg [3:0] ALUOpOut,		//Execution stage control signals
-output reg		 ALUSrcOut,		//Execution stage ALU Input mux
-output reg		 JumpOut,
-output reg [9:0] PCBrAddr,
+output reg [3:0]  ALUOpOut,		//Execution stage control signals
+output reg		  ALUSrcOut,		//Execution stage ALU Input mux
+//output reg		  JumpOut,
+output reg [9:0]  PCP4,
 
 //STAGE 3 INPUTS (EX/Mem stage)___________________________________
 input wire [31:0] ALU_Result,
@@ -88,7 +89,7 @@ reg		  RegWEnable_Stage_4;
 	//If the stages were performed in-order, the same information would propagate to every
 	//stage, instead of pipelining through like it should. All stages have to be performed
 	//from right to left.
-	if(RESET != 0) begin
+	if(RESET == 0) begin
 
 		//STAGE 4______________________________________________________________
 		//OUTPUT is DATA and TARGET WRITE REGISTER & WRITE FLAG ONLY!
@@ -129,7 +130,7 @@ reg		  RegWEnable_Stage_4;
 		end else begin
 			SignXtend[31:16] = 32'hFFFF;	//Set all 1's if negative
 		end	
-		PCBrAddr = PC_Stage_2;				//PC+4 Delayed 2 cycles
+		PCP4 = PC_Stage_2;				//PC+4 Delayed 2 cycles
 		BranchOut = Branch;					//Branch delayed 1 cycle
 		
 		if(RegDST == 0) begin
@@ -146,22 +147,40 @@ reg		  RegWEnable_Stage_4;
 			
 	
 		//STAGE 1 
-		PC_Stage_2 = PCPlusFour;
+		PC_Stage_2 = PC+4;
 		//RS = Instruction[25:21];
 		//RD = Instruction[20:16];
 		//RT = Instruction[15:11];
 		Control_IN = Instruction;
 		//STAGE 1 COMPLETE
 		
-	end else if (RESET == 1) begin		//Clear the ENTIRE pipe on Reset
+	end else if (RESET != 0) begin		//Clear the ENTIRE pipe on Reset
 		Control_IN = 0;
 		RD1 = 0;
 		RD2 = 0;
 		SignXtend = 0;
 		ALUOpOut = 0;
 		ALUSrcOut = 0;
-		JumpOut = 0;
-		PCBrAddr = 0;
+//		JumpOut = 0;
+		PCP4 = 0;
+		MemRENABLE = 0;
+		MemWENABLE = 0;
+		BranchOut = 0;
+		ALU_ResultOut = 0;
+		WDOut = 0;
+		MemToRegOut = 0;
+		RegDSTaddrOut = 0;
+		DataOut = 0;
+		RegWEnableOut = 0;
+	end else if (IFID_CLR != 0) begin
+		Control_IN = 0;
+		RD1 = 0;
+		RD2 = 0;
+		SignXtend = 0;
+		ALUOpOut = 0;
+		ALUSrcOut = 0;
+//		JumpOut = 0;
+		PCP4 = 0;
 		MemRENABLE = 0;
 		MemWENABLE = 0;
 		BranchOut = 0;
