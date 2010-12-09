@@ -22,18 +22,23 @@ always @(posedge CLOCK) begin			//Trigger on the clock
 
 	if(RESET !=0) begin
 		for(i=0; i<31; i=i+1) begin	//Clear "registers"
-			mem[i] = 0;
+			mem[i] = i;
 		end
 		
 	end else if(RESET == 0) begin
-		if(RegWrite == 1) begin		//Writebacks can be read in same cycle
+		if(RegWrite!=0) begin		//Writebacks can be read in same cycle
 			mem[WN] = WD;			//Write data to register
-		end
-		RS = Instruction[25:21];		//First input
-		RT = Instruction[20:16];		//Second input
-		RD1 = mem[RS];		//Verilog array elements are
-		RD2 = mem[RT];		//accessed "all bits" at a time, these
-						//will be 32 bit numbers
+			RS = Instruction[25:21];		//First input
+			RT = Instruction[20:16];		//Second input
+			RD1 = mem[RS];		//Verilog array elements are
+			RD2 = mem[RT];		//accessed "all bits" at a time, these
+		end else if (RegWrite==0) begin
+			RS = Instruction[25:21];		//First input
+			RT = Instruction[20:16];		//Second input
+			RD1 = mem[RS];		//Verilog array elements are
+			RD2 = mem[RT];		//accessed "all bits" at a time, these
+								//will be 32 bit numbers
 	end
+end
 end
 endmodule

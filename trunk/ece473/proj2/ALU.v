@@ -11,7 +11,7 @@ module ALU(
 	DataOut,
 	Zero);
 	
-	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2,PC,jump;
+	input ALUSrc, ALUOp, shamt, DataIn1, regData2, immData2;
 	output DataOut, Zero;
 	
 	wire [3:0] ALUOp;
@@ -19,7 +19,6 @@ module ALU(
 	wire [31:0] DataIn1;
 	wire [31:0] regData2;
 	wire [31:0] immData2;
-	wire [9:0] PC;
 	reg [31:0] DataIn2;
 	reg [31:0] Data;
 	reg [31:0] DataOut;
