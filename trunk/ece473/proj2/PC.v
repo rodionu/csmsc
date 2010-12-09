@@ -9,6 +9,7 @@ input wire		 Branch, //Branch flag from controller (pipe delayed)
 input wire		 Zero,	//ALU Zero
 input wire		 Jump,	//Jump flag from controller (delayed by pipe)
 input wire [9:0] JTGT,	//Jump target
+output reg		 IF_ID_CLR,
 output reg [6:0] PC);	//PC Output to instruction memory
 
 reg [9:0] target;
@@ -28,6 +29,10 @@ always @(posedge CLOCK) begin
 	
 	end else if((RESET==0) & (PCSrc == 0)) begin
 		PC = PC + 1;
+		
+	end else if((RESET==0) & (PCSrc != 0)) begin
+		
+
 	
 	end else if (Jump != 0) begin
 		PC = JTGT[8:2];

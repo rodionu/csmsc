@@ -1127,12 +1127,6 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(text "PC[9..0]" (rect -30 744 11 756)(font "Arial" ))
-	(pt -32 760)
-	(pt 64 760)
-	(bus)
-)
-(connector
 	(text "Instruction[31..0]" (rect -16 760 67 772)(font "Arial" ))
 	(pt -32 776)
 	(pt 64 776)
@@ -1233,12 +1227,6 @@ applicable agreement for further details.
 	(pt 432 808)
 )
 (connector
-	(text "PCP4[9..0]" (rect 433 816 487 828)(font "Arial" ))
-	(pt 384 824)
-	(pt 424 824)
-	(bus)
-)
-(connector
 	(text "Inst_EX_MEM[31..0]" (rect 456 832 555 844)(font "Arial" ))
 	(pt 384 840)
 	(pt 448 840)
@@ -1297,6 +1285,18 @@ applicable agreement for further details.
 	(text "Inst_MEM_WB[31..0]" (rect 496 928 599 940)(font "Arial" ))
 	(pt 384 936)
 	(pt 487 936)
+	(bus)
+)
+(connector
+	(text "PC[6..0]" (rect -30 744 11 756)(font "Arial" ))
+	(pt -32 760)
+	(pt 64 760)
+	(bus)
+)
+(connector
+	(text "PCP4[6..0]" (rect 433 816 487 828)(font "Arial" ))
+	(pt 384 824)
+	(pt 424 824)
 	(bus)
 )
 (junction (pt 1072 896))
