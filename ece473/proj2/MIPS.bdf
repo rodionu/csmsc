@@ -4,7 +4,7 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 1991-2009 Altera Corporation
+Copyright (C) 1991-2010 Altera Corporation
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
@@ -641,7 +641,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 320 448 536 584)
+	(rect 336 448 552 584)
 	(text "instmem" (rect 83 1 142 17)(font "Arial" (font_size 10)))
 	(text "inst9" (rect 8 120 31 132)(font "Arial" ))
 	(port
@@ -836,17 +836,6 @@ applicable agreement for further details.
 	(pt 816 1008)
 )
 (connector
-	(text "ALUSrcOut" (rect 699 888 754 900)(font "Arial" ))
-	(pt 760 896)
-	(pt 816 896)
-)
-(connector
-	(text "ALUOpOut" (rect 701 904 754 916)(font "Arial" ))
-	(pt 760 912)
-	(pt 816 912)
-	(bus)
-)
-(connector
 	(text "Instruction_DELAY[10..6]" (rect 640 920 766 932)(font "Arial" ))
 	(pt 760 928)
 	(pt 816 928)
@@ -874,18 +863,6 @@ applicable agreement for further details.
 	(text "Instruction_DELAY[31..0]" (rect 657 712 783 724)(font "Arial" ))
 	(pt 696 728)
 	(pt 776 728)
-	(bus)
-)
-(connector
-	(text "Write_Dest" (rect 684 752 739 764)(font "Arial" ))
-	(pt 744 760)
-	(pt 776 760)
-	(bus)
-)
-(connector
-	(text "ST4DataOut" (rect 682 768 742 780)(font "Arial" ))
-	(pt 744 776)
-	(pt 776 776)
 	(bus)
 )
 (connector
@@ -985,21 +962,6 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 808 448)
-	(pt 760 448)
-	(bus)
-)
-(connector
-	(pt 808 464)
-	(pt 760 464)
-	(bus)
-)
-(connector
-	(pt 808 480)
-	(pt 760 480)
-	(bus)
-)
-(connector
 	(text "CLK" (rect 501 352 522 364)(font "Arial" ))
 	(pt 464 368)
 	(pt 520 368)
@@ -1008,21 +970,6 @@ applicable agreement for further details.
 	(text "Reset" (rect 495 368 524 380)(font "Arial" ))
 	(pt 464 384)
 	(pt 520 384)
-)
-(connector
-	(pt 320 592)
-	(pt 320 560)
-)
-(connector
-	(text "Instruction[31..0]" (rect 552 464 635 476)(font "Arial" ))
-	(pt 536 480)
-	(pt 616 480)
-	(bus)
-)
-(connector
-	(pt 320 480)
-	(pt 312 480)
-	(bus)
 )
 (connector
 	(text "CLK" (rect 47 464 68 476)(font "Arial" ))
@@ -1057,10 +1004,6 @@ applicable agreement for further details.
 	(pt 128 560)
 )
 (connector
-	(pt 128 576)
-	(pt 40 576)
-)
-(connector
 	(pt 128 592)
 	(pt 40 592)
 	(bus)
@@ -1071,34 +1014,9 @@ applicable agreement for further details.
 	(pt 520 352)
 )
 (connector
-	(text "MCLK" (rect 330 600 359 612)(font "Arial" ))
-	(pt 320 592)
-	(pt 376 592)
-)
-(connector
 	(text "MCLK" (rect 768 1160 797 1172)(font "Arial" ))
 	(pt 816 1176)
 	(pt 760 1176)
-)
-(connector
-	(pt 1024 896)
-	(pt 1072 896)
-	(bus)
-)
-(connector
-	(text "ALU_Result[31..0]" (rect 1032 880 1122 892)(font "Arial" ))
-	(pt 1072 896)
-	(pt 1086 896)
-	(bus)
-)
-(connector
-	(pt 1024 912)
-	(pt 1072 912)
-)
-(connector
-	(text "ALU_Zero" (rect 1063 912 1112 924)(font "Arial" ))
-	(pt 1072 912)
-	(pt 1088 912)
 )
 (connector
 	(text "CLK" (rect 8 678 20 699)(font "Arial" )(vertical))
@@ -1113,76 +1031,6 @@ applicable agreement for further details.
 	(text "Reset" (rect 13 712 42 724)(font "Arial" ))
 	(pt 24 728)
 	(pt 64 728)
-)
-(connector
-	(text "PC[9..0]" (rect -30 728 11 740)(font "Arial" ))
-	(pt -32 744)
-	(pt 64 744)
-	(bus)
-)
-(connector
-	(text "Instruction[31..0]" (rect -16 744 67 756)(font "Arial" ))
-	(pt -32 760)
-	(pt 64 760)
-	(bus)
-)
-(connector
-	(text "RD1[31..0]" (rect -64 768 -10 780)(font "Arial" ))
-	(pt 0 776)
-	(pt 64 776)
-	(bus)
-)
-(connector
-	(text "RD2[31..0]" (rect -64 784 -10 796)(font "Arial" ))
-	(pt 0 792)
-	(pt 64 792)
-	(bus)
-)
-(connector
-	(text "RegDst" (rect -73 800 -36 812)(font "Arial" ))
-	(pt -32 808)
-	(pt 64 808)
-)
-(connector
-	(text "ALUSrc" (rect -79 816 -42 828)(font "Arial" ))
-	(pt -8 824)
-	(pt 64 824)
-)
-(connector
-	(text "ALUOp[3..0]" (rect -79 832 -18 844)(font "Arial" ))
-	(pt -8 840)
-	(pt 64 840)
-	(bus)
-)
-(connector
-	(text "MemRead" (rect -84 848 -35 860)(font "Arial" ))
-	(pt -8 856)
-	(pt 64 856)
-)
-(connector
-	(text "MemWrite" (rect -86 864 -37 876)(font "Arial" ))
-	(pt -8 872)
-	(pt 64 872)
-)
-(connector
-	(text "MemToReg" (rect -79 880 -24 892)(font "Arial" ))
-	(pt -8 888)
-	(pt 64 888)
-)
-(connector
-	(text "RegWrite" (rect -79 896 -33 908)(font "Arial" ))
-	(pt -8 904)
-	(pt 64 904)
-)
-(connector
-	(text "Branch" (rect -80 912 -46 924)(font "Arial" ))
-	(pt -8 920)
-	(pt 64 920)
-)
-(connector
-	(text "Jump" (rect -81 928 -54 940)(font "Arial" ))
-	(pt -8 936)
-	(pt 64 936)
 )
 (connector
 	(text "ALU_Result[31..0]" (rect -110 944 -20 956)(font "Arial" ))
@@ -1212,18 +1060,6 @@ applicable agreement for further details.
 	(text "R2D2[31..0]" (rect 422 736 482 748)(font "Arial" ))
 	(pt 384 744)
 	(pt 416 744)
-	(bus)
-)
-(connector
-	(text "Sign_Extended[31..0]" (rect 422 752 527 764)(font "Arial" ))
-	(pt 384 760)
-	(pt 416 760)
-	(bus)
-)
-(connector
-	(text "ALUOpOut" (rect 429 768 482 780)(font "Arial" ))
-	(pt 384 776)
-	(pt 416 776)
 	(bus)
 )
 (connector
@@ -1262,23 +1098,6 @@ applicable agreement for further details.
 	(text "DataToMemory[31..0]" (rect 420 880 527 892)(font "Arial" ))
 	(pt 384 888)
 	(pt 408 888)
-	(bus)
-)
-(connector
-	(text "MTROut(Debug Only)" (rect 448 896 554 908)(font "Arial" ))
-	(pt 384 904)
-	(pt 440 904)
-)
-(connector
-	(text "Write_Dest" (rect 452 912 507 924)(font "Arial" ))
-	(pt 384 920)
-	(pt 440 920)
-	(bus)
-)
-(connector
-	(text "ST4DataOut" (rect 449 928 509 940)(font "Arial" ))
-	(pt 384 936)
-	(pt 440 936)
 	(bus)
 )
 (connector
@@ -1329,6 +1148,189 @@ applicable agreement for further details.
 	(pt 392 1112)
 	(pt 440 1112)
 )
-(junction (pt 1072 896))
-(junction (pt 1072 912))
+(connector
+	(text "MTROut" (rect 448 896 488 908)(font "Arial" ))
+	(pt 384 904)
+	(pt 440 904)
+)
+(connector
+	(text "Write_Dest[4..0]" (rect 452 912 533 924)(font "Arial" ))
+	(pt 384 920)
+	(pt 440 920)
+	(bus)
+)
+(connector
+	(text "ST4DataOut[31..0]" (rect 682 768 774 780)(font "Arial" ))
+	(pt 744 776)
+	(pt 776 776)
+	(bus)
+)
+(connector
+	(text "PC[9..0]" (rect -22 744 19 756)(font "Arial" ))
+	(pt -24 760)
+	(pt 64 760)
+	(bus)
+)
+(connector
+	(text "Instruction[31..0]" (rect -8 760 75 772)(font "Arial" ))
+	(pt -24 776)
+	(pt 64 776)
+	(bus)
+)
+(connector
+	(text "RD1[31..0]" (rect -56 784 -2 796)(font "Arial" ))
+	(pt 8 792)
+	(pt 64 792)
+	(bus)
+)
+(connector
+	(text "RD2[31..0]" (rect -56 800 -2 812)(font "Arial" ))
+	(pt 8 808)
+	(pt 64 808)
+	(bus)
+)
+(connector
+	(text "RegDst" (rect -65 816 -28 828)(font "Arial" ))
+	(pt -24 824)
+	(pt 64 824)
+)
+(connector
+	(text "ALUSrc" (rect -71 832 -34 844)(font "Arial" ))
+	(pt 0 840)
+	(pt 64 840)
+)
+(connector
+	(text "ALUOp[3..0]" (rect -71 848 -10 860)(font "Arial" ))
+	(pt 0 856)
+	(pt 64 856)
+	(bus)
+)
+(connector
+	(text "MemRead" (rect -76 864 -27 876)(font "Arial" ))
+	(pt 0 872)
+	(pt 64 872)
+)
+(connector
+	(text "MemWrite" (rect -78 880 -29 892)(font "Arial" ))
+	(pt 0 888)
+	(pt 64 888)
+)
+(connector
+	(text "MemToReg" (rect -71 896 -16 908)(font "Arial" ))
+	(pt 0 904)
+	(pt 64 904)
+)
+(connector
+	(text "RegWrite" (rect -71 912 -25 924)(font "Arial" ))
+	(pt 0 920)
+	(pt 64 920)
+)
+(connector
+	(text "Branch" (rect -72 928 -38 940)(font "Arial" ))
+	(pt 0 936)
+	(pt 64 936)
+)
+(connector
+	(text "Jump" (rect -137 728 -110 740)(font "Arial" ))
+	(pt -96 736)
+	(pt -16 736)
+)
+(connector
+	(text "ST4DataOut[31..0]" (rect 449 928 541 940)(font "Arial" ))
+	(pt 384 936)
+	(pt 440 936)
+	(bus)
+)
+(connector
+	(text "Write_Dest[4..0]" (rect 684 752 765 764)(font "Arial" ))
+	(pt 744 760)
+	(pt 776 760)
+	(bus)
+)
+(connector
+	(text "Sign_Extended[31..0]" (rect 429 752 534 764)(font "Arial" ))
+	(pt 384 760)
+	(pt 416 760)
+	(bus)
+)
+(connector
+	(text "ALUOpOut[3..0]" (rect 423 768 502 780)(font "Arial" ))
+	(pt 416 776)
+	(pt 384 776)
+	(bus)
+)
+(connector
+	(text "ALUOpOut[3..0]" (rect 678 904 757 916)(font "Arial" ))
+	(pt 760 912)
+	(pt 816 912)
+	(bus)
+)
+(connector
+	(text "ALUSrcOut" (rect 700 888 755 900)(font "Arial" ))
+	(pt 760 896)
+	(pt 816 896)
+)
+(connector
+	(text "Instruction[31..26]" (rect 663 440 752 452)(font "Arial" ))
+	(pt 808 448)
+	(pt 760 448)
+	(bus)
+)
+(connector
+	(text "Instruction[5..0]" (rect 673 472 750 484)(font "Arial" ))
+	(pt 808 480)
+	(pt 760 480)
+	(bus)
+)
+(connector
+	(text "Instruction[10..6]" (rect 657 456 740 468)(font "Arial" ))
+	(pt 808 464)
+	(pt 760 464)
+	(bus)
+)
+(connector
+	(text "ALU_Result[31..0]" (rect 1160 888 1250 900)(font "Arial" ))
+	(pt 1072 896)
+	(pt 1152 896)
+	(bus)
+)
+(connector
+	(text "ALU_Zero" (rect 1127 904 1176 916)(font "Arial" ))
+	(pt 1120 912)
+	(pt 1072 912)
+)
+(connector
+	(text "Instruction[31..0]" (rect 568 464 651 476)(font "Arial" ))
+	(pt 552 480)
+	(pt 632 480)
+	(bus)
+)
+(connector
+	(pt 312 480)
+	(pt 336 480)
+	(bus)
+)
+(connector
+	(pt 336 560)
+	(pt 328 560)
+)
+(connector
+	(pt 328 560)
+	(pt 328 592)
+)
+(connector
+	(text "MCLK" (rect 330 600 359 612)(font "Arial" ))
+	(pt 376 592)
+	(pt 328 592)
+)
+(connector
+	(text "ALU_Zero" (rect 712 488 761 500)(font "Arial" ))
+	(pt 808 496)
+	(pt 768 496)
+)
+(connector
+	(text "Jump" (rect 79 560 106 572)(font "Arial" ))
+	(pt 128 576)
+	(pt 40 576)
+)
 (text "." (rect 568 640 571 654)(font "Arial" (font_size 8)))
