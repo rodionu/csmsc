@@ -23,13 +23,13 @@ module FU(
 	ALU2ALU_RT,	// Mux control for ALU input RT(RAW 1 Stage off)
 	MEM2ALU_RS,	// Mux control for ALU input RS(RAW 2 Stages off)
 	MEM2ALU_RT,	// Mux control for ALU input RT(RAW 2 Stages off)
-	FUCK		// Arbritary Clock Signal
+	CLOCK		// Arbritary Clock Signal
 	);
 	
-	input ID_EX,EX_MEM,MEM_WB,FUCK;
+	input ID_EX,EX_MEM,MEM_WB,CLOCK;
 	output ALU2ALU_RS,ALU2ALU_RT,MEM2ALU_RS,MEM2ALU_RT;
 	
-	wire FUCK;
+	wire CLOCK;
 	wire [31:0] ID_EX;
 	wire [31:0] EX_MEM;
 	wire [31:0] MEM_WB;
