@@ -12,7 +12,7 @@ input wire [31:0] Instruction,
 //output reg [4:0] RS,	//Instruction [25-11]	//Individual registers not necessary
 //output reg [4:0] RD,	//Instruction [20-16]	//With this implementation
 //output reg [4:0] RT,	//Instruction [15-11]	//Passing instruction is fine
-output reg [31:0] Control_IN, //Basically the whole instruction, delayed 1CLK
+output reg [31:0] Inst_IF_ID, //Basically the whole instruction, delayed 1CLK
 
 
 //STAGE 2 INPUTS (ID/EX stage)___________________________________
@@ -32,12 +32,12 @@ input wire		 RegWEnable,	//Register WEN control signal flag
 input wire		 Branch,		//Control input branch flag
 //input wire		 Jump,			//Control input jump flag
 //OUTPUTS
+output reg [31:0] Inst_ID_EX,	//Instruction delayed 2 clocks
 output reg [31:0] RD1,
 output reg [31:0] RD2,
 output reg [31:0] SignXtend,	//This will be handled in the pipeline block
 output reg [3:0]  ALUOpOut,		//Execution stage control signals
 output reg		  ALUSrcOut,		//Execution stage ALU Input mux
-//output reg		  JumpOut,
 output reg [9:0]  PCP4,
 
 //STAGE 3 INPUTS (EX/Mem stage)___________________________________
@@ -48,6 +48,7 @@ input wire [31:0] ALU_Result,
 //INTERNAL PASS WRITEBACK signals
 //INTERNAL PASS RD2 [31:0]
 //OUTPUTS
+output reg [31:0] Inst_EX_MEM,	//Instruction delayed 2 clocks
 output reg MemRENABLE,
 output reg MemWENABLE,
 output reg BranchOut,
@@ -62,6 +63,7 @@ input wire [31:0] Read_Data,
 //INTERNAL PASS ALU_ResultOut [31:0]
 //INTERNAL PASS RegDst [4:0]
 //OUTPUTS
+output reg [31:0] Inst_MEM_WB,		//Instruction delayed 3 clocks
 output reg MemToRegOut,				//UNUSED (Passover handled internally)
 output reg [4:0] RegDSTaddrOut,
 output reg [31:0] DataOut,
@@ -98,6 +100,7 @@ reg		  RegWEnable_Stage_4;
 		end else begin					//Take ALU data if 0, Memory read data if 1
 			DataOut = Read_Data;
 		end
+		Inst_MEM_WB = Inst_EX_MEM;
 		MemToRegOut = MemToReg_Stage_4;		//DEBUG output
 		RegDSTaddrOut = RegDSTaddr_Stage_4;
 		RegWEnableOut = RegWEnable_Stage_4;
@@ -110,6 +113,7 @@ reg		  RegWEnable_Stage_4;
 		WDOut = RD2;
 		
 		//"Internal" outputs to next pipe stage
+		Inst_EX_MEM = Inst_ID_EX;
 		RegDSTaddr_Stage_4= RegDSTaddr_Stage_3;
 		MemToReg_Stage_4 = MemToReg_Stage_3;
 		RegWEnable_Stage_4 = RegWEnable_Stage_3;
@@ -124,7 +128,7 @@ reg		  RegWEnable_Stage_4;
 	
 		//This next part handles INTERNAL passes directly to the next pipeline stage
 	
-		SignXtend[15:0] = Control_IN[15:0];
+		SignXtend[15:0] = Inst_IF_ID[15:0];
 		if(SignXtend[15] == 0) begin
 			SignXtend[31:16] = 32'h0000;	//Set 0 if non-negative
 		end else begin
@@ -134,11 +138,12 @@ reg		  RegWEnable_Stage_4;
 		BranchOut = Branch;					//Branch delayed 1 cycle
 		
 		if(RegDST == 0) begin
-			RegDSTaddr_Stage_3 = Control_IN[20:16];
+			RegDSTaddr_Stage_3 = Inst_IF_ID[20:16];
 		end else begin
-			RegDSTaddr_Stage_3 = Control_IN[15:11];
+			RegDSTaddr_Stage_3 = Inst_IF_ID[15:11];
 		end
 			//Simple values, stored and passed out
+			Inst_ID_EX = Inst_IF_ID;
 			MemRead_Stage_3 = MemRead;
 			MemWrite_Stage_3 = MemWrite;
 			MemToReg_Stage_3 = MemToReg;
@@ -147,21 +152,20 @@ reg		  RegWEnable_Stage_4;
 			
 	
 		//STAGE 1 
-		PC_Stage_2 = PC+4;
-		//RS = Instruction[25:21];
-		//RD = Instruction[20:16];
-		//RT = Instruction[15:11];
-		Control_IN = Instruction;
+		PC_Stage_2 = PC+1;
+		Inst_IF_ID = Instruction;
 		//STAGE 1 COMPLETE
 		
 	end else if (RESET != 0) begin		//Clear the ENTIRE pipe on Reset
-		Control_IN = 0;
+		Inst_IF_ID = 0;
+		Inst_ID_EX = 0;
+		Inst_EX_MEM = 0;
+		Inst_MEM_WB = 0;
 		RD1 = 0;
 		RD2 = 0;
 		SignXtend = 0;
 		ALUOpOut = 0;
 		ALUSrcOut = 0;
-//		JumpOut = 0;
 		PCP4 = 0;
 		MemRENABLE = 0;
 		MemWENABLE = 0;
@@ -173,13 +177,13 @@ reg		  RegWEnable_Stage_4;
 		DataOut = 0;
 		RegWEnableOut = 0;
 	end else if (IFID_CLR != 0) begin
-		Control_IN = 0;
+		Inst_IF_ID = 0;
+		Inst_ID_EX = 0;
 		RD1 = 0;
 		RD2 = 0;
 		SignXtend = 0;
 		ALUOpOut = 0;
 		ALUSrcOut = 0;
-//		JumpOut = 0;
 		PCP4 = 0;
 		MemRENABLE = 0;
 		MemWENABLE = 0;

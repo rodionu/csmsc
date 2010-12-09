@@ -1,7 +1,7 @@
 //file Register.v
 
 module Register(
-input wire CLOCK,
+//input wire CLOCK,
 input wire RESET,
 input wire [31:0] Instruction,
 input wire RegWrite,	//Write enable		//From Pipe STAGE 4
@@ -18,7 +18,7 @@ reg [4:0] i;		//Loop variable
 
 
 	
-always @(posedge CLOCK) begin			//Trigger on the clock
+always @* begin			//Trigger on the clock
 
 	if(RESET !=0) begin
 		for(i=0; i<31; i=i+1) begin	//Clear "registers"
