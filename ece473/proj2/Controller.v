@@ -1,7 +1,7 @@
-// file: SCControlJ2.v
+// file: Controller.v
 // Controller for Project 1 - Version: 0.4
 
-module SCControlJ2(
+module Controller(
     opcode,
     shamt,
     func,
