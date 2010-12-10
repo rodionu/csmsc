@@ -1,143 +1,49 @@
-// file: FU.v
-// ALU for Project 2 - Version: 0.2
-// Joel Castro
+//John Murray & Yusef Nouri
+//Tuesday, December 7th, 2010
+//ECE 473 - Computer Architecture and Organization
+//Project 2 - Design of a Five Stage Pipelined MIPS-like Processor
+//Instructor: Yifeng Zhu
+//File: FU.v
 
-module FU(
-	ID_EX,		// Inst. stored in ID/EX register
-	EX_MEM,		// Inst. stored in EX/MEM register
-	MEM_WB,		// Inst. stored in MEM/WB register
-//	ID_EX_OP,	// Temp. for ID/EX Opcode
-//	ID_EX_RS,	// Temp. for ID/EX RS
-//	ID_EX_RT,	// Temp. for ID/EX RT
-//	ID_EX_RD,	// Temp. for ID/EX RD
-//	EX_MEM_OP,	// Temp. for EX/MEM Opcode
-//	EX_MEM_RS,	// Temp. for EX/MEM RS
-//	EX_MEM_RT,	// Temp. for EX/MEM RT
-//	EX_MEM_RD,	// Temp. for EX/MEM RD
-//	MEM_WB_OP,	// Temp. for MEM/WB Opcode
-//	MEM_WB_RS,	// Temp. for MEM/WB RS
-//	MEM_WB_RT,	// Temp. for MEM/WB RT
-//	MEM_WB_RD,	// Temp. for MEM/WB RD
-//	CHK_W,		// Temp. for Write Add. being compared
-	ALU2ALU_RS,	// Mux control for ALU input RS(RAW 1 Stage off)
-	ALU2ALU_RT,	// Mux control for ALU input RT(RAW 1 Stage off)
-	MEM2ALU_RS,	// Mux control for ALU input RS(RAW 2 Stages off)
-	MEM2ALU_RT,	// Mux control for ALU input RT(RAW 2 Stages off)
-	CLOCK		// Arbritary Clock Signal
+module FU_Y(
+	input wire [31:0] ReadData1,		//Attaches after ReadData1 register output line, before ID/EX Pipeline
+	input wire [31:0] ReadData2,		//Attaches after ReadData2 register output line, before ID/EX Pipeline
+	input wire [31:0] result_mem,	//Attaches 2 output of MemtoReg be4 MEM/WB (Mux must b moved in front of this pipe, output should also go through pipe)
+	input wire [31:0] result_alu,		//Attaches right after ALUresult, before EX/MEM Pipeline
+	input wire [31:0] inst_IFID,		//Attaches to PC line right after IF/ID Pipeline
+	input wire [31:0] inst_IDEX,		//Attaches to PC line right after ID/EX Pipeline
+	input wire [31:0] inst_EXMEM,		//Attaches to PC line right after EX/MEM Pipeline
+//	input wire RegDst_alu,			//Attaches to controller output
+//	input wire RegDst_mem,			//Attaches to controller output
+	input wire [4:0] w_addr_alu,			//After RegDst mux, right before EX/MEM pipeline
+	input wire [4:0] w_addr_mem,			//After RegDst mux, right after EX/MEM pipeline, before MEM/WB
+	output reg [31:0] forward_rd1,		//Attaches before ID/EX pipeline, from the ReadData1 register output line
+	output reg [31:0] forward_rd2		//Attaches before ID/EX pipeline, from the ReadData1 register output line
+//	output reg [3:0] forward_status		//only used for testing and bug hunting, not needed
 	);
-	
-	input ID_EX,EX_MEM,MEM_WB,CLOCK;
-	output ALU2ALU_RS,ALU2ALU_RT,MEM2ALU_RS,MEM2ALU_RT;
-	
-	wire CLOCK;
-	wire [31:0] ID_EX;
-	wire [31:0] EX_MEM;
-	wire [31:0] MEM_WB;
-	reg [5:0] ID_EX_OP;
-	reg [4:0] ID_EX_RS;
-	reg [4:0] ID_EX_RT;
-	reg [4:0] ID_EX_RD;
-	reg [5:0] EX_MEM_OP;
-	reg [4:0] EX_MEM_RS;
-	reg [4:0] EX_MEM_RT;
-	reg [4:0] EX_MEM_RD;
-	reg [5:0] MEM_WB_OP;
-	reg [4:0] MEM_WB_RS;
-	reg [4:0] MEM_WB_RT;
-	reg [4:0] MEM_WB_RD;
-//	reg [4:0] CHK_W;
-	reg ALU2ALU_RS;
-	reg ALU2ALU_RT;
-	reg MEM2ALU_RS;
-	reg MEM2ALU_RT;
-	
-//	[31:26][25:21][20:16][15:11][10:6][5:0]
-	
+
+	reg [31:0] temp_rd1;
+	reg [31:0] temp_rd2;
+
 	always @* begin
-		ID_EX_OP  =  ID_EX[31:26];
-		ID_EX_RS  =  ID_EX[25:21];
-		ID_EX_RT  =  ID_EX[20:16];
-		ID_EX_RD   =  ID_EX[15:11];
-		EX_MEM_OP =  EX_MEM[31:26];
-		EX_MEM_RS =  EX_MEM[25:21];
-		EX_MEM_RT =  EX_MEM[20:16];
-		EX_MEM_RD  =  EX_MEM[15:11];
-		MEM_WB_OP =  MEM_WB[31:26];
-		MEM_WB_RS =  MEM_WB[25:21];
-		MEM_WB_RT =  MEM_WB[20:16];
-		MEM_WB_RD  =  MEM_WB[15:11];
-		if((EX_MEM_OP != 6'h02 && EX_MEM_OP != 6'h03)||(MEM_WB_OP != 6'h02 && MEM_WB_OP != 6'h03)) begin	// Forwards not from jump inst.
-			if(ID_EX_OP == 6'b0) begin											// if curerent inst. is a R-type
-				if(EX_MEM_OP == 6'h00) begin									// and prev. inst. was an R-Type
-					if(ID_EX_RS == EX_MEM_RD || ID_EX_RT == EX_MEM_RD) begin	// Check if forward neccesary
-						if(ID_EX_RS == EX_MEM_RD) begin			// ALU to ALU Forward for current RS?
-							ALU2ALU_RS = 1'b1;
-							MEM2ALU_RS = 1'b0;	// if ALU to ALU forward then no MEM to ALU Forward
-						end 
-						if(ID_EX_RT == EX_MEM_RD) begin			// ALU to ALU Forward for current RT?
-							ALU2ALU_RT = 1'b1;
-							MEM2ALU_RT = 1'b0;
-						end
-					end
-				end else if(EX_MEM_OP != 6'h02 && EX_MEM_OP != 6'h03) begin		// or if prev. inst. was an I-Type
-					if(ID_EX_RS == EX_MEM_RT || ID_EX_RT == EX_MEM_RT) begin	// Check if forward neccesary
-						if(ID_EX_RS == EX_MEM_RT) begin			
-							ALU2ALU_RS = 1'b1;
-							MEM2ALU_RS = 1'b0;
-						end 
-						if(ID_EX_RT == EX_MEM_RT) begin
-							ALU2ALU_RT = 1'b1;
-							MEM2ALU_RT = 1'b0;
-						end
-					end
-				end
-				if(MEM_WB_OP == 6'b0) begin										// or if 2 stages ago was an R-Type
-					if(ID_EX_RS == MEM_WB_RD || ID_EX_RT == MEM_WB_RD) begin	
-						if(ID_EX_RS == MEM_WB_RD) begin
-							MEM2ALU_RS = 1'b1;
-							ALU2ALU_RS = 1'b0;
-						end
-						if(ID_EX_RT == MEM_WB_RD) begin
-							MEM2ALU_RT = 1'b1;
-							ALU2ALU_RT = 1'b0;
-						end
-					end
-				end else if(MEM_WB_OP != 6'h02 && MEM_WB_OP != 6'h03) begin		// or if 2 stages ago was an I-Type
-					if(ID_EX_RS == MEM_WB_RT || ID_EX_RT == MEM_WB_RT) begin
-						if(ID_EX_RS == MEM_WB_RT) begin
-							MEM2ALU_RS = 1'b1;
-							ALU2ALU_RS = 1'b0;
-						end
-						if(ID_EX_RT == MEM_WB_RT) begin
-							MEM2ALU_RT = 1'b1;
-							ALU2ALU_RT = 1'b0;
-						end
-					end
-				end
-			end else if(ID_EX_OP != 6'h02 && ID_EX_OP != 6'h03) begin			// If current inst. is an I-Type
-				if(EX_MEM_OP == 6'h00) begin									// and prev. inst. was an R-Type
-					if(ID_EX_RS == EX_MEM_RD) begin
-						ALU2ALU_RS = 1'b1;
-						MEM2ALU_RS = 1'b0;
-					end 
-				end else if(EX_MEM_OP != 6'h02 && EX_MEM_OP != 6'h03) begin		// or prev. inst. was an I-Type as well
-					if(ID_EX_RS == EX_MEM_RT) begin
-						ALU2ALU_RS = 1'b1;
-						MEM2ALU_RS = 1'b0;
-					end 
-				end
-				if(MEM_WB_OP == 6'b0) begin										// or if 2 stages ago was an R-Type
-					if(ID_EX_RS == MEM_WB_RD) begin
-						MEM2ALU_RS = 1'b1;
-						ALU2ALU_RS = 1'b0;
-					end
-				end else if(MEM_WB_OP != 6'h02 && MEM_WB_OP != 6'h03) begin		// or if 2 stages ago was an I-Type
-					if(ID_EX_RS == MEM_WB_RT) begin
-						MEM2ALU_RS = 1'b1;
-						ALU2ALU_RS = 1'b0;
-					end
-				end
-			end
-		end	
+		if((inst_IFID[20:16]==w_addr_mem) && (inst_EXMEM[20:16] != 5'b0))
+			temp_rd2 <= result_mem;
+		else
+			temp_rd2 <= ReadData2;
+
+		if((inst_IFID[20:16]==w_addr_alu) && (inst_IDEX[20:16] != 5'b0))
+			forward_rd2 <= result_alu;
+		else
+			forward_rd2 <= temp_rd2;
+
+		if((inst_IFID[25:21]==w_addr_mem) && (inst_EXMEM[25:21] != 5'b0))
+			temp_rd1 <= result_mem;
+		else
+			temp_rd1 <= ReadData1;
+
+		if((inst_IFID[25:21]==w_addr_alu) && (inst_IDEX[25:21] != 5'b0))
+			forward_rd1 <= result_alu;
+		else
+			forward_rd1 <= temp_rd1;
 	end
-endmodule
+endmodule 
